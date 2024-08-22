@@ -19,6 +19,13 @@ export function useCommonTranslations() {
   const search = computed(() => t('message.search'));
   const publish = computed(() => t('message.publish'));
 
+  const enterUsername = computed(() => t('message.enterUsername'));
+  const enterPassword = computed(() => t('message.enterPassword'));
+  const passwordLength = computed(() => t('message.passwordLength'));
+  const enterCode = computed(() => t('message.enterCode'));
+  const loginSuccess = computed(() => t('message.loginSuccess'));
+  const loginFailed = computed(() => t('message.loginFailed'));
+
   return {
     home,
     news,
@@ -34,5 +41,11 @@ export function useCommonTranslations() {
     search,
     publish,
     t, // 如果你还需要动态使用 `t` 函数
+    enterUsername,
+    enterPassword,
+    passwordLength,
+    enterCode,
+    loginSuccess,
+    loginFailed,
   };
 }

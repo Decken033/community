@@ -19,11 +19,17 @@ export default {
 </script>
 
 <style>
-.app {
+#app {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
-
 </style>

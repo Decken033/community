@@ -13,6 +13,12 @@ export default {
       accountSettings: 'Account Settings',
       search: 'Search',
       publish: 'Publish',
+      enterUsername: 'Enter Username',
+      enterPassword: 'Enter Password',
+      passwordLength: 'Password Length',
+      enterCode: 'Enter Code',
+      loginSuccess: 'Login Success',
+      loginFailed: 'Login Failed',
     }
   };
   

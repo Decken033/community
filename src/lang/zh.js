@@ -13,6 +13,12 @@ export default {
       accountSettings: '账号设置',
       search: '搜索',
       publish: '我要发布',
+      enterUsername: '请输入用户名',
+      enterPassword: '请输入密码',
+      passwordLength: '密码长度',
+      enterCode: '请输入验证码',
+      loginSuccess: '登录成功',
+      loginFailed: '登录失败',
     }
   };
   

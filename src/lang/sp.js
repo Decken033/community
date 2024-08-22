@@ -13,6 +13,12 @@ export default {
       accountSettings: 'Configuración de cuenta',
       search: 'Buscar',
       publish: 'Publicar', 
+      enterUsername: 'Introduzca el nombre de usuario',
+      enterPassword: 'Introduzca la contraseña',
+      passwordLength: 'Longitud de la contraseña',
+      enterCode: 'Introduzca el código',
+      loginSuccess: 'Login exitoso',
+      loginFailed: 'Login fallido',
     }
   };
   

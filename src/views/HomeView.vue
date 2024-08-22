@@ -7,7 +7,7 @@ const translations = useCommonTranslations();
 import { onMounted, onBeforeUnmount } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-// 其他已有代码...
+
 
 // 动态设置 rem 基准值
 const setRem = () => {
@@ -44,13 +44,22 @@ const orderMode = ref<string | number>('0'); // 初始值为 '0'
 // 帖子列表数据
 const posts = ref([
   { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+
   // 添加更多帖子
 ]);
 
 // 分页信息
 const page = ref({
   current: 1, // 当前页码
-  pageSize: 10, // 每页显示条数
+  pageSize: 5, // 每页显示条数
   total: 100, // 总条数
 });
 
@@ -100,10 +109,7 @@ const changeLanguage = () => {
 // )
 
 
-const testlog = () => {
-  console.log("testlog");
-  
-}
+
 </script>
 
 <template>
@@ -145,8 +151,12 @@ const testlog = () => {
 
         <!-- 搜索 -->
         <el-menu-item index="7">
-          <el-input v-model="searchQuery"  @keyup.enter="search" />
+          <el-input v-model="searchQuery" @keyup.enter="search" />
           <el-button @click="search" type="primary">{{ translations.search }}</el-button>
+        </el-menu-item>
+
+        <el-menu-item index="9">
+          <el-button type="primary" class="float-right" @click="openPublishModal">{{ translations.publish }}</el-button>
         </el-menu-item>
 
         <el-menu-item index="8">
@@ -164,20 +174,9 @@ const testlog = () => {
     <!-- 内容 -->
     <el-main>
       <!-- 筛选条件 -->
-      
-      <el-tabs v-model="orderMode" @tab-click="handleTabClick">
-        
-        <!-- <el-tab-pane :label="translations.hottest" name="0" ></el-tab-pane>
-        <el-tab-pane :label="translations.latest" name="1"></el-tab-pane> -->
-        <el-tab-pane :label="123" name="0" ></el-tab-pane>
-        <p>123123</p>
-        <el-tab-pane :label="345" name="1"></el-tab-pane>
-        
-      </el-tabs>
 
-      <el-button type="primary" class="float-right" @click="openPublishModal">{{ translations.publish }}</el-button>
-
-      <!-- 发布弹出框 -->
+      <!--TODO-->
+      <!-- 发布弹出框
       <el-dialog title="新帖发布" :visible.sync="isPublishModalVisible" width="60%">
         <el-form :model="form">
           <el-form-item label="标题">
@@ -191,8 +190,17 @@ const testlog = () => {
           <el-button @click="isPublishModalVisible = false">取消</el-button>
           <el-button type="primary" @click="publishPost">发布</el-button>
         </div>
-      </el-dialog>
+      </el-dialog> -->
+      <el-tabs v-model="orderMode" @tab-click="handleTabClick">
+        <!-- <p>{{ translations.hottest }}</p>
+        <p>{{ translations.latest }}</p> -->
 
+        <!-- <el-tab-pane :label="translations.hottest" name="0"></el-tab-pane>
+        <el-tab-pane :label="translations.latest" name="1"></el-tab-pane> -->
+        <el-tab-pane :label="translations.hottest.value" name="0"></el-tab-pane>
+        <el-tab-pane :label="translations.latest.value" name="1"></el-tab-pane>
+      </el-tabs>
+        
       <!-- 帖子列表 -->
       <div v-for="post in posts" :key="post.id" class="post-item">
         <el-avatar :src="post.userAvatar"></el-avatar>
@@ -210,25 +218,26 @@ const testlog = () => {
 
       <!-- 分页 -->
       <el-pagination v-if="page.total > 0" :current-page="page.current" :page-size="page.pageSize" :total="page.total"
-        @current-change="handlePageChange"></el-pagination>
+        @current-change="handlePageChange">
+      </el-pagination>
     </el-main>
+
   </el-container>
 </template>
 
-<style scoped>
+<style>
 .el-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  /* #浅蓝色 */
   background-color: #f0f0f0;
-  margin-bottom: 0 ;
-  padding-bottom: 0%;
 }
 
+.el-container {
+  background-color: rgb(230, 124, 18);
+}
 
+.el-main {
+  background-color: rgb(244, 247, 236);
+  padding-top: 0px;
+}
 
 
 .el-menu-demo {
@@ -236,41 +245,20 @@ const testlog = () => {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  
-}
-
-.el-container {
-  width: 100%;
-  max-width: none;
-  margin-top: 10px;
-  background-color: rgb(230, 124, 18);
-  display: flex;
-  overflow:hidden;
-  /* margin:1%; */
-  
-}
-
-.el-main {
-  width: 100%;
-  margin-top: 0;
-  padding-top: 0%;
-  max-width: none;
-  background-color: rgb(244, 247, 236);
-  flex: 1;
-  justify-content: space-between;
-  
-
 }
 
 .el-tabs {
-  width: 100px;
-  max-width: none;
-  /* background-color: rgb(232, 11, 188); */
-  margin-top: aoto;
-  margin-bottom: aoto;
-  padding-top: 0%;
+  width: 300px;
+  max-width: 100%;
+
+  margin-top: auto;
+  margin-bottom: auto;
+
+  padding-top: 0;
+  padding: 0px;
   height: auto;
 }
+
 
 
 
@@ -304,6 +292,4 @@ const testlog = () => {
 .float-right {
   float: right;
 }
-
-
 </style>

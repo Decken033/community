@@ -1,11 +1,11 @@
 export default {
-  content: [
+
+  plugins: {
+    tailwindcss: {  content: [
     "./index.html",
     "./src/App.vue",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
-  ],
-  plugins: {
-    tailwindcss: {},
+  ],},
     autoprefixer: {},
   },
 }
