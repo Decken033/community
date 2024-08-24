@@ -19,6 +19,7 @@ export default {
       enterCode: 'Introduzca el código',
       loginSuccess: 'Login exitoso',
       loginFailed: 'Login fallido',
+      settings: 'Configuraciones',
     }
   };
   

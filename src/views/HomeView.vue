@@ -43,15 +43,15 @@ const orderMode = ref<string | number>('0'); // 初始值为 '0'
 
 // 帖子列表数据
 const posts = ref([
-  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '1备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '2备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '3备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '4备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '5备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '6备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '7备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '8备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  { id: 1, title: '9备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
 
   // 添加更多帖子
 ]);
@@ -149,8 +149,13 @@ const changeLanguage = () => {
           <router-link to="/settings">{{ translations.settings }}</router-link>
         </el-menu-item>
 
-        <!-- 搜索 -->
+        <!-- 视频聊天 -->
         <el-menu-item index="7">
+          <router-link to="/settings">视频聊天</router-link>
+        </el-menu-item>
+
+        <!-- 搜索 -->
+        <el-menu-item index="8">
           <el-input v-model="searchQuery" @keyup.enter="search" />
           <el-button @click="search" type="primary">{{ translations.search }}</el-button>
         </el-menu-item>
@@ -159,7 +164,7 @@ const changeLanguage = () => {
           <el-button type="primary" class="float-right" @click="openPublishModal">{{ translations.publish }}</el-button>
         </el-menu-item>
 
-        <el-menu-item index="8">
+        <el-menu-item index="10">
           <el-select v-model="selectedLanguage" @change="changeLanguage" placeholder="Select Language">
             <el-option label="English" value="en"></el-option>
             <el-option label="中文" value="zh"></el-option>
@@ -176,7 +181,7 @@ const changeLanguage = () => {
       <!-- 筛选条件 -->
 
       <!--TODO-->
-      <!-- 发布弹出框
+      <!-- 发布弹出框 -->
       <el-dialog title="新帖发布" :visible.sync="isPublishModalVisible" width="60%">
         <el-form :model="form">
           <el-form-item label="标题">
@@ -190,7 +195,9 @@ const changeLanguage = () => {
           <el-button @click="isPublishModalVisible = false">取消</el-button>
           <el-button type="primary" @click="publishPost">发布</el-button>
         </div>
-      </el-dialog> -->
+      </el-dialog>
+
+      
       <el-tabs v-model="orderMode" @tab-click="handleTabClick">
         <!-- <p>{{ translations.hottest }}</p>
         <p>{{ translations.latest }}</p> -->
