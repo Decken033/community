@@ -270,6 +270,7 @@ function createProgram(gl, vertexShader, fragmentShader) {
   }
   return program;
 }
+
 </script>
 
 <style scoped>
