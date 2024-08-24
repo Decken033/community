@@ -117,7 +117,7 @@ const changeLanguage = () => {
     <!-- 头部 -->
     <el-header>
       <!-- 导航 -->
-      <el-menu class="el-menu-demo">
+      <el-menu class="el-menu-demo" type="flex">
         <!-- 首页 -->
         <el-menu-item index="1">
           <router-link to="/">{{ translations.home }}</router-link>

@@ -1,66 +1,104 @@
 <template>
-	<div class="nk-container">
+	<el-container>
 		<!-- Header -->
-		<header class="bg-dark sticky-top">
-			<div class="container">
-				<!-- Navigation -->
-				<el-menu class="el-menu-demo" mode="horizontal" background-color="#333" text-color="#fff"
-					active-text-color="#ffd04b">
-					<!-- 首页 -->
-					<el-menu-item index="1">
-						<router-link to="/">首页</router-link>
-					</el-menu-item>
+		<el-header>
+			<el-menu class="el-menu-demo" mode="horizontal">
+				<!-- 首页 -->
+				<el-menu-item index="1">
+					<router-link to="/">{{ translations.home }}</router-link>
+				</el-menu-item>
 
-					
+				<!-- 消息 -->
+				<el-menu-item index="2">
+					<router-link to="/letter">{{ translations.news }}</router-link>
+					<el-badge :value="12" class="item" />
+				</el-menu-item>
 
-					<!--个人主页>-->
-					<!-- < <el-menu-item index="5">
-						<router-link to="/profile">个人主页</router-link>
-						</el-menu-item> -->
+				<!-- 注册 -->
+				<el-menu-item index="3">
+					<router-link to="/register">{{ translations.register }}</router-link>
+				</el-menu-item>
 
-						<!--账号设置>-->
-						<!-- <el-menu-item index="6">
-							<router-link to="/settings">账号设置</router-link>
-						</el-menu-item> -->
+				<!-- 登录 -->
+				<el-menu-item index="4">
+					<router-link to="/login">{{ translations.login }}</router-link>
+				</el-menu-item>
 
-						<!--退出登录>-->
-						<el-menu-item index="7">
-							<router-link to="/">退出注册</router-link>
-						</el-menu-item>
-				</el-menu>
-			</div>
-		</header>
+
+				<!-- 个人主页 -->
+				<el-menu-item index="5">
+					<router-link to="/profile">{{ translations.profile }}</router-link>
+				</el-menu-item>
+
+				<!-- 账号设置 -->
+				<el-menu-item index="7">
+					<router-link to="/settings">{{ translations.accountSettings }}</router-link>
+				</el-menu-item>
+
+				<!-- 搜索 -->
+				<el-menu-item index="8">
+					<el-input v-model="searchQuery" @keyup.enter="search" />
+					<el-button @click="search" type="primary">{{ translations.search }}</el-button>
+				</el-menu-item>
+
+				<el-menu-item index="9">
+					<el-button type="primary" class="float-right" @click="openPublishModal">{{ translations.publish
+						}}</el-button>
+				</el-menu-item>
+
+				<el-menu-item index="10">
+					<el-select v-model="selectedLanguage" @change="changeLanguage" placeholder="Select Language">
+						<el-option label="English" value="en"></el-option>
+						<el-option label="中文" value="zh"></el-option>
+						<el-option label="Español" value="sp"></el-option>
+					</el-select>
+				</el-menu-item>
+
+
+
+			</el-menu>
+		</el-header>
 
 		<!-- Content -->
-		<div class="main">
-			<div class="container pl-5 pr-5 pt-3 pb-3 mt-3 mb-3">
-				<h3 class="text-center text-info border-bottom pb-3">注&nbsp;&nbsp;册</h3>
-				<el-form :model="form" :rules="rules" ref="registerForm" label-width="80px" class="mt-5">
-					<el-form-item label="账号" prop="username">
-						<el-input v-model="form.username" placeholder="请输入您的账号"></el-input>
-					</el-form-item>
-					<el-form-item label="密码" prop="password">
-						<el-input v-model="form.password" type="password" placeholder="请输入您的密码"></el-input>
-					</el-form-item>
-					<el-form-item label="确认密码" prop="confirmPassword">
-						<el-input v-model="form.confirmPassword" type="password" placeholder="请再次输入密码"></el-input>
-					</el-form-item>
-					<el-form-item label="邮箱" prop="email">
-						<el-input v-model="form.email" type="email" placeholder="请输入您的邮箱"></el-input>
-					</el-form-item>
-					<el-form-item>
-						<el-button type="primary" @click="handleSubmit">立即注册</el-button>
-					</el-form-item>
-				</el-form>
-			</div>
-		</div>
-	</div>
+		<el-main>
+
+			<el-form :model="form" :rules="rules" ref="registerForm" label-width="80px" class="mt-5">
+				<el-form-item label="账号" prop="username">
+					<el-input v-model="form.username" class="form-input" placeholder="请输入您的账号"></el-input>
+				</el-form-item>
+				<el-form-item label="密码" prop="password">
+					<el-input v-model="form.password" type="password" class="form-input"
+						placeholder="请输入您的密码"></el-input>
+				</el-form-item>
+				<el-form-item label="确认密码" prop="confirmPassword">
+					<el-input v-model="form.confirmPassword" type="password" class="form-input"
+						placeholder="请再次输入密码"></el-input>
+				</el-form-item>
+				<el-form-item label="邮箱" prop="email">
+					<div class="email-wrapper">
+						<el-input v-model="form.email" type="email" class="form-input" placeholder="请输入您的邮箱"></el-input>
+						<el-button type="primary" class="send-code-btn" @click="sendEmail">发送验证码</el-button>
+					</div>
+				</el-form-item>
+				<el-form-item>
+					<el-button type="primary" @click="handleSubmit">立即注册</el-button>
+				</el-form-item>
+			</el-form>
+
+
+		</el-main>
+
+	</el-container>
 </template>
 
 <script>
 import { ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import axios from 'axios';
+import { useCommonTranslations } from '@/lang/i18nhelper';
+import { useI18n } from 'vue-i18n';
+
+
 
 export default {
 	name: 'Register',
@@ -125,16 +163,86 @@ export default {
 				});
 		};
 
+
+		const translations = useCommonTranslations();
+
+		const { t, locale } = useI18n({ useScope: "global" });
+		const selectedLanguage = ref('zh');
+		const changeLanguage = () => {
+			locale.value = selectedLanguage.value;
+		};
+
+		const searchQuery = ref('');
+		const search = () => {
+			console.log('Search query:', searchQuery.value);
+		};
+
+
 		return {
 			form,
 			rules,
 			registerForm,
 			handleSubmit,
+			postData,
+			translations,
+			t,
+			locale,
+			selectedLanguage,
+			changeLanguage,
+			searchQuery,
+			search
 		};
 	},
+
+
 };
 </script>
 
-<style scoped>
-/* Your styles here */
+<style>
+.el-header {
+	background-color: #f0f0f0;
+}
+
+.el-container {
+	background-color: rgb(230, 124, 18);
+}
+
+.el-main {
+	background-color: rgb(244, 247, 236);
+	padding-top: 0px;
+}
+
+
+.el-menu-demo {
+	/* display: flex; */
+	justify-content: space-between;
+	align-items: center;
+	/* width: 100%; */
+}
+
+.el-tabs {
+	width: 300px;
+	max-width: 100%;
+
+	margin-top: auto;
+	margin-bottom: auto;
+
+	padding-top: 0;
+	padding: 0px;
+	height: auto;
+}
+
+.form-input {
+  width: 40%; /* 或者设置为具体的宽度，如 300px */
+}
+
+.email-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.send-code-btn {
+	margin-left: 100px;
+	/* 控制按钮与输入框之间的距离 */
+}
 </style>
