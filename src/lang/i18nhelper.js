@@ -25,6 +25,7 @@ export function useCommonTranslations() {
   const enterCode = computed(() => t('message.enterCode'));
   const loginSuccess = computed(() => t('message.loginSuccess'));
   const loginFailed = computed(() => t('message.loginFailed'));
+  const settings = computed(() => t('message.settings'));
 
   return {
     home,
@@ -47,5 +48,6 @@ export function useCommonTranslations() {
     enterCode,
     loginSuccess,
     loginFailed,
+    settings,
   };
 }
