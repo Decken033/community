@@ -19,6 +19,7 @@ export default {
       enterCode: '请输入验证码',
       loginSuccess: '登录成功',
       loginFailed: '登录失败',
+      settings: '设置',
     }
   };
   

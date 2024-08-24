@@ -29,6 +29,11 @@ const router = createRouter({
       name: 'letterdetail',
       component: () => import('@/views/letter/Letterdetail.vue')
     },
+    {
+      path:'/profile',
+      name:'profile',
+      component: () => import('@/views/profile/Profile.vue')
+    }
     
   ]
 });

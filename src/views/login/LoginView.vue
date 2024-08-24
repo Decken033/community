@@ -23,7 +23,7 @@
     <el-main>
       <div class="container pl-5 pr-5 pt-3 pb-3 mt-3 mb-3">
         <h3 class="text-center text-info border-bottom pb-3">登录</h3>
-        <el-form :model="form" :rules="rules" ref="loginForm" label-width="100px" class="mt-5">
+        <el-form :model="form" :rules="rules" ref="loginForm" label-width="100px" >
           <el-form-item label="账号" prop="username">
             <el-input v-model="form.username" placeholder="请输入您的账号"></el-input>
           </el-form-item>
@@ -46,7 +46,9 @@
             <a href="forget.html" class="text-danger float-right">忘记密码?</a>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="handleSubmit">立即登录</el-button>
+<!--            修改样式加上返回按钮-->
+            <el-button type="dark" @click="handleSubmit">立即登录</el-button>
+            <el-button type="dark" @click="handleBack">返回首页</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -65,9 +67,10 @@ import { useI18n } from 'vue-i18n';
 // import ParticleSidebar from '@/codepen/ParticleSidebar.vue';
 import { defineAsyncComponent } from 'vue';
 
-
+import { useRouter } from 'vue-router';
 
 export default {
+
   setup() {
 
     // 定义异步组件particlesidebar
@@ -85,7 +88,14 @@ export default {
       code: '',
       rememberMe: false,
     });
+    //加入返回按钮
 
+    const router = useRouter();
+
+    const handleBack = () => {
+      // router.push('/');
+      window.location.href = '/';
+    };
     const kaptchaSrc = ref('/kaptcha');
     const translations = useCommonTranslations();
 
@@ -149,7 +159,7 @@ export default {
       translations,
       selectedLanguage,
       changeLanguage,
-
+      handleBack,
       ParticleSidebar,
     };
   },
@@ -487,10 +497,20 @@ canvas {
   height: 100%;
 }
 
+.el-form {
+  width: 100%;
+  max-width: 400px;
+  /* margin-top: 100px; */
+  
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
 .el-main {
   width: 100%;
   /* max-width: none; */
-  background-color: black;
+  background-color: #222;
   /* flex: 1;
   align-items: flex-start;
   justify-content: flex-start; */
