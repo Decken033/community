@@ -1,6 +1,7 @@
 <template>
     <div class="sidebar">
       <canvas ref="canvas"></canvas>
+      <h3>Particle里面里面213</h3>
     </div>
   </template>
   
@@ -9,7 +10,11 @@
   
   const canvas = ref(null);
   let animationFrame, nextTextTimeout;
-  
+
+  onMounted(() => {
+  console.log('1111111ParticleSidebar component mounted!');
+});
+
   onMounted(() => {
     initParticleEffect();
     window.addEventListener("resize", resizeCanvas);
@@ -271,14 +276,14 @@
   .sidebar {
     position: fixed;
     inset: 0;
-    width: 100%;
+    width: 55%;
     height: 100%;
     background: #222;
   }
   canvas {
     position: fixed;
     inset: 0;
-    width: 100%;
+    width: 55%;
     height: 100%;
   }
   </style>
