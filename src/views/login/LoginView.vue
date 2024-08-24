@@ -23,7 +23,7 @@
     <el-main>
       <div class="container pl-5 pr-5 pt-3 pb-3 mt-3 mb-3">
         <h3 class="text-center text-info border-bottom pb-3">登录</h3>
-        <el-form :model="form" :rules="rules" ref="loginForm" label-width="100px" class="mt-5">
+        <el-form :model="form" :rules="rules" ref="loginForm" label-width="100px" >
           <el-form-item label="账号" prop="username">
             <el-input v-model="form.username" placeholder="请输入您的账号"></el-input>
           </el-form-item>
@@ -487,10 +487,20 @@ canvas {
   height: 100%;
 }
 
+.el-form {
+  width: 100%;
+  max-width: 400px;
+  /* margin-top: 100px; */
+  
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
 .el-main {
   width: 100%;
   /* max-width: none; */
-  background-color: black;
+  background-color: #222;
   /* flex: 1;
   align-items: flex-start;
   justify-content: flex-start; */
