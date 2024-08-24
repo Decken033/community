@@ -56,12 +56,7 @@ const posts = ref([
   // 添加更多帖子
 ]);
 
-// 分页信息
-const page = ref({
-  current: 1, // 当前页码
-  pageSize: 5, // 每页显示条数
-  total: 100, // 总条数
-});
+
 
 // 发布弹出框的显示状态
 const isPublishModalVisible = ref(false);
@@ -84,10 +79,33 @@ const publishPost = () => {
   });
 };
 
+
+// 分页信息
+const page = ref({
+  current: 1, // 当前页码
+  pageSize: 3, // 每页显示条数
+  total: posts.value.length, // 总条数
+});
+
+//使用 computed 属性计算当前页需要显示的数据
+const paginatedItems = computed(() => {
+  const start = (page.value.current - 1) * page.value.pageSize;
+  const end = start + page.value.pageSize;
+  return posts.value.slice(start, end);
+});
+
+
 // 处理分页变化
 const handlePageChange = (newPage: number) => {
   page.value.current = newPage;
   // 在这里你可以根据新的页码请求数据
+
+  // 示例 API 请求
+  // const response = await fetch(`/api/items?page=${newPage}&pageSize=${page.value.pageSize}`);
+  // const data = await response.json();
+
+  // posts.value = data.items;
+  // page.value.total = data.total;
 };
 
 // 定义 handleTabClick 函数
@@ -197,7 +215,7 @@ const changeLanguage = () => {
         </div>
       </el-dialog>
 
-      
+
       <el-tabs v-model="orderMode" @tab-click="handleTabClick">
         <!-- <p>{{ translations.hottest }}</p>
         <p>{{ translations.latest }}</p> -->
@@ -207,9 +225,9 @@ const changeLanguage = () => {
         <el-tab-pane :label="translations.hottest.value" name="0"></el-tab-pane>
         <el-tab-pane :label="translations.latest.value" name="1"></el-tab-pane>
       </el-tabs>
-        
+
       <!-- 帖子列表 -->
-      <div v-for="post in posts" :key="post.id" class="post-item">
+      <div v-for="post in paginatedItems" :key="post.id" class="post-item">
         <el-avatar :src="post.userAvatar"></el-avatar>
         <div class="post-content">
           <el-link :href="`/discuss/detail/${post.id}`" class="post-title">{{ post.title }}</el-link>
