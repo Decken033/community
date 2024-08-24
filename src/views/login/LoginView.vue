@@ -46,7 +46,9 @@
             <a href="forget.html" class="text-danger float-right">忘记密码?</a>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="handleSubmit">立即登录</el-button>
+<!--            修改样式加上返回按钮-->
+            <el-button type="dark" @click="handleSubmit">立即登录</el-button>
+            <el-button type="dark" @click="handleBack">返回首页</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -65,9 +67,10 @@ import { useI18n } from 'vue-i18n';
 // import ParticleSidebar from '@/codepen/ParticleSidebar.vue';
 import { defineAsyncComponent } from 'vue';
 
-
+import { useRouter } from 'vue-router';
 
 export default {
+
   setup() {
 
     // 定义异步组件particlesidebar
@@ -85,7 +88,14 @@ export default {
       code: '',
       rememberMe: false,
     });
+    //加入返回按钮
 
+    const router = useRouter();
+
+    const handleBack = () => {
+      // router.push('/');
+      window.location.href = '/';
+    };
     const kaptchaSrc = ref('/kaptcha');
     const translations = useCommonTranslations();
 
@@ -149,7 +159,7 @@ export default {
       translations,
       selectedLanguage,
       changeLanguage,
-
+      handleBack,
       ParticleSidebar,
     };
   },
