@@ -326,7 +326,7 @@ const changeLanguage = () => {
   padding-top: 0px;
   width:40%;
   height:100%;
-  //transform: translateX(-30%)
+  //transform: translateX(-30%)；
 }
 
 .leftsidebar {
