@@ -82,8 +82,8 @@
                     <span>注册于 <i class="text-muted">{{ formattedCreateTime }}</i></span>
                   </div>
                   <div class="text-muted mt-3 mb-5">
-                    <span>关注了 <el-link :href="`/followees/${user.id}`">{{ followeeCount }}</el-link> 人</span>
-                    <span class="ml-4">关注者 <el-link :href="`/followers/${user.id}`">{{ followerCount }}</el-link> 人</span>
+                    <span>关注了 <router-link :to="followeesUrl">{{ followeeCount }}</router-link> 人</span>
+                    <span class="ml-4">关注者 <router-link :to="followersUrl">{{ followerCount }}</router-link> 人</span>
                     <span class="ml-4">获得了 <i class="text-danger">{{ likeCount }}</i> 个赞</span>
                   </div>
                 </el-col>
@@ -145,9 +145,9 @@
         // Toggle follow logic
         console.log('Toggled follow');
       };
-
-      
-  
+      // 增加根据id生成路径
+      const followeesUrl = computed(() => `/followee/${user.id}`);
+      const followersUrl = computed(() => `/follower/${user.id}`);
       return {
         user,
         followeeCount,
@@ -162,6 +162,8 @@
         changeLanguage,
         toggleFollow,
         translations,
+        followeesUrl,
+        followersUrl,
       };
 
     },

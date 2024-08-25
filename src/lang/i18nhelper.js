@@ -26,7 +26,8 @@ export function useCommonTranslations() {
   const loginSuccess = computed(() => t('message.loginSuccess'));
   const loginFailed = computed(() => t('message.loginFailed'));
   const settings = computed(() => t('message.settings'));
-
+  const followees = computed(() => t('message.followees'));
+  const followers = computed(() => t('message.followers'));
   return {
     home,
     news,
@@ -49,5 +50,7 @@ export function useCommonTranslations() {
     loginSuccess,
     loginFailed,
     settings,
+    followees,
+    followers,
   };
 }
