@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <canvas ref="canvas"></canvas>
-    <h3>Particle里面里面213</h3>
+<!--    <h3>Particle里面里面213</h3>-->
   </div>
 </template>
 
@@ -43,7 +43,7 @@ function initParticleEffect() {
     velocityDamping: 0.95,
     colorMultiplier: 40000,
     saturationMultiplier: 1000,
-    textChangeInterval: 10000,
+    textChangeInterval: 3000,
     rotationForceMultiplier: 1.0
   };
 
