@@ -6,7 +6,7 @@ import { useCommonTranslations } from '@/lang/i18nhelper';
 const translations = useCommonTranslations();
 import { onMounted, onBeforeUnmount } from 'vue';
 import { useI18n } from 'vue-i18n';
-
+import {useRouter} from "vue-router";
 
 
 // 动态设置 rem 基准值
@@ -114,18 +114,20 @@ const handleTabClick = (tab: { label: string; name: string }) => {
 };
 
 // 搜索功能
+const router = useRouter();
 const search = () => {
   console.log('Search query:', searchQuery.value);
+  if (searchQuery.value.trim()) {
+    // 使用 router.push 进行路由导航
+    router.push({ name: 'search', query: { keyword: searchQuery.value } });
+  }
 };
+
 const { t, locale } = useI18n({ useScope: "global" });
 const selectedLanguage = ref('zh')
 const changeLanguage = () => {
   locale.value = selectedLanguage.value
 }
-// const searchPlaceHolder = computed(() => 
-//  t('message.search')
-// )
-
 
 
 </script>
@@ -174,8 +176,9 @@ const changeLanguage = () => {
 
         <!-- 搜索 -->
         <el-menu-item index="8">
-          <el-input v-model="searchQuery" @keyup.enter="search" />
+          <el-input v-model="searchQuery" @keyup.enter="search" style="width: 200px;"/>
           <el-button @click="search" type="primary">{{ translations.search }}</el-button>
+<!--          <p>当前搜索关键字: {{ searchQuery }}</p>-->
         </el-menu-item>
 
         <el-menu-item index="9">

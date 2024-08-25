@@ -33,6 +33,16 @@ const router = createRouter({
       path:'/profile',
       name:'profile',
       component: () => import('@/views/profile/Profile.vue')
+    },
+    {
+      path:'/discuss/detail/:id',
+      name:'discussDetail',
+      component: () => import('@/views/discuss/Discuss.vue')
+    },
+    {
+      path:'/search',
+      name:'search',
+      component: () => import('@/views/search/Search.vue')
     }
     
   ]
