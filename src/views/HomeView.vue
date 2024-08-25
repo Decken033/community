@@ -135,67 +135,109 @@ const changeLanguage = () => {
 <template>
   <el-container>
     <!-- 头部 -->
-    <el-header>
-      <!-- 导航 -->
-      <el-menu class="el-menu-demo" type="flex">
-        <!-- 首页 -->
-        <el-menu-item index="1">
-          <router-link to="/">{{ translations.home }}</router-link>
-        </el-menu-item>
+<!--    <el-header>-->
+<!--      &lt;!&ndash; 导航 &ndash;&gt;-->
+<!--      <el-menu class="el-menu-demo" type="flex">-->
+<!--        &lt;!&ndash; 首页 &ndash;&gt;-->
+<!--&lt;!&ndash;        <el-menu-item index="1">&ndash;&gt;-->
+<!--&lt;!&ndash;          <router-link to="/">{{ translations.home }}</router-link>&ndash;&gt;-->
+<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-        <!-- 消息 -->
-        <el-menu-item index="2">
-          <router-link to="/letter">{{ translations.news }}</router-link>
-          <el-badge :value="12" class="item" />
-        </el-menu-item>
+<!--&lt;!&ndash;        &lt;!&ndash; 消息 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <el-menu-item index="2">&ndash;&gt;-->
+<!--&lt;!&ndash;          <router-link to="/letter">{{ translations.news }}</router-link>&ndash;&gt;-->
+<!--&lt;!&ndash;          <el-badge :value="12" class="item" />&ndash;&gt;-->
+<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-        <!-- 注册 -->
-        <el-menu-item index="3">
-          <router-link to="/register">{{ translations.register }}</router-link>
-        </el-menu-item>
+<!--&lt;!&ndash;        &lt;!&ndash; 注册 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <el-menu-item index="3">&ndash;&gt;-->
+<!--&lt;!&ndash;          <router-link to="/register">{{ translations.register }}</router-link>&ndash;&gt;-->
+<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-        <!-- 登录 -->
-        <el-menu-item index="4">
-          <router-link to="/login">{{ translations.login }}</router-link>
-        </el-menu-item>
+<!--&lt;!&ndash;        &lt;!&ndash; 登录 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <el-menu-item index="4">&ndash;&gt;-->
+<!--&lt;!&ndash;          <router-link to="/login">{{ translations.login }}</router-link>&ndash;&gt;-->
+<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-        <!-- 个人主页 -->
-        <el-menu-item index="5">
-          <router-link to="/profile">{{ translations.profile }}</router-link>
-        </el-menu-item>
+<!--&lt;!&ndash;        &lt;!&ndash; 个人主页 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <el-menu-item index="5">&ndash;&gt;-->
+<!--&lt;!&ndash;          <router-link to="/profile">{{ translations.profile }}</router-link>&ndash;&gt;-->
+<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-        <!-- 账号设置 -->
-        <el-menu-item index="6">
-          <router-link to="/settings">{{ translations.settings }}</router-link>
-        </el-menu-item>
+<!--&lt;!&ndash;        &lt;!&ndash; 账号设置 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <el-menu-item index="6">&ndash;&gt;-->
+<!--&lt;!&ndash;          <router-link to="/settings">{{ translations.settings }}</router-link>&ndash;&gt;-->
+<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-        <!-- 视频聊天 -->
-        <el-menu-item index="7">
-          <router-link to="/settings">视频聊天</router-link>
-        </el-menu-item>
+<!--&lt;!&ndash;        &lt;!&ndash; 视频聊天 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <el-menu-item index="7">&ndash;&gt;-->
+<!--&lt;!&ndash;          <router-link to="/settings">视频聊天</router-link>&ndash;&gt;-->
+<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-        <!-- 搜索 -->
-        <el-menu-item index="8">
-          <el-input v-model="searchQuery" @keyup.enter="search" style="width: 200px;"/>
-          <el-button @click="search" type="primary">{{ translations.search }}</el-button>
-<!--          <p>当前搜索关键字: {{ searchQuery }}</p>-->
-        </el-menu-item>
+<!--        &lt;!&ndash; 搜索 &ndash;&gt;-->
+<!--        <el-menu-item index="8">-->
+<!--          <el-input v-model="searchQuery" @keyup.enter="search" style="width: 200px;"/>-->
+<!--          <el-button @click="search" type="primary">{{ translations.search }}</el-button>-->
+<!--&lt;!&ndash;          <p>当前搜索关键字: {{ searchQuery }}</p>&ndash;&gt;-->
+<!--        </el-menu-item>-->
 
-        <el-menu-item index="9">
-          <el-button type="primary" class="float-right" @click="openPublishModal">{{ translations.publish }}</el-button>
-        </el-menu-item>
+<!--        <el-menu-item index="9">-->
+<!--          <el-button type="primary" class="float-right" @click="openPublishModal">{{ translations.publish }}</el-button>-->
+<!--        </el-menu-item>-->
 
-        <el-menu-item index="10">
-          <el-select v-model="selectedLanguage" @change="changeLanguage" placeholder="Select Language">
-            <el-option label="English" value="en"></el-option>
-            <el-option label="中文" value="zh"></el-option>
-            <el-option label="Español" value="sp"></el-option>
-          </el-select>
-        </el-menu-item>
-      </el-menu>
+<!--        <el-menu-item index="10">-->
+<!--          <el-select v-model="selectedLanguage" @change="changeLanguage" placeholder="Select Language">-->
+<!--            <el-option label="English" value="en"></el-option>-->
+<!--            <el-option label="中文" value="zh"></el-option>-->
+<!--            <el-option label="Español" value="sp"></el-option>-->
+<!--          </el-select>-->
+<!--        </el-menu-item>-->
+<!--      </el-menu>-->
 
 
-    </el-header>
+<!--    </el-header>-->
+
+   <el-aside class="leftsidebar">
+     <el-menu  type="flex" class="el-menu-demo">
+       <!-- 首页 -->
+       <el-menu-item index="1">
+         <router-link to="/">{{ translations.home }}</router-link>
+       </el-menu-item>
+
+       <!-- 消息 -->
+       <el-menu-item index="2">
+         <router-link to="/letter">{{ translations.news }}</router-link>
+         <el-badge :value="12" class="item" />
+       </el-menu-item>
+
+       <!-- 注册 -->
+       <el-menu-item index="3">
+         <router-link to="/register">{{ translations.register }}</router-link>
+       </el-menu-item>
+
+       <!-- 登录 -->
+       <el-menu-item index="4">
+         <router-link to="/login">{{ translations.login }}</router-link>
+       </el-menu-item>
+
+       <!-- 个人主页 -->
+       <el-menu-item index="5">
+         <router-link to="/profile">{{ translations.profile }}</router-link>
+       </el-menu-item>
+
+       <!-- 账号设置 -->
+       <el-menu-item index="6">
+         <router-link to="/settings">{{ translations.settings }}</router-link>
+       </el-menu-item>
+
+       <!-- 视频聊天 -->
+       <el-menu-item index="7">
+         <router-link to="/settings">视频聊天</router-link>
+       </el-menu-item>
+
+     </el-menu>
+
+   </el-aside>
 
     <!-- 内容 -->
     <el-main>
@@ -203,7 +245,7 @@ const changeLanguage = () => {
 
       <!--TODO-->
       <!-- 发布弹出框 -->
-      <el-dialog title="新帖发布" :visible.sync="isPublishModalVisible" width="60%">
+      <el-dialog title="新帖发布" :visible.sync="isPublishModalVisible" width="100%">
         <el-form :model="form">
           <el-form-item label="标题">
             <el-input v-model="form.title" placeholder="请输入标题"></el-input>
@@ -248,31 +290,60 @@ const changeLanguage = () => {
       <el-pagination v-if="page.total > 0" :current-page="page.current" :page-size="page.pageSize" :total="page.total"
         @current-change="handlePageChange">
       </el-pagination>
-    </el-main>
 
+
+
+
+    </el-main>
+    <el-aside class="rightsidebar">
+      <div class="search-bar">
+      <el-input v-model="searchQuery" @keyup.enter="search" style="width: 200px;"/>
+      <el-button @click="search" type="primary">{{ translations.search }}</el-button>
+<!--      <p>当前搜索关键字: {{ searchQuery }}</p> 应该改为placeholder-->
+        </div>
+    </el-aside>
   </el-container>
 </template>
 
-<style>
+<style scoped>
 .el-header {
   background-color: #f0f0f0;
 }
-
-.el-container {
-  background-color: rgb(230, 124, 18);
+.rightsidebar{
+  width:30%;
 }
 
+.el-container {
+  background-color: white;
+  width:100%;
+  height: 100%;
+}
+.search-bar{
+  height:10%;
+}
 .el-main {
   background-color: rgb(244, 247, 236);
   padding-top: 0px;
+  width:40%;
+  height:100%;
+  //transform: translateX(-30%)
 }
 
-
+.leftsidebar {
+  display: flex;
+  width: 30%;
+  height: 100%;
+  //transform: translateX(10%);
+}
 .el-menu-demo {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  //justify-content: space-between;
+  //align-items: center;
+  flex-direction: column;
   width: 100%;
+  margin: 0;
+  padding: 0;
+  transform: translateX(50%);
 }
 
 .el-tabs {
