@@ -1,248 +1,254 @@
 <template>
-	<el-container>
-		<!-- Header -->
-		<el-header>
-			<el-menu class="el-menu-demo" mode="horizontal">
-				<!-- 首页 -->
-				<el-menu-item index="1">
-					<router-link to="/">{{ translations.home }}</router-link>
-				</el-menu-item>
+  <div>
+  </div>
 
-				<!-- 消息 -->
-				<el-menu-item index="2">
-					<router-link to="/letter">{{ translations.news }}</router-link>
-					<el-badge :value="12" class="item" />
-				</el-menu-item>
+  <el-container>
+    <!-- 头部 -->
 
-				<!-- 注册 -->
-				<el-menu-item index="3">
-					<router-link to="/register">{{ translations.register }}</router-link>
-				</el-menu-item>
+    <!-- 侧边栏 -->
+    <el-aside >
+      <div>
+        <!-- <canvas></canvas> -->
+        <!-- <h3>ParticleSidebar</h3>
+        <h3>ParticleSidebar</h3>
+        <h3>ParticleSidebar</h3>
+        <h3>ParticleSidebar</h3>
+        <ParticleSidebar /> -->
+        <component :is="ParticleSidebar" />
+      </div>
+    </el-aside>
 
-				<!-- 登录 -->
-				<el-menu-item index="4">
-					<router-link to="/login">{{ translations.login }}</router-link>
-				</el-menu-item>
+    <!-- 内容 -->
+    <el-main>
+      <img src="@/images/logo.jpg" class="logo">
+      <el-form :model="form" :rules="rules" ref="registerForm" label-width="80px" class="mt-5">
+        <el-form-item label="账号" prop="username">
+          <el-input v-model="form.username" class="form-input" placeholder="请输入您的账号"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="form.password" type="password" class="form-input"
+                    placeholder="请输入您的密码"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="confirmPassword">
+          <el-input v-model="form.confirmPassword" type="password" class="form-input"
+                    placeholder="请再次输入密码"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <div class="email-wrapper">
+            <el-input v-model="form.email" type="email" class="form-input-email" placeholder="请输入您的邮箱"></el-input>
+            <el-button  class="send-code-btn" @click="sendEmail">发送验证码</el-button>
+          </div>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handleSubmit">立即注册</el-button>
+          <a href="/">
+            <el-button type="primary">返回首页</el-button>
+          </a>
 
-
-				<!-- 个人主页 -->
-				<el-menu-item index="5">
-					<router-link to="/profile">{{ translations.profile }}</router-link>
-				</el-menu-item>
-
-				<!-- 账号设置 -->
-				<el-menu-item index="7">
-					<router-link to="/settings">{{ translations.accountSettings }}</router-link>
-				</el-menu-item>
-
-				<!-- 搜索 -->
-				<el-menu-item index="8">
-					<el-input v-model="searchQuery" @keyup.enter="search" />
-					<el-button @click="search" type="primary">{{ translations.search }}</el-button>
-				</el-menu-item>
-
-				<el-menu-item index="9">
-					<el-button type="primary" class="float-right" @click="openPublishModal">{{ translations.publish
-						}}</el-button>
-				</el-menu-item>
-
-				<el-menu-item index="10">
-					<el-select v-model="selectedLanguage" @change="changeLanguage" placeholder="Select Language">
-						<el-option label="English" value="en"></el-option>
-						<el-option label="中文" value="zh"></el-option>
-						<el-option label="Español" value="sp"></el-option>
-					</el-select>
-				</el-menu-item>
+        </el-form-item>
+      </el-form>
 
 
-
-			</el-menu>
-		</el-header>
-
-		<!-- Content -->
-		<el-main>
-
-			<el-form :model="form" :rules="rules" ref="registerForm" label-width="80px" class="mt-5">
-				<el-form-item label="账号" prop="username">
-					<el-input v-model="form.username" class="form-input" placeholder="请输入您的账号"></el-input>
-				</el-form-item>
-				<el-form-item label="密码" prop="password">
-					<el-input v-model="form.password" type="password" class="form-input"
-						placeholder="请输入您的密码"></el-input>
-				</el-form-item>
-				<el-form-item label="确认密码" prop="confirmPassword">
-					<el-input v-model="form.confirmPassword" type="password" class="form-input"
-						placeholder="请再次输入密码"></el-input>
-				</el-form-item>
-				<el-form-item label="邮箱" prop="email">
-					<div class="email-wrapper">
-						<el-input v-model="form.email" type="email" class="form-input" placeholder="请输入您的邮箱"></el-input>
-						<el-button type="primary" class="send-code-btn" @click="sendEmail">发送验证码</el-button>
-					</div>
-				</el-form-item>
-				<el-form-item>
-					<el-button type="primary" @click="handleSubmit">立即注册</el-button>
-				</el-form-item>
-			</el-form>
-
-
-		</el-main>
-
-	</el-container>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
-import { ref } from 'vue';
-import { ElMessage } from 'element-plus';
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
+
 import { useCommonTranslations } from '@/lang/i18nhelper';
+
+import { ElMessage } from 'element-plus';
 import { useI18n } from 'vue-i18n';
+// import ParticleSidebar from '@/codepen/ParticleSidebar.vue';
+import { defineAsyncComponent } from 'vue';
 
-
+import { useRouter } from 'vue-router';
 
 export default {
-	name: 'Register',
-	setup() {
-		const form = ref({
-			username: '',
-			password: '',
-			confirmPassword: '',
-			email: '',
-		});
 
-		const rules = {
-			username: [
-				{ required: true, message: '请输入账号', trigger: 'blur' },
-				{ min: 3, message: '账号长度不能少于3位', trigger: 'blur' }
-			],
-			password: [
-				{ required: true, message: '请输入密码', trigger: 'blur' },
-				{ min: 8, message: '密码长度不能少于8位', trigger: 'blur' }
-			],
-			// 确认密码
-			confirmPassword: [
-				{ required: true, message: '请确认密码', trigger: 'blur' },
-				{
-					validator: (rule, value, callback) => {
-						if (value !== form.value.password) {
-							callback(new Error('两次输入的密码不一致'));
-						} else {
-							callback();
-						}
-					}, trigger: 'blur'
-				}
-			],
-			email: [
-				{ required: true, message: '请输入邮箱', trigger: 'blur' },
-				{ type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
-			]
-		};
+  setup() {
 
-		const registerForm = ref(null);
+    // 定义异步组件particlesidebar
+    const isLoaded = ref(false);
+    const ParticleSidebar = defineAsyncComponent(() =>
+        import('@/codepen/ParticleSidebar.vue').then((component) => {
+          isLoaded.value = true;
+          return component;
+        })
+    );
 
-		const handleSubmit = () => {
-			registerForm.value.validate((valid) => {
-				if (valid) {
-					postData();
-				} else {
-					ElMessage.error('请修正表单中的错误!');
-				}
-			});
-		};
+    const form = ref({
+      username: '',
+      password: '',
+      code: '',
+      rememberMe: false,
+    });
+    //加入返回按钮
 
-		const postData = () => {
-			axios
-				.post('/register', form.value)
-				.then((response) => {
-					ElMessage.success('注册成功');
-					console.log(response);
-				})
-				.catch((error) => {
-					ElMessage.error('注册失败，请稍后重试');
-					console.error(error);
-				});
-		};
+    const router = useRouter();
+
+    const handleBack = () => {
+      // router.push('/');
+      window.location.href = '/';
+    };
+    const kaptchaSrc = ref('/kaptcha');
+    const translations = useCommonTranslations();
+
+    const { t, locale } = useI18n({ useScope: "global" });
+    const selectedLanguage = ref('zh');
+    const changeLanguage = () => {
+      locale.value = selectedLanguage.value;
+    };
+
+    const rules = {
+      username: [
+        { required: true, message: t('message.enterUsername'), trigger: 'blur' },
+      ],
+      password: [
+        { required: true, message: t('message.enterPassword'), trigger: 'blur' },
+        { min: 8, message: t('message.passwordLength'), trigger: 'blur' },
+      ],
+      code: [
+        { required: true, message: t('message.enterCode'), trigger: 'blur' },
+      ],
+    };
 
 
-		const translations = useCommonTranslations();
+    const loginForm = ref(null);
 
-		const { t, locale } = useI18n({ useScope: "global" });
-		const selectedLanguage = ref('zh');
-		const changeLanguage = () => {
-			locale.value = selectedLanguage.value;
-		};
+    const refreshKaptcha = () => {
+      kaptchaSrc.value = `/kaptcha?${new Date().getTime()}`;
+    };
 
-		const searchQuery = ref('');
-		const search = () => {
-			console.log('Search query:', searchQuery.value);
-		};
+    const handleSubmit = () => {
+      loginForm.value.validate((valid) => {
+        if (valid) {
+          postData();
+        } else {
+          console.log('表单验证失败');
+          return false;
+        }
+      });
+    };
 
+    const postData = () => {
+      axios
+          .post('/login', form.value)
+          .then((response) => {
+            console.log("登录成功");
+            ElMessage.success(t('message.loginSuccess'));
+          })
+          .catch((error) => {
+            console.error('登录失败:', error);
+            ElMessage.error(t('message.loginFailed'));
+          });
+    };
 
-		return {
-			form,
-			rules,
-			registerForm,
-			handleSubmit,
-			postData,
-			translations,
-			t,
-			locale,
-			selectedLanguage,
-			changeLanguage,
-			searchQuery,
-			search
-		};
-	},
-
-
+    return {
+      form,
+      rules,
+      kaptchaSrc,
+      loginForm,
+      refreshKaptcha,
+      handleSubmit,
+      translations,
+      selectedLanguage,
+      changeLanguage,
+      handleBack,
+      ParticleSidebar,
+    };
+  },
 };
+
+
 </script>
 
-<style>
-.el-header {
-	background-color: #f0f0f0;
+
+
+<style scoped>
+.el-menu-demo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.el-aside {
+  width: 55%;
+  background-color: rgb(11, 221, 245)
 }
 
 .el-container {
-	background-color: rgb(230, 124, 18);
+  width: 100%;
+  //background-color: transparent;
+  padding: 0%;
+  margin: 0%;
+  height: 100%;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+
+}
+
+.el-form {
+  width: 100%;
+  max-width: 400px;
+  /* margin-top: 100px; */
+
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .el-main {
-	background-color: rgb(244, 247, 236);
-	padding-top: 0px;
+  width: 100%;
+  /* max-width: none; */
+  background-color: #dad2c0;
+  /* flex: 1;
+  align-items: flex-start;
+  justify-content: flex-start; */
+  background: transparent;
 }
 
+.logo{
+  margin-top: 0px;
+  padding-top: 0px;
+  width: 25%;
 
-.el-menu-demo {
-	/* display: flex; */
-	justify-content: space-between;
-	align-items: center;
-	/* width: 100%; */
+  margin-left: auto;
+  margin-right: auto;
+}
+.button{
+  border: none;
+}
+.button:hover{
+  background-color: white;
+}
+.text:hover{
+  background: white;
+}
+.text1{
+  padding-left: 10px;
+  font-size: smaller;
+  margin-left: 30px;
+  font-weight: bold;
 }
 
-.el-tabs {
-	width: 300px;
-	max-width: 100%;
-
-	margin-top: auto;
-	margin-bottom: auto;
-
-	padding-top: 0;
-	padding: 0px;
-	height: auto;
+.text2{
+  padding-left: 10px;
+  font-size: smaller;
+  font-weight: bold;
 }
 
-.form-input {
-  width: 40%; /* 或者设置为具体的宽度，如 300px */
+.form-input-email
+{
+  width: 50%;
 }
 
-.email-wrapper {
-	display: flex;
-	align-items: center;
-}
-
-.send-code-btn {
-	margin-left: 100px;
-	/* 控制按钮与输入框之间的距离 */
-}
 </style>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import {computed, ref} from 'vue';
 import axios from 'axios';
-import { useCommonTranslations } from '@/lang/i18nhelper';
+import {useCommonTranslations} from '@/lang/i18nhelper';
 
 const translations = useCommonTranslations();
-import { onMounted, onBeforeUnmount } from 'vue';
-import { useI18n } from 'vue-i18n';
+import {onMounted, onBeforeUnmount} from 'vue';
+import {useI18n} from 'vue-i18n';
 import {useRouter} from "vue-router";
-
+import postbox from "@/views/PostBox/Postbox.vue"
 
 // 动态设置 rem 基准值
 const setRem = () => {
@@ -43,19 +43,90 @@ const orderMode = ref<string | number>('0'); // 初始值为 '0'
 
 // 帖子列表数据
 const posts = ref([
-  { id: 1, title: '1备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '2备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '3备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '4备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '5备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '6备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '7备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '8备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
-  { id: 1, title: '9备战春招，面试刷题跟他复习，一个月全搞定！', userAvatar: '/path/to/avatar.png', author: '寒江雪', createTime: '2024-08-19', likeCount: 11, commentCount: 7 },
+  {
+    id: 1,
+    title: '1备战春招，面试刷题跟他复习，一个月全搞定！',
+    userAvatar: '/path/to/avatar.png',
+    author: '寒江雪',
+    createTime: '2024-08-19',
+    likeCount: 11,
+    commentCount: 7
+  },
+  {
+    id: 1,
+    title: '2备战春招，面试刷题跟他复习，一个月全搞定！',
+    userAvatar: '/path/to/avatar.png',
+    author: '寒江雪',
+    createTime: '2024-08-19',
+    likeCount: 11,
+    commentCount: 7
+  },
+  {
+    id: 1,
+    title: '3备战春招，面试刷题跟他复习，一个月全搞定！',
+    userAvatar: '/path/to/avatar.png',
+    author: '寒江雪',
+    createTime: '2024-08-19',
+    likeCount: 11,
+    commentCount: 7
+  },
+  {
+    id: 1,
+    title: '4备战春招，面试刷题跟他复习，一个月全搞定！',
+    userAvatar: '/path/to/avatar.png',
+    author: '寒江雪',
+    createTime: '2024-08-19',
+    likeCount: 11,
+    commentCount: 7
+  },
+  {
+    id: 1,
+    title: '5备战春招，面试刷题跟他复习，一个月全搞定！',
+    userAvatar: '/path/to/avatar.png',
+    author: '寒江雪',
+    createTime: '2024-08-19',
+    likeCount: 11,
+    commentCount: 7
+  },
+  {
+    id: 1,
+    title: '6备战春招，面试刷题跟他复习，一个月全搞定！',
+    userAvatar: '/path/to/avatar.png',
+    author: '寒江雪',
+    createTime: '2024-08-19',
+    likeCount: 11,
+    commentCount: 7
+  },
+  {
+    id: 1,
+    title: '7备战春招，面试刷题跟他复习，一个月全搞定！',
+    userAvatar: '/path/to/avatar.png',
+    author: '寒江雪',
+    createTime: '2024-08-19',
+    likeCount: 11,
+    commentCount: 7
+  },
+  {
+    id: 1,
+    title: '8备战春招，面试刷题跟他复习，一个月全搞定！',
+    userAvatar: '/path/to/avatar.png',
+    author: '寒江雪',
+    createTime: '2024-08-19',
+    likeCount: 11,
+    commentCount: 7
+  },
+  {
+    id: 1,
+    title: '9备战春招，面试刷题跟他复习，一个月全搞定！',
+    userAvatar: '/path/to/avatar.png',
+    author: '寒江雪',
+    createTime: '2024-08-19',
+    likeCount: 11,
+    commentCount: 7
+  },
 
   // 添加更多帖子
 ]);
-
 
 
 // 发布弹出框的显示状态
@@ -83,7 +154,7 @@ const publishPost = () => {
 // 分页信息
 const page = ref({
   current: 1, // 当前页码
-  pageSize: 3, // 每页显示条数
+  pageSize: 6, // 每页显示条数
   total: posts.value.length, // 总条数
 });
 
@@ -119,11 +190,11 @@ const search = () => {
   console.log('Search query:', searchQuery.value);
   if (searchQuery.value.trim()) {
     // 使用 router.push 进行路由导航
-    router.push({ name: 'search', query: { keyword: searchQuery.value } });
+    router.push({name: 'search', query: {keyword: searchQuery.value}});
   }
 };
 
-const { t, locale } = useI18n({ useScope: "global" });
+const {t, locale} = useI18n({useScope: "global"});
 const selectedLanguage = ref('zh')
 const changeLanguage = () => {
   locale.value = selectedLanguage.value
@@ -135,109 +206,117 @@ const changeLanguage = () => {
 <template>
   <el-container>
     <!-- 头部 -->
-<!--    <el-header>-->
-<!--      &lt;!&ndash; 导航 &ndash;&gt;-->
-<!--      <el-menu class="el-menu-demo" type="flex">-->
-<!--        &lt;!&ndash; 首页 &ndash;&gt;-->
-<!--&lt;!&ndash;        <el-menu-item index="1">&ndash;&gt;-->
-<!--&lt;!&ndash;          <router-link to="/">{{ translations.home }}</router-link>&ndash;&gt;-->
-<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
+    <!--    <el-header>-->
+    <!--      &lt;!&ndash; 导航 &ndash;&gt;-->
+    <!--      <el-menu class="el-menu-demo" type="flex">-->
+    <!--        &lt;!&ndash; 首页 &ndash;&gt;-->
+    <!--&lt;!&ndash;        <el-menu-item index="1">&ndash;&gt;-->
+    <!--&lt;!&ndash;          <router-link to="/">{{ translations.home }}</router-link>&ndash;&gt;-->
+    <!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-<!--&lt;!&ndash;        &lt;!&ndash; 消息 &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <el-menu-item index="2">&ndash;&gt;-->
-<!--&lt;!&ndash;          <router-link to="/letter">{{ translations.news }}</router-link>&ndash;&gt;-->
-<!--&lt;!&ndash;          <el-badge :value="12" class="item" />&ndash;&gt;-->
-<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;        &lt;!&ndash; 消息 &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;        <el-menu-item index="2">&ndash;&gt;-->
+    <!--&lt;!&ndash;          <router-link to="/letter">{{ translations.news }}</router-link>&ndash;&gt;-->
+    <!--&lt;!&ndash;          <el-badge :value="12" class="item" />&ndash;&gt;-->
+    <!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-<!--&lt;!&ndash;        &lt;!&ndash; 注册 &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <el-menu-item index="3">&ndash;&gt;-->
-<!--&lt;!&ndash;          <router-link to="/register">{{ translations.register }}</router-link>&ndash;&gt;-->
-<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;        &lt;!&ndash; 注册 &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;        <el-menu-item index="3">&ndash;&gt;-->
+    <!--&lt;!&ndash;          <router-link to="/register">{{ translations.register }}</router-link>&ndash;&gt;-->
+    <!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-<!--&lt;!&ndash;        &lt;!&ndash; 登录 &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <el-menu-item index="4">&ndash;&gt;-->
-<!--&lt;!&ndash;          <router-link to="/login">{{ translations.login }}</router-link>&ndash;&gt;-->
-<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;        &lt;!&ndash; 登录 &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;        <el-menu-item index="4">&ndash;&gt;-->
+    <!--&lt;!&ndash;          <router-link to="/login">{{ translations.login }}</router-link>&ndash;&gt;-->
+    <!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-<!--&lt;!&ndash;        &lt;!&ndash; 个人主页 &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <el-menu-item index="5">&ndash;&gt;-->
-<!--&lt;!&ndash;          <router-link to="/profile">{{ translations.profile }}</router-link>&ndash;&gt;-->
-<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;        &lt;!&ndash; 个人主页 &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;        <el-menu-item index="5">&ndash;&gt;-->
+    <!--&lt;!&ndash;          <router-link to="/profile">{{ translations.profile }}</router-link>&ndash;&gt;-->
+    <!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-<!--&lt;!&ndash;        &lt;!&ndash; 账号设置 &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <el-menu-item index="6">&ndash;&gt;-->
-<!--&lt;!&ndash;          <router-link to="/settings">{{ translations.settings }}</router-link>&ndash;&gt;-->
-<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;        &lt;!&ndash; 账号设置 &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;        <el-menu-item index="6">&ndash;&gt;-->
+    <!--&lt;!&ndash;          <router-link to="/settings">{{ translations.settings }}</router-link>&ndash;&gt;-->
+    <!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-<!--&lt;!&ndash;        &lt;!&ndash; 视频聊天 &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <el-menu-item index="7">&ndash;&gt;-->
-<!--&lt;!&ndash;          <router-link to="/settings">视频聊天</router-link>&ndash;&gt;-->
-<!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;        &lt;!&ndash; 视频聊天 &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;        <el-menu-item index="7">&ndash;&gt;-->
+    <!--&lt;!&ndash;          <router-link to="/settings">视频聊天</router-link>&ndash;&gt;-->
+    <!--&lt;!&ndash;        </el-menu-item>&ndash;&gt;-->
 
-<!--        &lt;!&ndash; 搜索 &ndash;&gt;-->
-<!--        <el-menu-item index="8">-->
-<!--          <el-input v-model="searchQuery" @keyup.enter="search" style="width: 200px;"/>-->
-<!--          <el-button @click="search" type="primary">{{ translations.search }}</el-button>-->
-<!--&lt;!&ndash;          <p>当前搜索关键字: {{ searchQuery }}</p>&ndash;&gt;-->
-<!--        </el-menu-item>-->
+    <!--        &lt;!&ndash; 搜索 &ndash;&gt;-->
+    <!--        <el-menu-item index="8">-->
+    <!--          <el-input v-model="searchQuery" @keyup.enter="search" style="width: 200px;"/>-->
+    <!--          <el-button @click="search" type="primary">{{ translations.search }}</el-button>-->
+    <!--&lt;!&ndash;          <p>当前搜索关键字: {{ searchQuery }}</p>&ndash;&gt;-->
+    <!--        </el-menu-item>-->
 
-<!--        <el-menu-item index="9">-->
-<!--          <el-button type="primary" class="float-right" @click="openPublishModal">{{ translations.publish }}</el-button>-->
-<!--        </el-menu-item>-->
+    <!--        <el-menu-item index="9">-->
+    <!--          <el-button type="primary" class="float-right" @click="openPublishModal">{{ translations.publish }}</el-button>-->
+    <!--        </el-menu-item>-->
 
-<!--        <el-menu-item index="10">-->
-<!--          <el-select v-model="selectedLanguage" @change="changeLanguage" placeholder="Select Language">-->
-<!--            <el-option label="English" value="en"></el-option>-->
-<!--            <el-option label="中文" value="zh"></el-option>-->
-<!--            <el-option label="Español" value="sp"></el-option>-->
-<!--          </el-select>-->
-<!--        </el-menu-item>-->
-<!--      </el-menu>-->
+    <!--        <el-menu-item index="10">-->
+    <!--          <el-select v-model="selectedLanguage" @change="changeLanguage" placeholder="Select Language">-->
+    <!--            <el-option label="English" value="en"></el-option>-->
+    <!--            <el-option label="中文" value="zh"></el-option>-->
+    <!--            <el-option label="Español" value="sp"></el-option>-->
+    <!--          </el-select>-->
+    <!--        </el-menu-item>-->
+    <!--      </el-menu>-->
 
 
-<!--    </el-header>-->
+    <!--    </el-header>-->
 
-   <el-aside class="leftsidebar">
-     <el-menu  type="flex" class="el-menu-demo">
-       <!-- 首页 -->
-       <el-menu-item index="1">
-         <router-link to="/">{{ translations.home }}</router-link>
-       </el-menu-item>
 
-       <!-- 消息 -->
-       <el-menu-item index="2">
-         <router-link to="/letter">{{ translations.news }}</router-link>
-         <el-badge :value="12" class="item" />
-       </el-menu-item>
+    <el-aside class="leftsidebar">
+      <el-menu type="flex">
+        <!-- 首页 -->
+        <el-menu-item index="1">
+          <!--         <router-link to="/">{{ translations.home }}</router-link>-->
+          <a href="/" class="redirection" style="font-weight: bold">{{ translations.home }}</a>
+        </el-menu-item>
 
-       <!-- 注册 -->
-       <el-menu-item index="3">
-         <router-link to="/register">{{ translations.register }}</router-link>
-       </el-menu-item>
+        <!-- 消息 -->
+        <el-menu-item index="2">
+          <!--         <router-link to="/letter">{{ translations.news }}</router-link>-->
+          <a href="/letter" class="redirection"  style="font-weight: bold">{{ translations.news }}</a>
+          <el-badge :value="12" class="item"/>
+        </el-menu-item>
 
-       <!-- 登录 -->
-       <el-menu-item index="4">
-         <router-link to="/login">{{ translations.login }}</router-link>
-       </el-menu-item>
+        <!-- 注册 -->
+        <el-menu-item index="3">
+          <!--         <router-link to="/register">{{ translations.register }}</router-link>-->
+          <a href="/register" class="redirection" style="font-weight: bold">{{ translations.register }}</a>
+        </el-menu-item>
 
-       <!-- 个人主页 -->
-       <el-menu-item index="5">
-         <router-link to="/profile">{{ translations.profile }}</router-link>
-       </el-menu-item>
+        <!-- 登录 -->
+        <el-menu-item index="4">
+          <!--         <router-link to="/login">{{ translations.login }}</router-link>-->
+          <a href="/login" class="redirection" style="font-weight: bold">{{ translations.login }}</a>
+        </el-menu-item>
 
-       <!-- 账号设置 -->
-       <el-menu-item index="6">
-         <router-link to="/settings">{{ translations.settings }}</router-link>
-       </el-menu-item>
+        <!-- 个人主页 -->
+        <el-menu-item index="5">
+          <!--         <router-link to="/profile">{{ translations.profile }}</router-link>-->
+          <a href="/profile" class="redirection" style="font-weight: bold">{{ translations.profile }}</a>
+        </el-menu-item>
 
-       <!-- 视频聊天 -->
-       <el-menu-item index="7">
-         <router-link to="/settings">视频聊天</router-link>
-       </el-menu-item>
+        <!-- 账号设置 -->
+        <el-menu-item index="6">
+          <!--         <router-link to="/settings">{{ translations.settings }}</router-link>-->
+          <a href="/settings" class="redirection" style="font-weight: bold">{{ translations.settings }}</a>
+        </el-menu-item>
 
-     </el-menu>
+        <!-- 视频聊天 -->
+        <el-menu-item index="7">
+          <!--         <router-link to="/settings">视频聊天</router-link>-->
+          <a href="/" class="redirection" style="font-weight: bold">视频聊天</a>
+        </el-menu-item>
 
-   </el-aside>
+      </el-menu>
+
+    </el-aside>
 
     <!-- 内容 -->
     <el-main>
@@ -245,23 +324,32 @@ const changeLanguage = () => {
 
       <!--TODO-->
       <!-- 发布弹出框 -->
-      <el-dialog title="新帖发布" :visible.sync="isPublishModalVisible" width="100%">
-        <el-form :model="form">
-          <el-form-item label="标题">
-            <el-input v-model="form.title" placeholder="请输入标题"></el-input>
-          </el-form-item>
-          <el-form-item label="正文">
-            <el-input type="textarea" v-model="form.content" placeholder="请输入正文" rows="15"></el-input>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="isPublishModalVisible = false">取消</el-button>
-          <el-button type="primary" @click="publishPost">发布</el-button>
-        </div>
-      </el-dialog>
 
+      <!--      <el-button @click="openPublishModal">发布新帖</el-button>-->
 
-      <el-tabs v-model="orderMode" @tab-click="handleTabClick">
+      <!--      &lt;!&ndash; 弹出框 &ndash;&gt;-->
+      <!--      <el-dialog title="新帖发布" :visible.sync="isPublishModalVisible" width="100%">-->
+      <!--        <el-form>-->
+      <!--          <el-form-item label="标题">-->
+      <!--            <el-input placeholder="请输入标题"></el-input>-->
+      <!--          </el-form-item>-->
+      <!--          <el-form-item label="正文">-->
+      <!--            <el-input type="textarea" placeholder="请输入正文" rows="15"></el-input>-->
+      <!--          </el-form-item>-->
+      <!--        </el-form>-->
+      <!--        <div slot="footer" class="dialog-footer">-->
+      <!--          <el-button @click="isPublishModalVisible = false">取消</el-button>-->
+      <!--          <el-button type="primary" @click="publishPost">发布</el-button>-->
+      <!--        </div>-->
+      <!--      </el-dialog>-->
+
+      <!--      发帖-->
+      <el-aside class="topsidebar">
+        <postbox></postbox>
+
+      </el-aside>
+
+      <el-tabs v-model="orderMode" @tab-click="handleTabClick" class="tabs">
         <!-- <p>{{ translations.hottest }}</p>
         <p>{{ translations.latest }}</p> -->
 
@@ -287,63 +375,103 @@ const changeLanguage = () => {
       </div>
 
       <!-- 分页 -->
-      <el-pagination v-if="page.total > 0" :current-page="page.current" :page-size="page.pageSize" :total="page.total"
-        @current-change="handlePageChange">
+      <el-pagination class="page"
+          v-if="page.total > 0"
+          :current-page="page.current"
+          :page-size="page.pageSize"
+          :total="page.total"
+          layout="total, prev, pager, next, jumper"
+          @current-change="handlePageChange"
+      >
       </el-pagination>
-
-
 
 
     </el-main>
     <el-aside class="rightsidebar">
       <div class="search-bar">
-      <el-input v-model="searchQuery" @keyup.enter="search" style="width: 200px;"/>
-      <el-button @click="search" type="primary">{{ translations.search }}</el-button>
-<!--      <p>当前搜索关键字: {{ searchQuery }}</p> 应该改为placeholder-->
-        </div>
+        <el-input v-model="searchQuery" @keyup.enter="search" style="width: 200px;"/>
+        <el-button @click="search" type="primary">{{ translations.search }}</el-button>
+        <!--      <p>当前搜索关键字: {{ searchQuery }}</p> 应该改为placeholder-->
+
+        <el-select v-model="selectedLanguage" @change="changeLanguage" placeholder="Select Language" class="selectbar">
+          <el-option label="English" value="en"></el-option>
+          <el-option label="中文" value="zh"></el-option>
+          <el-option label="Español" value="sp"></el-option>
+        </el-select>
+      </div>
+
+
+
     </el-aside>
   </el-container>
 </template>
 
 <style scoped>
+
+.topsidebar {
+  width: 80%;
+  height: auto;
+}
+
 .el-header {
   background-color: #f0f0f0;
-}
-.rightsidebar{
-  width:30%;
 }
 
 .el-container {
   background-color: white;
-  width:100%;
+  width: 100%;
   height: 100%;
 }
-.search-bar{
-  height:10%;
+
+.search-bar {
+  height: 10%;
+  margin-right: auto;
 }
+
 .el-main {
-  background-color: rgb(244, 247, 236);
+  //background-color: rgb(244, 247, 236);
+  background-color: white;
   padding-top: 0px;
-  width:40%;
-  height:100%;
+  width: 40%;
+  height: 100%;
   //transform: translateX(-30%)；
+}
+
+.el-main::-webkit-scrollbar {
+  display: none; /* 对 Chrome, Safari 有效 */
+}
+
+.el-menu {
+  width: 40%;
+  margin-left: auto; /* 自动推到右侧 */
+}
+
+.el-menu-item:hover {
+  background-color: white;
 }
 
 .leftsidebar {
   display: flex;
-  width: 30%;
+  width: 25%;
   height: 100%;
   //transform: translateX(10%);
 }
+
+.rightsidebar {
+  display: flex;
+  width: 35%;
+  height: 100%;
+}
+
 .el-menu-demo {
   display: flex;
   //justify-content: space-between;
   //align-items: center;
   flex-direction: column;
-  width: 100%;
+  width: 30%;
   margin: 0;
   padding: 0;
-  transform: translateX(50%);
+  transform: translateX(0);
 }
 
 .el-tabs {
@@ -357,9 +485,6 @@ const changeLanguage = () => {
   padding: 0px;
   height: auto;
 }
-
-
-
 
 
 .post-item {
@@ -390,5 +515,22 @@ const changeLanguage = () => {
 
 .float-right {
   float: right;
+}
+
+.redirection:hover {
+  background: white;
+}
+
+.tabs{
+  background: white;
+}
+
+.page{
+  background: white;
+}
+
+.selectbar{
+  margin-left: 20px;
+  width: 80px;
 }
 </style>
