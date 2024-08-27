@@ -37,7 +37,7 @@
               </el-col>
               <el-col :span="10">
                 <img :src="kaptchaSrc" id="kaptcha" style="width: 100px; height: 40px;" />
-                <a href="javascript:void(0);" @click="refreshKaptcha">刷新验证码</a>
+                <a href="javascript:void(0);" @click="refreshKaptcha" class="text3">刷新验证码</a>
               </el-col>
             </el-row>
           </el-form-item>
@@ -234,9 +234,15 @@ canvas {
 .button:hover{
   background-color: white;
 }
-.text:hover{
+
+.text1 :hover{
   background: white;
 }
+.text2 :hover{
+  background: white;
+}
+
+
 .text1{
   padding-left: 10px;
   font-size: smaller;
@@ -248,6 +254,10 @@ canvas {
   padding-left: 10px;
   font-size: smaller;
   font-weight: bold;
+}
+
+.text3 :hover{
+  background: white;
 }
 
 </style>
