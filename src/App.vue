@@ -31,5 +31,6 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+  font-family: 'PingFang SC', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }
 </style>
