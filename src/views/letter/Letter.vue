@@ -11,7 +11,7 @@
         <!-- 消息 -->
         <el-menu-item index="2">
           <!--         <router-link to="/letter">{{ translations.news }}</router-link>-->
-          <a href="/letter" class="redirection"  style="font-weight: bold">{{ translations.news }}</a>
+          <a href="/letter" class="redirection" style="font-weight: bold">{{ translations.news }}</a>
           <el-badge :value="12" class="item"/>
         </el-menu-item>
 
@@ -50,55 +50,36 @@
     </el-aside>
     <!-- 内容 -->
     <el-main>
-      <!-- 筛选条件 -->
-
-      <!--TODO-->
-      <!-- 发布弹出框 -->
-
-      <!--      <el-button @click="openPublishModal">发布新帖</el-button>-->
-
-      <!--      &lt;!&ndash; 弹出框 &ndash;&gt;-->
-      <!--      <el-dialog title="新帖发布" :visible.sync="isPublishModalVisible" width="100%">-->
-      <!--        <el-form>-->
-      <!--          <el-form-item label="标题">-->
-      <!--            <el-input placeholder="请输入标题"></el-input>-->
-      <!--          </el-form-item>-->
-      <!--          <el-form-item label="正文">-->
-      <!--            <el-input type="textarea" placeholder="请输入正文" rows="15"></el-input>-->
-      <!--          </el-form-item>-->
-      <!--        </el-form>-->
-      <!--        <div slot="footer" class="dialog-footer">-->
-      <!--          <el-button @click="isPublishModalVisible = false">取消</el-button>-->
-      <!--          <el-button type="primary" @click="publishPost">发布</el-button>-->
-      <!--        </div>-->
-      <!--      </el-dialog>-->
-
-      <!--      发帖-->
-      <el-aside class="topsidebar">
-        <postbox></postbox>
-
-      </el-aside>
 
       <el-tabs v-model="orderMode" @tab-click="handleTabClick" class="tabs">
-        <!-- <p>{{ translations.hottest }}</p>
-        <p>{{ translations.latest }}</p> -->
-
-        <!-- <el-tab-pane :label="translations.hottest" name="0"></el-tab-pane>
-        <el-tab-pane :label="translations.latest" name="1"></el-tab-pane> -->
-        <el-tab-pane :label="translations.hottest.value" name="0"></el-tab-pane>
-        <el-tab-pane :label="translations.latest.value" name="1"></el-tab-pane>
+        <el-tab-pane>
+          <template #label>
+            <router-link to="/letter" class="nav-link position-relative">
+              {{ translations.friendmessage }}
+              <el-badge v-if="letterUnreadCount != 0" :value="letterUnreadCount" class="badge badge-danger"></el-badge>
+            </router-link>
+          </template>
+        </el-tab-pane>
+        <el-tab-pane>
+          <template #label>
+            <router-link to="/notice" class="nav-link position-relative">
+              {{ translations.notification }}
+              <el-badge v-if="noticeUnreadCount != 0" :value="noticeUnreadCount" class="badge badge-danger"></el-badge>
+            </router-link>
+          </template>
+        </el-tab-pane>
       </el-tabs>
 
-      <!-- 帖子列表 -->
-      <div v-for="post in paginatedItems" :key="post.id" class="post-item">
-        <el-avatar :src="post.userAvatar"></el-avatar>
-        <div class="post-content">
-          <el-link :href="`/discuss/detail/${post.id}`" class="post-title">{{ post.title }}</el-link>
-          <div class="post-meta">
-            <span>{{ post.author }}</span> 发布于 {{ post.createTime }}
-            <div class="post-stats">
-              <el-tag>{{ translations.like }} {{ post.likeCount }}</el-tag>
-              <el-tag>{{ translations.reply }} {{ post.commentCount }}</el-tag>
+      <!-- 私信列表 -->
+      <div v-for="conversation in paginatedItems" :key="conversation.conversationId" class="conversation-card">
+        <el-avatar :src="conversation.target.headerUrl" class="conversation-avatar"></el-avatar>
+        <div class="conversation-content">
+          <el-link :href="`/letter/detail/${conversation.conversationId}`" class="conversation-title">{{ conversation.content }}</el-link>
+          <div class="conversation-meta">
+            <span class="conversation-username">{{ conversation.target.username }}</span> {{ translations.publishtime }} {{ conversation.createTime }}
+            <div class="conversation-stats">
+              <el-tag v-if="conversation.unreadCount != 0" type="danger">{{ conversation.unreadCount }}</el-tag>
+              <el-tag>{{ translations.letterCount }} {{ conversation.letterCount }}</el-tag>
             </div>
           </div>
         </div>
@@ -131,20 +112,20 @@
       </div>
 
 
-
     </el-aside>
   </el-container>
 </template>
 
 <style>
 /* 添加任何额外的样式 */
-@import "@/css/views/HomeView.css";
+@import "@/css/views/letter.css";
 </style>
 
 <script setup>
 import {useCommonTranslations} from '@/lang/i18nhelper';
 import {useI18n} from 'vue-i18n';
 import {ref} from "vue";
+
 const translations = useCommonTranslations();
 const {t, locale} = useI18n({useScope: "global"});
 const selectedLanguage = ref('zh')
@@ -152,14 +133,15 @@ const changeLanguage = () => {
   locale.value = selectedLanguage.value
 }
 
-import {searchQuery,
+import {
+  searchQuery,
   orderMode,
   page,
   paginatedItems,
   handlePageChange,
   handleTabClick,
-  search,} from '@/js/global.ts';
-
+  search,
+} from '@/js/letter.ts';
 </script>
 
 

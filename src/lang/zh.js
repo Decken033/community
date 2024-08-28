@@ -22,5 +22,8 @@ export default {
     settings: '设置',
     followees: '关注的人',
     followers: '我的粉丝',
+    notification: '系统通知',
+    publishtime: '发布于',
+    friendmessage: '好友消息',
   }
 };

@@ -22,5 +22,8 @@ export default {
     settings: 'Configuraciones',
     followees: 'Seguidos',
     followers: 'Seguidores',
+    notification:'Notificaciones del Sistema',
+    publishtime:'Publicado en',
+    friendmessage:'Mensajes de amigos',
   }
 };
