@@ -28,6 +28,9 @@ export function useCommonTranslations() {
   const settings = computed(() => t('message.settings'));
   const followees = computed(() => t('message.followees'));
   const followers = computed(() => t('message.followers'));
+  const notification = computed(() => t('message.notification'));
+  const publishtime = computed(() => t('message.publishtime'));
+  const friendmessage = computed(() => t('message.friendmessage'));
   return {
     home,
     news,
@@ -52,5 +55,8 @@ export function useCommonTranslations() {
     settings,
     followees,
     followers,
+    notification,
+    publishtime,
+    friendmessage,
   };
 }
