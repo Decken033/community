@@ -54,7 +54,8 @@ const router = createRouter({
       path:'/search',
       name:'search',
       component: () => import('@/views/search/Search.vue')
-    },  
+    },
+   
     {
       path:'/settings',
       name:'settings',
