@@ -37,7 +37,7 @@
               </el-col>
               <el-col :span="10">
                 <img :src="kaptchaSrc" id="kaptcha" style="width: 100px; height: 40px;" />
-                <a href="javascript:void(0);" @click="refreshKaptcha" class="text3">刷新验证码</a>
+                <a href="javascript:void(0);" @click="refreshKaptcha">刷新验证码</a>
               </el-col>
             </el-row>
           </el-form-item>
@@ -172,92 +172,5 @@ export default {
 
 
 <style scoped>
-.el-menu-demo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.el-aside {
-  width: 55%;
-  background-color: rgb(11, 221, 245)
-}
-
-.el-container {
-  width: 100%;
-  //background-color: transparent;
-  padding: 0%;
-  margin: 0%;
-  height: 100%;
-}
-
-canvas {
-  position: fixed;
-  inset: 0;
-
-}
-
-.el-form {
-  width: 100%;
-  max-width: 400px;
-  /* margin-top: 100px; */
-  
-  justify-content: center;
-  align-items: center;
-  margin-top: 10%;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.el-main {
-  width: 100%;
-  /* max-width: none; */
-  background-color: #dad2c0;
-  /* flex: 1;
-  align-items: flex-start;
-  justify-content: flex-start; */
-  background: transparent;
-}
-
-.logo{
-  margin-top: 0px;
-  padding-top: 0px;
-  width: 25%;
-
-  margin-left: auto;
-  margin-right: auto;
-}
-.button{
-  border: none;
-}
-.button:hover{
-  background-color: white;
-}
-
-.text1 :hover{
-  background: white;
-}
-.text2 :hover{
-  background: white;
-}
-
-
-.text1{
-  padding-left: 10px;
-  font-size: smaller;
-  margin-left: 30px;
-  font-weight: bold;
-}
-
-.text2{
-  padding-left: 10px;
-  font-size: smaller;
-  font-weight: bold;
-}
-
-.text3 :hover{
-  background: white;
-}
-
+@import "@/css/views/Register.css";
 </style>
