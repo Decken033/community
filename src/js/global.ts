@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {onMounted, onBeforeUnmount, computed, ref} from 'vue';
 import {useRouter} from "vue-router";
-// 动态设置 rem 基准值
+// 动态设置 rem 基准
 const setRem = () => {
     const baseSize = window.innerWidth / 100; // 1rem = 视窗宽度的 1/100
     document.documentElement.style.fontSize = `${baseSize}px`;
