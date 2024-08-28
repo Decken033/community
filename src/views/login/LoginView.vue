@@ -43,8 +43,8 @@
           </el-form-item>
           <el-form-item>
             <el-checkbox v-model="form.rememberMe">记住我</el-checkbox>
-            <a href="forget.html" class="text1">忘记密码?</a>
-            <a href="register.html" class="text2">注册账号</a>
+            <a @click="navigateToForget" class="text1">忘记密码?</a>
+            <a @click="navigateToRegister" class="text1">立即注册</a>
           </el-form-item>
           <el-form-item>
 <!--            修改样式加上返回按钮-->
@@ -99,7 +99,12 @@ export default {
     };
     const kaptchaSrc = ref('/kaptcha');
     const translations = useCommonTranslations();
-
+    const navigateToRegister = () => {
+      window.location.href = '/register';
+    };
+    const navigateToForget = () => {
+      window.location.href = '/forget';
+    };
     const { t, locale } = useI18n({ useScope: "global" });
     const selectedLanguage = ref('zh');
     const changeLanguage = () => {
@@ -162,6 +167,8 @@ export default {
       changeLanguage,
       handleBack,
       ParticleSidebar,
+      navigateToRegister,
+      navigateToForget,
     };
   },
 };

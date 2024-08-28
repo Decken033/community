@@ -40,9 +40,9 @@
           </div>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSubmit">立即注册</el-button>
+          <el-button  @click="handleSubmit" class="button">立即注册</el-button>
           <a href="/">
-            <el-button type="primary">返回首页</el-button>
+            <el-button  class="button">返回首页</el-button>
           </a>
 
         </el-form-item>
