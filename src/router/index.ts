@@ -55,16 +55,12 @@ const router = createRouter({
       name:'search',
       component: () => import('@/views/search/Search.vue')
     },
+   
     {
-      path:'/letter',
-      name:'letter',
-      component: () => import('@/views/letter/Letter.vue')
-    },
-    {
-      path:'/letter/detail/:id',
-      name:'letterdetail',
-      component: () => import('@/views/letter/Letterdetail.vue')
-    },
+      path:'/settings',
+      name:'settings',
+        component: () => import('@/views/settings/Settings.vue')
+    }
   ]
 });
 
