@@ -13,8 +13,10 @@ import {ref} from 'vue';
 import {useCommonTranslations} from '@/lang/i18nhelper';
 import {useI18n} from 'vue-i18n';
 import postbox from "@/views/PostBox/Postbox.vue"
-import { ElIcon, ElButton, ElMenu, ElMenuItem, ElContainer, ElHeader, ElMain } from 'element-plus'
-import { User, Key, Download, Close } from '@element-plus/icons-vue'
+import {ElIcon, ElButton, ElMenu, ElMenuItem, ElContainer, ElHeader, ElMain} from 'element-plus'
+import {User, Key, Download, Close} from '@element-plus/icons-vue'
+import axios from 'axios';
+
 
 const translations = useCommonTranslations();
 const {t, locale} = useI18n({useScope: "global"});
@@ -40,10 +42,10 @@ const search = () => {
   console.log(`Searching for: ${searchQuery.value}`);
   // Add search logic here
 };
+// const uploadLocal = () => {
+//   ElMessage.success('头像已上传至本地');
+// };
 
-const uploadLocal = () => {
-  ElMessage.success('头像已上传至本地');
-};
 
 const uploadQiniu = () => {
   ElMessage.success('头像已上传至七牛云');
@@ -64,19 +66,19 @@ const handlePreview = (file) => {
 const handleRemove = (file) => {
   console.log(file);
 };
-
-const beforeAvatarUpload = (file) => {
-  const isJPG = file.type === 'image/jpeg';
-  const isLt2M = file.size / 1024 / 1024 < 2;
-
-  if (!isJPG) {
-    ElMessage.error('上传头像图片只能是 JPG 格式!');
-  }
-  if (!isLt2M) {
-    ElMessage.error('上传头像图片大小不能超过 2MB!');
-  }
-  return isJPG && isLt2M;
-};
+//
+// const beforeAvatarUpload = (file) => {
+//   const isJPG = file.type === 'image/jpeg';
+//   const isLt2M = file.size / 1024 / 1024 < 2;
+//
+//   if (!isJPG) {
+//     ElMessage.error('上传头像图片只能是 JPG 格式!');
+//   }
+//   if (!isLt2M) {
+//     ElMessage.error('上传头像图片大小不能超过 2MB!');
+//   }
+//   return isJPG && isLt2M;
+// };
 
 const uploadData = {
   token: 'your-upload-token',
@@ -96,8 +98,59 @@ const deactivateAccount = () => {
   console.log('Deactivate account clicked')
 }
 
+//默认头像
+// const avatarUrl = ref('/images/avatar.png');
 
+
+//上传图片
+// 响应式变量，用于存储图片URL和文件信息
+const avatarUrl = ref('');
+const selectedFile = ref(null);
+const imageSelected = ref(false); // 是否已选择图片的标志
+
+// 处理选择的文件
+const handleFileChange = (file) => {
+  const isImage = file.raw.type.startsWith('image/');
+  if (isImage) {
+    avatarUrl.value = URL.createObjectURL(file.raw);
+    selectedFile.value = file.raw;
+    imageSelected.value = true;
+  } else {
+    ElMessage.error('请选择有效的图片文件');
+  }
+};
+
+// 上传前的校验
+const beforeAvatarUpload = (file) => {
+  const isImage = file.type.startsWith('image/');
+  if (!isImage) {
+    ElMessage.error('上传的文件必须是图片!');
+    return false;
+  }
+  return true;
+};
+
+// 手动上传图片的处理
+const uploadLocal = async () => {
+  if (!selectedFile.value) {
+    ElMessage.error('请先选择一张图片');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('file', selectedFile.value);
+
+  try {
+    const response = await axios.post('/user/upload', formData);
+    ElMessage.success('图片上传成功');
+    // 假设服务器返回图片的URL
+    avatarUrl.value = response.data.imageUrl;
+  } catch (error) {
+    ElMessage.error('图片上传失败');
+  }
+};
 </script>
+
 
 <template>
   <el-container>
@@ -152,24 +205,65 @@ const deactivateAccount = () => {
 
     <!-- 内容 -->
     <el-main>
+      <el-container class="main-container">
+        <!-- 上传头像 -->
+        <!--        <h6 class="text-left text-info border-bottom pb-2">上传头像</h6>-->
+
+        <el-form class="main-form1" @submit.prevent="uploadLocal">
+          <el-avatar :src="avatarUrl" size="large" shape="circle" icon="el-icon-user"/>
+
+          <el-form-item>
+            <el-upload
+                class="upload-demo"
+                :show-file-list="false"
+                :on-change="handleFileChange"
+                :before-upload="beforeAvatarUpload"
+            >
+              <el-button size="small" type="primary">选择一张图片进行上传</el-button>
+            </el-upload>
+          </el-form-item>
+
+          <el-form-item>
+            <el-button type="info" native-type="submit" :disabled="!imageSelected">立即上传</el-button>
+          </el-form-item>
+        </el-form>
 
 
-      <el-menu
-          default-active="1"
-          class="el-menu-vertical-demo"
-          background-color="#fff"
-          text-color="#545c64"
-          active-text-color="#ffd04b">
-        <el-menu-item index="1">Your account</el-menu-item>
-        <el-menu-item index="2">Monetization</el-menu-item>
-        <el-menu-item index="3">Premium</el-menu-item>
-        <el-menu-item index="4">Security and account access</el-menu-item>
-        <el-menu-item index="5">Privacy and safety</el-menu-item>
-        <el-menu-item index="6">Notifications</el-menu-item>
-        <el-menu-item index="7">Accessibility, display, and languages</el-menu-item>
-        <el-menu-item index="8">Additional resources</el-menu-item>
-        <el-menu-item index="9">Help Center</el-menu-item>
-      </el-menu>
+        <!-- 修改密码 -->
+
+        <el-form class="main-form3" @submit.prevent="changePassword">
+          <el-form-item label="原密码" label-width="100px">
+            <el-input v-model="password.oldPassword" type="password" placeholder="请输入原始密码!" required></el-input>
+          </el-form-item>
+          <el-form-item label="新密码" label-width="100px">
+            <el-input v-model="password.newPassword" type="password" placeholder="请输入新的密码!" required></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" label-width="100px">
+            <el-input v-model="password.confirmPassword" type="password" placeholder="再次输入新密码!"
+                      required></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="info" class="el-sub-menu" native-type="submit">立即保存</el-button>
+          </el-form-item>
+        </el-form>
+      </el-container>
+
+      <!--      <el-menu-->
+      <!--          default-active="1"-->
+      <!--          class="el-menu-vertical-demo"-->
+      <!--          background-color="#fff"-->
+      <!--          text-color="#545c64"-->
+      <!--          active-text-color="#ffd04b">-->
+      <!--        <el-menu-item index="1">Your account</el-menu-item>-->
+      <!--        <el-menu-item index="2">Monetization</el-menu-item>-->
+      <!--        <el-menu-item index="3">Premium</el-menu-item>-->
+      <!--        <el-menu-item index="4">Security and account access</el-menu-item>-->
+      <!--        <el-menu-item index="5">Privacy and safety</el-menu-item>-->
+      <!--        <el-menu-item index="6">Notifications</el-menu-item>-->
+      <!--        <el-menu-item index="7">Accessibility, display, and languages</el-menu-item>-->
+      <!--        <el-menu-item index="8">Additional resources</el-menu-item>-->
+      <!--        <el-menu-item index="9">Help Center</el-menu-item>-->
+      <!--      </el-menu>-->
 
     </el-main>
 
@@ -187,71 +281,29 @@ const deactivateAccount = () => {
         </el-select>
 
 
-<!--        <el-menu class="account-menu">-->
-<!--          <el-menu-item>-->
-<!--            <el-icon><el-icon-user /></el-icon>-->
-<!--            <span>Account information</span>-->
-<!--            <el-button type="text" @click="showAccountInfo">See your account information like your phone number and email address.</el-button>-->
-<!--          </el-menu-item>-->
-<!--          <el-menu-item>-->
-<!--            <el-icon><el-icon-key /></el-icon>-->
-<!--            <span>Change your password</span>-->
-<!--            <el-button type="text" @click="changePassword">Change your password at any time.</el-button>-->
-<!--          </el-menu-item>-->
-<!--          <el-menu-item>-->
-<!--            <el-icon><el-icon-download /></el-icon>-->
-<!--            <span>Download an archive of your data</span>-->
-<!--            <el-button type="text" @click="downloadData">Get insights into the type of information stored for your account.</el-button>-->
-<!--          </el-menu-item>-->
-<!--          <el-menu-item>-->
-<!--            <el-icon><el-icon-close /></el-icon>-->
-<!--            <span>Deactivate your account</span>-->
-<!--            <el-button type="text" @click="deactivateAccount">Find out how you can deactivate your account.</el-button>-->
-<!--          </el-menu-item>-->
-<!--        </el-menu>-->
+        <!--        <el-menu class="account-menu">-->
+        <!--          <el-menu-item>-->
+        <!--            <el-icon><el-icon-user /></el-icon>-->
+        <!--            <span>Account information</span>-->
+        <!--            <el-button type="text" @click="showAccountInfo">See your account information like your phone number and email address.</el-button>-->
+        <!--          </el-menu-item>-->
+        <!--          <el-menu-item>-->
+        <!--            <el-icon><el-icon-key /></el-icon>-->
+        <!--            <span>Change your password</span>-->
+        <!--            <el-button type="text" @click="changePassword">Change your password at any time.</el-button>-->
+        <!--          </el-menu-item>-->
+        <!--          <el-menu-item>-->
+        <!--            <el-icon><el-icon-download /></el-icon>-->
+        <!--            <span>Download an archive of your data</span>-->
+        <!--            <el-button type="text" @click="downloadData">Get insights into the type of information stored for your account.</el-button>-->
+        <!--          </el-menu-item>-->
+        <!--          <el-menu-item>-->
+        <!--            <el-icon><el-icon-close /></el-icon>-->
+        <!--            <span>Deactivate your account</span>-->
+        <!--            <el-button type="text" @click="deactivateAccount">Find out how you can deactivate your account.</el-button>-->
+        <!--          </el-menu-item>-->
+        <!--        </el-menu>-->
 
-
-
-              <el-container class="main-container">
-                <!-- 上传头像 -->
-        <!--        <h6 class="text-left text-info border-bottom pb-2">上传头像</h6>-->
-
-                <!-- 上传到本地 -->
-                <el-form class="main-form1" @submit.prevent="uploadLocal">
-                  <el-form-item label="选择头像" label-width="100px">
-                    <el-upload
-                        class="upload-demo"
-                        action="/user/upload"
-                        :on-preview="handlePreview"
-                        :on-remove="handleRemove"
-                        :before-upload="beforeAvatarUpload"
-                    >
-                      <el-button size="small" type="primary">选择一张图片</el-button>
-                    </el-upload>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button type="info" native-type="submit">立即上传</el-button>
-                  </el-form-item>
-                </el-form>
-
-
-                <!-- 修改密码 -->
-
-                <el-form class="main-form3" @submit.prevent="changePassword">
-                  <el-form-item label="原密码" label-width="100px">
-                    <el-input v-model="password.oldPassword" type="password" placeholder="请输入原始密码!" required></el-input>
-                  </el-form-item>
-                  <el-form-item label="新密码" label-width="100px">
-                    <el-input v-model="password.newPassword" type="password" placeholder="请输入新的密码!" required></el-input>
-                  </el-form-item>
-                  <el-form-item label="确认密码" label-width="100px">
-                    <el-input v-model="password.confirmPassword" type="password" placeholder="再次输入新密码!" required></el-input>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button type="info" class="el-sub-menu" native-type="submit">立即保存</el-button>
-                  </el-form-item>
-                </el-form>
-              </el-container>
 
       </div>
 
