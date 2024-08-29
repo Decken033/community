@@ -26,5 +26,15 @@ export default {
     publishtime:'Publicado en',
     friendmessage:'Mensajes de amigos',
     videochat:'Chat de video',
+    from: "De",
+    privateMessage: "Mensaje Privado",
+    back: "Volver",
+    sendMessageTo: "Enviar Mensaje a",
+    cancel: "Cancelar",
+    send: "Enviar",
+    sendTo: "Enviar a",
+    content: "Contenido",
+    hint: "Aviso",
+    sentSuccessfully: "¡Enviado con éxito!"
   }
 };

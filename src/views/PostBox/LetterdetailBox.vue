@@ -9,12 +9,6 @@
         show-word-limit
     ></el-input>
     <div class="tweet-actions">
-      <div class="icons">
-        <el-icon><Picture></Picture></el-icon>
-        <el-icon><video-camera></video-camera></el-icon>
-        <el-icon><calendar></calendar></el-icon>
-        <el-icon><location></location></el-icon>
-      </div>
       <el-button type="primary" :disabled="!tweetContent" @click="postTweet">
         Post
       </el-button>
