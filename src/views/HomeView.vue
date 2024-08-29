@@ -66,7 +66,7 @@ const changeLanguage = () => {
         <!-- 视频聊天 -->
         <el-menu-item index="7">
           <!--         <router-link to="/settings">视频聊天</router-link>-->
-          <a href="/" class="redirection" style="font-weight: bold">视频聊天</a>
+          <a href="/" class="redirection" style="font-weight: bold">{{translations.videochat}}</a>
         </el-menu-item>
 
       </el-menu>
@@ -120,7 +120,7 @@ const changeLanguage = () => {
         <div class="post-content">
           <el-link :href="`/discuss/detail/${post.id}`" class="post-title">{{ post.title }}</el-link>
           <div class="post-meta">
-            <span>{{ post.author }}</span> 发布于 {{ post.createTime }}
+            <span>{{ post.author }}</span> {{translations.publishtime}} {{ post.createTime }}
             <div class="post-stats">
               <el-tag>{{ translations.like }} {{ post.likeCount }}</el-tag>
               <el-tag>{{ translations.reply }} {{ post.commentCount }}</el-tag>

@@ -25,7 +25,7 @@ const router = createRouter({
       component: () => import('@/views/letter/Letter.vue')
     },
     {
-      path: '/letterdetail/:id',
+      path: '/letter/detail/:id',
       name: 'letterdetail',
       component: () => import('@/views/letter/Letterdetail.vue')
     },

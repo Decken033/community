@@ -31,6 +31,7 @@ export function useCommonTranslations() {
   const notification = computed(() => t('message.notification'));
   const publishtime = computed(() => t('message.publishtime'));
   const friendmessage = computed(() => t('message.friendmessage'));
+  const videochat = computed(() => t('message.videochat'));
   return {
     home,
     news,
@@ -58,5 +59,6 @@ export function useCommonTranslations() {
     notification,
     publishtime,
     friendmessage,
+    videochat,
   };
 }

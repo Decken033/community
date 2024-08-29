@@ -25,5 +25,6 @@ export default {
     notification: '系统通知',
     publishtime: '发布于',
     friendmessage: '好友消息',
+    videochat: '视频聊天',
   }
 };

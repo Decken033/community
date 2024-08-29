@@ -173,14 +173,6 @@ const paginatedItems = computed(() => {
 // 处理分页变化
 const handlePageChange = (newPage: number) => {
     page.value.current = newPage;
-    // 在这里你可以根据新的页码请求数据
-
-    // 示例 API 请求
-    // const response = await fetch(`/api/items?page=${newPage}&pageSize=${page.value.pageSize}`);
-    // const data = await response.json();
-
-    // posts.value = data.items;
-    // page.value.total = data.total;
 };
 
 // 定义 handleTabClick 函数

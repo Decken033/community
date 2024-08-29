@@ -25,5 +25,6 @@ export default {
     notification: 'System Notification',
     publishtime: 'Published at',
     friendmessage: 'Friend Message',
+    videochat: 'Video Chat',
   }
 };
