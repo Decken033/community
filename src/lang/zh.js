@@ -35,6 +35,17 @@ export default {
     sendTo: "发给",
     content: "内容",
     hint: "提示",
-    sentSuccessfully: "发送完毕!"
+    sentSuccessfully: "发送完毕!",
+    nickname: '昵称',
+    enterNickname: '输入昵称',
+    originalPassword: '原密码',
+    enterOriginalPassword: '输入原密码',
+    newPassword: '新密码',
+    enterNewPassword: '输入新密码',
+    confirmPassword: '确认密码',
+    enterConfirmPassword: '确认密码',
+    seletcAvatar: '选择头像',
+    uploadnow: '立即上传',
+
   }
 };

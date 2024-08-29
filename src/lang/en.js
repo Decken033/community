@@ -36,5 +36,15 @@ export default {
     content: "Content",
     hint: "Hint",
     sentSuccessfully: "Sent Successfully!",
+    nickname: 'Nickname',
+    enterNickname: 'Enter Nickname',
+    originalPassword: 'Original',
+    enterOriginalPassword: 'EnterOriginal Password',
+    newPassword: 'New',
+    enterNewPassword: 'enter New Password',
+    confirmPassword: 'Confirm',
+    enterConfirmPassword: 'enterConfirm',
+    seletcAvatar: 'Select Avatar',
+    uploadnow: 'Upload Now',
   }
 };
