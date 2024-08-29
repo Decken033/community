@@ -35,7 +35,7 @@ export default {
     sendTo: "发给",
     content: "内容",
     hint: "提示",
-    sentSuccessfully: "发送完毕!"
+    sentSuccessfully: "发送完毕!",
     nickname: '昵称',
     enterNickname: '输入昵称',
     originalPassword: '原密码',

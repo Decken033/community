@@ -35,7 +35,7 @@ export default {
     sendTo: "Enviar a",
     content: "Contenido",
     hint: "Aviso",
-    sentSuccessfully: "¡Enviado con éxito!"
+    sentSuccessfully: "¡Enviado con éxito!",
     nickname:'Apodo',
     enterNickname:'Ingrese apodo',
     originalPassword:'Contraseña original',
