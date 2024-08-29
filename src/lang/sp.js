@@ -36,5 +36,15 @@ export default {
     content: "Contenido",
     hint: "Aviso",
     sentSuccessfully: "¡Enviado con éxito!"
+    nickname:'Apodo',
+    enterNickname:'Ingrese apodo',
+    originalPassword:'Contraseña original',
+    enterOriginalPassword:'Ingrese contraseña original',
+    newPassword:'Nueva contraseña',
+    enterNewPassword:'Ingresenueva',
+    confirmPassword:'Confirmar',
+    enterConfirmPassword:'confirmar',
+    seletcAvatar:'Seleccionar Avatar',
+    uploadnow:'Subir ahora',
   }
 };
