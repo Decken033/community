@@ -98,8 +98,7 @@ const deactivateAccount = () => {
   console.log('Deactivate account clicked')
 }
 
-//默认头像
-// const avatarUrl = ref('/images/avatar.png');
+
 
 
 //上传图片
@@ -149,6 +148,28 @@ const uploadLocal = async () => {
     ElMessage.error('图片上传失败');
   }
 };
+
+
+//修改昵称
+const nickname = ref('');
+const changeNickname = async () => {
+  try {
+    // Assuming you have an API endpoint to update the nickname
+    const response = await axios.post('/api/change-nickname', {
+      nickname: nickname.value,
+    });
+
+    if (response.status === 200) {
+      ElMessage.success('昵称已修改');
+    } else {
+      ElMessage.error('修改昵称失败');
+    }
+  } catch (error) {
+    ElMessage.error('修改昵称时出错');
+    console.error('Error changing nickname:', error);
+  }
+};
+
 </script>
 
 
@@ -206,46 +227,35 @@ const uploadLocal = async () => {
     <!-- 内容 -->
     <el-main>
       <el-container class="main-container">
-        <!-- 上传头像 -->
-        <!--        <h6 class="text-left text-info border-bottom pb-2">上传头像</h6>-->
 
-        <el-form class="main-form1" @submit.prevent="uploadLocal">
-          <el-avatar :src="avatarUrl" size="large" shape="circle" icon="el-icon-user"/>
 
-          <el-form-item>
-            <el-upload
-                class="upload-demo"
-                :show-file-list="false"
-                :on-change="handleFileChange"
-                :before-upload="beforeAvatarUpload"
-            >
-              <el-button size="small" type="primary">选择一张图片进行上传</el-button>
-            </el-upload>
+        <el-form class="form-changenickname" @submit.prevent="changeNickname">
+          <el-form-item :label="translations.nickname.value" label-width="100px">
+            <el-input v-model="nickname" :placeholder="translations.enterNickname.value" required></el-input>
           </el-form-item>
-
           <el-form-item>
-            <el-button type="info" native-type="submit" :disabled="!imageSelected">立即上传</el-button>
+            <el-button type="primary" class="el-sub-menu" native-type="submit"> {{translations.uploadnow}}  </el-button>
           </el-form-item>
         </el-form>
-
 
         <!-- 修改密码 -->
 
         <el-form class="main-form3" @submit.prevent="changePassword">
-          <el-form-item label="原密码" label-width="100px">
-            <el-input v-model="password.oldPassword" type="password" placeholder="请输入原始密码!" required></el-input>
+          <el-form-item :label=translations.originalPassword.value label-width="100px">
+            <el-input v-model="password.oldPassword" type="password" :placeholder=translations.enterPassword.value required></el-input>
           </el-form-item>
-          <el-form-item label="新密码" label-width="100px">
-            <el-input v-model="password.newPassword" type="password" placeholder="请输入新的密码!" required></el-input>
+          <el-form-item :label=translations.newPassword.value label-width="100px">
+            <el-input v-model="password.newPassword" type="password" :placeholder=translations.enterNewPassword.value required></el-input>
           </el-form-item>
-          <el-form-item label="确认密码" label-width="100px">
-            <el-input v-model="password.confirmPassword" type="password" placeholder="再次输入新密码!"
+          <el-form-item :label=translations.enterConfirmPassword.value label-width="100px">
+            <el-input v-model="password.confirmPassword" type="password" :placeholder=translations.enterConfirmPassword.value
                       required></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="info" class="el-sub-menu" native-type="submit">立即保存</el-button>
+            <el-button type="info" class="el-sub-menu" native-type="submit">{{translations.uploadnow}}</el-button>
           </el-form-item>
         </el-form>
+
       </el-container>
 
       <!--      <el-menu-->
@@ -281,6 +291,20 @@ const uploadLocal = async () => {
         </el-select>
 
 
+          <el-avatar :src="avatarUrl" size="large" shape="circle" icon="el-icon-user"/>
+<!--        <el-form class="main-form1" @submit.prevent="uploadLocal">-->
+            <el-upload
+                class="upload-demo"
+                :show-file-list="false"
+                :on-change="handleFileChange"
+                :before-upload="beforeAvatarUpload"
+            >
+              <el-button size="small" class="selectpicture"   type="primary">{{ translations.seletcAvatar }}</el-button>
+            </el-upload>
+<!--          <el-form-item>-->
+            <el-button type="primary" class="uploadnow"   native-type="submit" :disabled="!imageSelected">{{ translations.uploadnow }}</el-button>
+<!--          </el-form-item>-->
+<!--        </el-form>-->
         <!--        <el-menu class="account-menu">-->
         <!--          <el-menu-item>-->
         <!--            <el-icon><el-icon-user /></el-icon>-->

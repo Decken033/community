@@ -25,5 +25,15 @@ export default {
     notification: 'System Notification',
     publishtime: 'Published at',
     friendmessage: 'Friend Message',
+    nickname: 'Nickname',
+    enterNickname: 'Enter Nickname',
+    originalPassword: 'Original',
+    enterOriginalPassword: 'EnterOriginal Password',
+    newPassword: 'New',
+    enterNewPassword: 'enter New Password',
+    confirmPassword: 'Confirm',
+    enterConfirmPassword: 'enterConfirm',
+    seletcAvatar: 'Select Avatar',
+    uploadnow: 'Upload Now',
   }
 };

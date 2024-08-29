@@ -25,5 +25,15 @@ export default {
     notification:'Notificaciones del Sistema',
     publishtime:'Publicado en',
     friendmessage:'Mensajes de amigos',
+    nickname:'Apodo',
+    enterNickname:'Ingrese apodo',
+    originalPassword:'Contraseña original',
+    enterOriginalPassword:'Ingrese contraseña original',
+    newPassword:'Nueva contraseña',
+    enterNewPassword:'Ingresenueva',
+    confirmPassword:'Confirmar',
+    enterConfirmPassword:'confirmar',
+    seletcAvatar:'Seleccionar Avatar',
+    uploadnow:'Subir ahora',
   }
 };

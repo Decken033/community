@@ -25,5 +25,16 @@ export default {
     notification: '系统通知',
     publishtime: '发布于',
     friendmessage: '好友消息',
+    nickname: '昵称',
+    enterNickname: '输入昵称',
+    originalPassword: '原密码',
+    enterOriginalPassword: '输入原密码',
+    newPassword: '新密码',
+    enterNewPassword: '输入新密码',
+    confirmPassword: '确认密码',
+    enterConfirmPassword: '确认密码',
+    seletcAvatar: '选择头像',
+    uploadnow: '立即上传',
+
   }
 };
