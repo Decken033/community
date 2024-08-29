@@ -25,5 +25,16 @@ export default {
     notification: 'System Notification',
     publishtime: 'Published at',
     friendmessage: 'Friend Message',
+    videochat: 'Video Chat',
+    from: "From",
+    privateMessage: "Private Message",
+    back: "Back",
+    sendMessageTo: "Send Message to",
+    cancel: "Cancel",
+    send: "Send",
+    sendTo: "Send to",
+    content: "Content",
+    hint: "Hint",
+    sentSuccessfully: "Sent Successfully!",
   }
 };

@@ -51,6 +51,7 @@
 .rightsidebar {
     display: flex;
     width: 35%;
+    flex-direction: column;
     height: 100%;
 }
 
@@ -66,12 +67,14 @@
 }
 
 .el-tabs {
-    width: 300px;
+    width: 100%;
     max-width: 100%;
 
     margin-top: auto;
     margin-bottom: auto;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding-top: 0;
     padding: 0px;
     height: auto;
@@ -80,13 +83,15 @@
 
 .post-item {
     display: flex;
-    align-items: center;
     width:100%;
+    align-items: center;
     margin-bottom: 20px;
+
 }
 
 .post-content {
     margin-left: 10px;
+    width: 100%;
 }
 
 .post-title {
@@ -124,4 +129,85 @@
 .selectbar{
     margin-left: 20px;
     width: 80px;
+}
+
+.conversation-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.conversation-avatar {
+    margin-right: 15px;
+}
+
+.conversation-content {
+    flex: 1;
+}
+
+.conversation-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.conversation-meta {
+    margin-top: 5px;
+    color: #666;
+}
+
+.conversation-username {
+    font-weight: bold;
+    color: #333;
+}
+
+.conversation-stats {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.tweet-box {
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+//margin-top:50px;
+    justify-content: center;
+}
+
+.el-input__inner {
+    background-color: #192734;
+    color: #fff;
+    border: none;
+}
+
+.el-input__inner::placeholder {
+    color: #8899a6;
+}
+
+.tweet-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.icons {
+    display: flex;
+    gap: 16px;
+    color: #1DA1F2;
+}
+
+.el-button--primary {
+    background-color: #1DA1F2;
+    border-color: #1DA1F2;
+}
+
+.el-button--primary.is-disabled {
+    background-color: #1da1f280; /* 禁用时的颜色 */
+    border-color: #1da1f280;
 }

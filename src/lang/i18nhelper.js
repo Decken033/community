@@ -31,6 +31,17 @@ export function useCommonTranslations() {
   const notification = computed(() => t('message.notification'));
   const publishtime = computed(() => t('message.publishtime'));
   const friendmessage = computed(() => t('message.friendmessage'));
+  const videochat = computed(() => t('message.videochat'));
+  const from = computed(() => t('message.from'));
+  const privateMessage = computed(() => t('message.privateMessage'));
+  const back = computed(() => t('message.back'));
+  const sendMessageTo = computed(() => t('message.sendMessageTo'));
+  const cancel = computed(() => t('message.cancel'));
+  const send = computed(() => t('message.send'));
+  const sendTo = computed(() => t('message.sendTo'));
+  const content = computed(() => t('message.content'));
+  const hint = computed(() => t('message.hint'));
+  const sentSuccessfully = computed(() => t('message.sentSuccessfully'));
   return {
     home,
     news,
@@ -58,5 +69,16 @@ export function useCommonTranslations() {
     notification,
     publishtime,
     friendmessage,
+    videochat,
+    from,
+    privateMessage,
+    back,
+    sendMessageTo,
+    cancel,
+    send,
+    sendTo,
+    content,
+    hint,
+    sentSuccessfully
   };
 }

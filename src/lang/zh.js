@@ -25,5 +25,16 @@ export default {
     notification: '系统通知',
     publishtime: '发布于',
     friendmessage: '好友消息',
+    videochat: '视频聊天',
+    from: "来自",
+    privateMessage: "私信",
+    back: "返回",
+    sendMessageTo: "给TA私信",
+    cancel: "取消",
+    send: "发送",
+    sendTo: "发给",
+    content: "内容",
+    hint: "提示",
+    sentSuccessfully: "发送完毕!"
   }
 };
