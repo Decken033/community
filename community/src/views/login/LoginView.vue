@@ -25,8 +25,8 @@
                 <el-input v-model="form.code" placeholder="请输入验证码"></el-input>
               </el-col>
               <el-col :span="10">
-                <img :src="kaptchaSrc" id="kaptcha" style="width: 100px; height: 40px;"/>
-                <a href="javascript:void(0);" @click="refreshKaptcha">刷新验证码</a>
+                <img :src="img" style="width: 100px; height: 40px;"/>
+                <a @click="refreshKaptcha">刷新验证码</a>
               </el-col>
             </el-row>
           </el-form-item>
@@ -55,12 +55,17 @@ const form = ref({
   code: '',
   rememberMe: false,
 });
+//验证码url
+const img = ref('');
 
 
-
-const loginForm = ref(null);
-const refreshKaptcha = () => {
-  // kaptchaSrc.value = `/kaptcha?${new Date().getTime()}`;
+//验证码接口和登录接口
+import api from "@/api/api.ts";
+import {ElMessage} from "element-plus";
+const refreshKaptcha = async () => {
+  const response = await fetch(api.user.verifycode);
+  const data = await response.json();
+  img.value = data.img;
 };
 const handleSubmit = async() => {
     const response = await fetch(api.user.login, {
@@ -71,37 +76,24 @@ const handleSubmit = async() => {
       body: JSON.stringify({
         username: username.value,
         password: password.value,
+        code: code.value,
+        rememberMe: rememberMe.value,
       }),
     });
     const data = await response.json();
     console.log(data)
-    if(data.code==0){
-      // 跳转
-      if(data.data.type==1){
-        router.push('/home');
-      }
-      if(data.data.type==0){
-        router.push('/home');
-      }
-
-
+    if(data.status==0){
+      //正确
+      router.push('/');
+    }else if(data.status==1){
+      //验证码错误
+      ElMessage.error('验证码错误');
     }else{
-      alert(data.message)
+      //账号密码错误
+      ElMessage.error('账号密码错误');
     }
-  };
-
-const postData = () => {
-  // axios
-  //     .post('/login', form.value)
-  //     .then((response) => {
-  //       console.log("登录成功");
-  //       ElMessage.success(t('message.loginSuccess'));
-  //     })
-  //     .catch((error) => {
-  //       console.error('登录失败:', error);
-  //       ElMessage.error(t('message.loginFailed'));
-  //     });
 };
+
 
 
 //加入返回按钮

@@ -4,8 +4,10 @@ const ip = 'http://localhost:8080/';
 export default {
     user:{
         login:ip+'login',
+        verifycode:ip+'verifycode',
         header:ip+'header',
-        uploadavatar:ip+'uploadavatar',
+        uploadavatar:ip+'uploadavatar'
+
     },
     school:{
         addschool:ip+'school/addschool',
