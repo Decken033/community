@@ -49,7 +49,7 @@ export default defineComponent({
         });
         const data = await response.json();
         console.log(data)
-        if(data.code==0){
+        if(data.state==0){
           // 跳转
           if(data.data.type==1){
             router.push('/home');

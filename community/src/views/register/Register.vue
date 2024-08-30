@@ -5,7 +5,7 @@
 
     <!-- 侧边栏 -->
     <el-aside>
-      <ParticleSidebar v-if="isLoaded"/>
+<!--      <ParticleSidebar v-if="isLoaded"/>-->
     </el-aside>
 
     <!-- 内容 -->
@@ -46,7 +46,6 @@
 
 <script setup lang="ts">
 import {ref} from 'vue';
-import axios from 'axios';
 import {ElMessage} from 'element-plus';
 
 
@@ -100,7 +99,6 @@ import router from "@/router/index.ts";
 const handleBack = () => {
   router.push('/');
 };
-
 
 
 //翻译

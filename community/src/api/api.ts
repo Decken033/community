@@ -1,9 +1,10 @@
 // api-config.js
-const ip = 'http://localhost:5000/';
+const ip = 'http://localhost:8080/';
 
 export default {
     user:{
         login:ip+'login',
+        verifycode:ip+'verifycode',
     },
     school:{
         addschool:ip+'school/addschool',
