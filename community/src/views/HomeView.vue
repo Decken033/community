@@ -1,51 +1,6 @@
 <template>
   <el-container>
     <el-aside class="leftsidebar">
-<!--      <el-menu type="flex">-->
-<!--        &lt;!&ndash; 首页 &ndash;&gt;-->
-<!--        <el-menu-item index="1">-->
-<!--          &lt;!&ndash;         <router-link to="/">{{ translations.home }}</router-link>&ndash;&gt;-->
-<!--          <a href="/" class="redirection" style="font-weight: bold">{{ translations.home }}</a>-->
-<!--        </el-menu-item>-->
-
-<!--        &lt;!&ndash; 消息 &ndash;&gt;-->
-<!--        <el-menu-item index="2">-->
-<!--          &lt;!&ndash;         <router-link to="/letter">{{ translations.news }}</router-link>&ndash;&gt;-->
-<!--          <a href="/letter" class="redirection" style="font-weight: bold">{{ translations.news }}</a>-->
-<!--          <el-badge :value="12" class="item"/>-->
-<!--        </el-menu-item>-->
-
-<!--        &lt;!&ndash; 注册 &ndash;&gt;-->
-<!--        <el-menu-item index="3">-->
-<!--          &lt;!&ndash;         <router-link to="/register">{{ translations.register }}</router-link>&ndash;&gt;-->
-<!--          <a href="/register" class="redirection" style="font-weight: bold">{{ translations.register }}</a>-->
-<!--        </el-menu-item>-->
-
-<!--        &lt;!&ndash; 登录 &ndash;&gt;-->
-<!--        <el-menu-item index="4">-->
-<!--          &lt;!&ndash;         <router-link to="/login">{{ translations.login }}</router-link>&ndash;&gt;-->
-<!--          <a href="/login" class="redirection" style="font-weight: bold">{{ translations.login }}</a>-->
-<!--        </el-menu-item>-->
-
-<!--        &lt;!&ndash; 个人主页 &ndash;&gt;-->
-<!--        <el-menu-item index="5">-->
-<!--          &lt;!&ndash;         <router-link to="/profile">{{ translations.profile }}</router-link>&ndash;&gt;-->
-<!--          <a href="/profile" class="redirection" style="font-weight: bold">{{ translations.profile }}</a>-->
-<!--        </el-menu-item>-->
-
-<!--        &lt;!&ndash; 账号设置 &ndash;&gt;-->
-<!--        <el-menu-item index="6">-->
-<!--          &lt;!&ndash;         <router-link to="/settings">{{ translations.settings }}</router-link>&ndash;&gt;-->
-<!--          <a href="/settings" class="redirection" style="font-weight: bold">{{ translations.settings }}</a>-->
-<!--        </el-menu-item>-->
-
-<!--        &lt;!&ndash; 视频聊天 &ndash;&gt;-->
-<!--        <el-menu-item index="7">-->
-<!--          &lt;!&ndash;         <router-link to="/settings">视频聊天</router-link>&ndash;&gt;-->
-<!--          <a href="/" class="redirection" style="font-weight: bold">{{translations.videochat}}</a>-->
-<!--        </el-menu-item>-->
-
-<!--      </el-menu>-->
         <Leftsidebar></Leftsidebar>
     </el-aside>
 
