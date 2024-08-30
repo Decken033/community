@@ -5,6 +5,9 @@ export default {
     user:{
         login:ip+'login',
         verifycode:ip+'verifycode',
+        header:ip+'header',
+        uploadavatar:ip+'uploadavatar'
+
     },
     school:{
         addschool:ip+'school/addschool',
