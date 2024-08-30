@@ -47,10 +47,9 @@
 </template>
 
 <script setup lang="ts">
-import {useRouter}  from "vue-router";
+import router  from "@/router/index.ts";
 import {useCommonTranslations} from '@/lang/i18nhelper';
 const translations = useCommonTranslations();
-const router = useRouter();
 const navigateToHome = () => {
   router.push('/');
 };
