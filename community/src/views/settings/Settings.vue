@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import {
   searchQuery,
   orderMode,
@@ -9,13 +9,15 @@ import {
   search,
 } from '@/js/global.ts';
 
-import {ref} from 'vue';
+import {ref, onMounted} from 'vue';
 import {useCommonTranslations} from '@/lang/i18nhelper';
 import {useI18n} from 'vue-i18n';
 import postbox from "@/views/PostBox/Postbox.vue"
 import {ElIcon, ElButton, ElMenu, ElMenuItem, ElContainer, ElHeader, ElMain} from 'element-plus'
 import {User, Key, Download, Close} from '@element-plus/icons-vue'
 import axios from 'axios';
+import api from '@/api/api.ts';
+import defaultAvatar from '@/images/logo.jpg';
 
 
 const translations = useCommonTranslations();
@@ -40,11 +42,8 @@ const goToPage = (path) => {
 
 const search = () => {
   console.log(`Searching for: ${searchQuery.value}`);
-  // Add search logic here
 };
-// const uploadLocal = () => {
-//   ElMessage.success('头像已上传至本地');
-// };
+
 
 
 const uploadQiniu = () => {
@@ -66,19 +65,6 @@ const handlePreview = (file) => {
 const handleRemove = (file) => {
   console.log(file);
 };
-//
-// const beforeAvatarUpload = (file) => {
-//   const isJPG = file.type === 'image/jpeg';
-//   const isLt2M = file.size / 1024 / 1024 < 2;
-//
-//   if (!isJPG) {
-//     ElMessage.error('上传头像图片只能是 JPG 格式!');
-//   }
-//   if (!isLt2M) {
-//     ElMessage.error('上传头像图片大小不能超过 2MB!');
-//   }
-//   return isJPG && isLt2M;
-// };
 
 const uploadData = {
   token: 'your-upload-token',
@@ -102,10 +88,28 @@ const deactivateAccount = () => {
 
 
 //上传图片
-// 响应式变量，用于存储图片URL和文件信息
+
 const avatarUrl = ref('');
 const selectedFile = ref(null);
 const imageSelected = ref(false); // 是否已选择图片的标志
+
+
+// 获取初始头像数据
+onMounted(async () => {
+  try {
+    const response = await fetch(api.user.header); // API 返回头像 URL
+    if (response.ok) {
+      const data = await response.json();
+      avatarUrl.value = data.avatarUrl || defaultAvatar;// 默认头像路径
+    } else {
+      avatarUrl.value = defaultAvatar;
+    }
+  } catch (error) {
+    avatarUrl.value = defaultAvatar;
+  }
+});
+
+
 
 // 处理选择的文件
 const handleFileChange = (file) => {
@@ -129,25 +133,34 @@ const beforeAvatarUpload = (file) => {
   return true;
 };
 
-// 手动上传图片的处理
-const uploadLocal = async () => {
+//立即上传图片
+async function uploadImagenow() {
   if (!selectedFile.value) {
-    ElMessage.error('请先选择一张图片');
+    message.error('请先选择一张图片!');
     return;
   }
 
   const formData = new FormData();
-  formData.append('file', selectedFile.value);
+  formData.append('headerImage', selectedFile.value);
 
   try {
-    const response = await axios.post('/user/upload', formData);
-    ElMessage.success('图片上传成功');
-    // 假设服务器返回图片的URL
-    avatarUrl.value = response.data.imageUrl;
+    const response = await fetch(api.user.avatar, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      avatarUrl.value = data.avatarUrl; // 更新头像 URL
+      message.success('头像上传成功!');
+    } else {
+      message.error('上传失败，请重试!');
+    }
   } catch (error) {
-    ElMessage.error('图片上传失败');
+    message.error('上传过程中出现错误!');
   }
-};
+}
+
 
 
 //修改昵称
@@ -292,18 +305,29 @@ const changeNickname = async () => {
 
 
           <el-avatar :src="avatarUrl" size="large" shape="circle" icon="el-icon-user"/>
-<!--        <el-form class="main-form1" @submit.prevent="uploadLocal">-->
+
             <el-upload
                 class="upload-demo"
                 :show-file-list="false"
                 :on-change="handleFileChange"
                 :before-upload="beforeAvatarUpload"
             >
-              <el-button size="small" class="selectpicture"   type="primary">{{ translations.seletcAvatar }}</el-button>
+              <el-button
+                  size="small" class="selectpicture"
+                  type="primary"
+              >
+                {{ translations.seletcAvatar }}</el-button>
             </el-upload>
-<!--          <el-form-item>-->
-            <el-button type="primary" class="uploadnow"   native-type="submit" :disabled="!imageSelected">{{ translations.uploadnow }}</el-button>
-<!--          </el-form-item>-->
+        <el-form-item>-->
+            <el-button
+                type="primary"
+                class="uploadnow"
+                native-type="submit"
+                :disabled="!imageSelected"
+                @click="uploadimagenow"
+            >
+              {{ translations.uploadnow }}</el-button>
+          </el-form-item>-->
 <!--        </el-form>-->
         <!--        <el-menu class="account-menu">-->
         <!--          <el-menu-item>-->
