@@ -37,7 +37,7 @@
 
         <!-- 视频聊天 -->
         <el-menu-item index="7">
-          <router-link to="/settings">视频聊天</router-link>
+          <router-link to="/settings">{{translations.videochat}}</router-link>
         </el-menu-item>
 
         <!-- 搜索 -->

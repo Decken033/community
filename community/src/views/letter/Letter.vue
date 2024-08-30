@@ -42,7 +42,7 @@
         <!-- 视频聊天 -->
         <el-menu-item index="7">
           <!--         <router-link to="/settings">视频聊天</router-link>-->
-          <a href="/" class="redirection" style="font-weight: bold">视频聊天</a>
+          <a href="/" class="redirection" style="font-weight: bold">{{translations.videochat}}</a>
         </el-menu-item>
 
       </el-menu>

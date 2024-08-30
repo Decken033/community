@@ -4,7 +4,7 @@
 
     <!-- 侧边栏 -->
     <el-aside>
-      <paticlebar></paticlebar>
+<!--      <particlebar></particlebar>-->
     </el-aside>
 
     <!-- 内容 -->
@@ -47,93 +47,75 @@
 </template>
 
 <script setup lang="ts">
-import {ref, onMounted} from 'vue';
-import axios from 'axios';
-
-import {useCommonTranslations} from '@/lang/i18nhelper';
-
-import {ElMessage} from 'element-plus';
-import {useI18n} from 'vue-i18n';
-// import ParticleSidebar from '@/codepen/ParticleSidebar.vue';
-import {defineAsyncComponent} from 'vue';
-
-import {useRouter} from 'vue-router';
-import paticlebar from '@/codepen/ParticleSidebar.vue';
-
-
+//数据部分
+import {ref} from 'vue';
 const form = ref({
   username: '',
   password: '',
   code: '',
   rememberMe: false,
 });
-//加入返回按钮
 
-const router = useRouter();
-
-const handleBack = () => {
-  // router.push('/');
-  window.location.href = '/';
-};
-const kaptchaSrc = ref('/kaptcha');
-const translations = useCommonTranslations();
-const navigateToRegister = () => {
-  window.location.href = '/register';
-};
-const navigateToForget = () => {
-  window.location.href = '/forget';
-};
-const {t, locale} = useI18n({useScope: "global"});
-const selectedLanguage = ref('zh');
-const changeLanguage = () => {
-  locale.value = selectedLanguage.value;
-};
-
-const rules = {
-  username: [
-    {required: true, message: t('message.enterUsername'), trigger: 'blur'},
-  ],
-  password: [
-    {required: true, message: t('message.enterPassword'), trigger: 'blur'},
-    {min: 8, message: t('message.passwordLength'), trigger: 'blur'},
-  ],
-  code: [
-    {required: true, message: t('message.enterCode'), trigger: 'blur'},
-  ],
-};
 
 
 const loginForm = ref(null);
-
 const refreshKaptcha = () => {
-  kaptchaSrc.value = `/kaptcha?${new Date().getTime()}`;
+  // kaptchaSrc.value = `/kaptcha?${new Date().getTime()}`;
 };
+const handleSubmit = async() => {
+    const response = await fetch(api.user.login, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username.value,
+        password: password.value,
+      }),
+    });
+    const data = await response.json();
+    console.log(data)
+    if(data.code==0){
+      // 跳转
+      if(data.data.type==1){
+        router.push('/home');
+      }
+      if(data.data.type==0){
+        router.push('/home');
+      }
 
-const handleSubmit = () => {
-  loginForm.value.validate((valid) => {
-    if (valid) {
-      postData();
-    } else {
-      console.log('表单验证失败');
-      return false;
+
+    }else{
+      alert(data.message)
     }
-  });
-};
+  };
 
 const postData = () => {
-  axios
-      .post('/login', form.value)
-      .then((response) => {
-        console.log("登录成功");
-        ElMessage.success(t('message.loginSuccess'));
-      })
-      .catch((error) => {
-        console.error('登录失败:', error);
-        ElMessage.error(t('message.loginFailed'));
-      });
+  // axios
+  //     .post('/login', form.value)
+  //     .then((response) => {
+  //       console.log("登录成功");
+  //       ElMessage.success(t('message.loginSuccess'));
+  //     })
+  //     .catch((error) => {
+  //       console.error('登录失败:', error);
+  //       ElMessage.error(t('message.loginFailed'));
+  //     });
 };
 
 
+//加入返回按钮
+import router from "@/router/index.ts";
+const handleBack = () => {
+  router.push('/');
+};
+const kaptchaSrc = ref('/kaptcha');
+const navigateToRegister = () => {
+  router.push('/register');
+};
+const navigateToForget = () => {
+  router.push('/forget');
+};
 </script>
 
 
