@@ -6,8 +6,9 @@ export default {
         login:ip+'login',
         verifycode:ip+'verifycode',
         header:ip+'header',
-        uploadavatar:ip+'uploadavatar'
-
+        uploadavatar:ip+'uploadavatar',
+        changenickname:ip+'changenickname',
+        changepassword:ip+'changepassword'
     },
     school:{
         addschool:ip+'school/addschool',

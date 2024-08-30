@@ -1,4 +1,4 @@
-<script setup lang="ts" >
+<script setup lang="ts">
 import {
   searchQuery,
   orderMode,
@@ -27,68 +27,63 @@ const changeLanguage = () => {
   locale.value = selectedLanguage.value
 }
 
-//main
-const activeIndex = ref('1');
+
+
+//搜索
 const searchQuery = ref('');
-const password = ref({
-  oldPassword: '',
-  newPassword: '',
-  confirmPassword: ''
-});
-
-const goToPage = (path) => {
-  window.location.href = path;
-};
-
 const search = () => {
   console.log(`Searching for: ${searchQuery.value}`);
 };
 
 
 
-const uploadQiniu = () => {
-  ElMessage.success('头像已上传至七牛云');
-};
+//修改密码
+const password = ref({
+  oldPassword: '',
+  newPassword: '',
+  confirmPassword: ''
+});
 
-const changePassword = () => {
+
+
+const changePassword = async () => {
+  // 检查新密码和确认密码是否一致
   if (password.value.newPassword !== password.value.confirmPassword) {
     ElMessage.error('两次输入的密码不一致!');
     return;
   }
-  ElMessage.success('密码已修改');
+
+  try {
+    // 发送请求到后端API
+    const response = await axios.post(api.user.changepassword, {
+      old_password: password.value.oldPassword,
+      new_password: password.value.newPassword,
+    });
+
+    // 根据后端的响应处理
+    if (response.data.msg) {
+      ElMessage.success(response.data.msg);
+      router.push('/'); // 导航到目标页面
+    } else {
+      // 如果返回失败信息，处理并显示错误消息
+      if (response.data.oldMsg) {
+        ElMessage.error(response.data.oldMsg);
+      }
+      if (response.data.newMsg) {
+        ElMessage.error(response.data.newMsg);
+      }
+      router.push('/settings'); // 导航到目标页面
+    }
+  } catch (error) {
+    // 处理请求失败的情况
+    ElMessage.error('服务器错误，请稍后再试');
+  }
 };
-
-const handlePreview = (file) => {
-  console.log(file);
-};
-
-const handleRemove = (file) => {
-  console.log(file);
-};
-
-const uploadData = {
-  token: 'your-upload-token',
-  key: 'your-file-key'
-};
-
-// account-menu
-const showAccountInfo = () => {
-  console.log('Account info clicked')
-}
-
-const downloadData = () => {
-  console.log('Download data clicked')
-}
-
-const deactivateAccount = () => {
-  console.log('Deactivate account clicked')
-}
 
 
 
 
 //上传图片
-
 const avatarUrl = ref('');
 const selectedFile = ref(null);
 const imageSelected = ref(false); // 是否已选择图片的标志
@@ -108,7 +103,6 @@ onMounted(async () => {
     avatarUrl.value = defaultAvatar;
   }
 });
-
 
 
 // 处理选择的文件
@@ -162,13 +156,12 @@ async function uploadImagenow() {
 }
 
 
-
 //修改昵称
 const nickname = ref('');
 const changeNickname = async () => {
   try {
     // Assuming you have an API endpoint to update the nickname
-    const response = await axios.post('/api/change-nickname', {
+    const response = await axios.post(api.user.changenickname, {
       nickname: nickname.value,
     });
 
@@ -247,27 +240,58 @@ const changeNickname = async () => {
             <el-input v-model="nickname" :placeholder="translations.enterNickname.value" required></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" class="el-sub-menu" native-type="submit"> {{translations.uploadnow}}  </el-button>
+            <el-button type="primary" class="el-sub-menu" native-type="submit"> {{ translations.uploadnow }}</el-button>
           </el-form-item>
         </el-form>
 
         <!-- 修改密码 -->
-
         <el-form class="main-form3" @submit.prevent="changePassword">
-          <el-form-item :label=translations.originalPassword.value label-width="100px">
-            <el-input v-model="password.oldPassword" type="password" :placeholder=translations.enterPassword.value required></el-input>
+          <el-form-item :label="translations.originalPassword.value" label-width="100px">
+            <el-input
+                v-model="password.oldPassword"
+                type="password"
+                :placeholder="translations.enterPassword.value"
+                required
+            ></el-input>
           </el-form-item>
-          <el-form-item :label=translations.newPassword.value label-width="100px">
-            <el-input v-model="password.newPassword" type="password" :placeholder=translations.enterNewPassword.value required></el-input>
+          <el-form-item :label="translations.newPassword.value" label-width="100px">
+            <el-input
+                v-model="password.newPassword"
+                type="password"
+                :placeholder="translations.enterNewPassword.value"
+                required
+            ></el-input>
           </el-form-item>
-          <el-form-item :label=translations.enterConfirmPassword.value label-width="100px">
-            <el-input v-model="password.confirmPassword" type="password" :placeholder=translations.enterConfirmPassword.value
-                      required></el-input>
+          <el-form-item :label="translations.enterConfirmPassword.value" label-width="100px">
+            <el-input
+                v-model="password.confirmPassword"
+                type="password"
+                :placeholder="translations.enterConfirmPassword.value"
+                required
+            ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="info" class="el-sub-menu" native-type="submit">{{translations.uploadnow}}</el-button>
+            <el-button type="info" class="el-sub-menu" native-type="submit">
+              {{ translations.uploadnow }}
+            </el-button>
           </el-form-item>
         </el-form>
+
+        <!--        <el-form class="main-form3" @submit.prevent="changePassword">-->
+        <!--          <el-form-item :label=translations.originalPassword.value label-width="100px">-->
+        <!--            <el-input v-model="password.oldPassword" type="password" :placeholder=translations.enterPassword.value required></el-input>-->
+        <!--          </el-form-item>-->
+        <!--          <el-form-item :label=translations.newPassword.value label-width="100px">-->
+        <!--            <el-input v-model="password.newPassword" type="password" :placeholder=translations.enterNewPassword.value required></el-input>-->
+        <!--          </el-form-item>-->
+        <!--          <el-form-item :label=translations.enterConfirmPassword.value label-width="100px">-->
+        <!--            <el-input v-model="password.confirmPassword" type="password" :placeholder=translations.enterConfirmPassword.value-->
+        <!--                      required></el-input>-->
+        <!--          </el-form-item>-->
+        <!--          <el-form-item>-->
+        <!--            <el-button type="info" class="el-sub-menu" native-type="submit">{{translations.uploadnow}}</el-button>-->
+        <!--          </el-form-item>-->
+        <!--        </el-form>-->
 
       </el-container>
 
@@ -304,53 +328,32 @@ const changeNickname = async () => {
         </el-select>
 
 
-          <el-avatar :src="avatarUrl" size="large" shape="circle" icon="el-icon-user"/>
+        <el-avatar :src="avatarUrl" size="large" shape="circle" icon="el-icon-user"/>
 
-            <el-upload
-                class="upload-demo"
-                :show-file-list="false"
-                :on-change="handleFileChange"
-                :before-upload="beforeAvatarUpload"
-            >
-              <el-button
-                  size="small" class="selectpicture"
-                  type="primary"
-              >
-                {{ translations.seletcAvatar }}</el-button>
-            </el-upload>
-        <el-form-item>-->
-            <el-button
-                type="primary"
-                class="uploadnow"
-                native-type="submit"
-                :disabled="!imageSelected"
-                @click="uploadimagenow"
-            >
-              {{ translations.uploadnow }}</el-button>
-          </el-form-item>-->
-<!--        </el-form>-->
-        <!--        <el-menu class="account-menu">-->
-        <!--          <el-menu-item>-->
-        <!--            <el-icon><el-icon-user /></el-icon>-->
-        <!--            <span>Account information</span>-->
-        <!--            <el-button type="text" @click="showAccountInfo">See your account information like your phone number and email address.</el-button>-->
-        <!--          </el-menu-item>-->
-        <!--          <el-menu-item>-->
-        <!--            <el-icon><el-icon-key /></el-icon>-->
-        <!--            <span>Change your password</span>-->
-        <!--            <el-button type="text" @click="changePassword">Change your password at any time.</el-button>-->
-        <!--          </el-menu-item>-->
-        <!--          <el-menu-item>-->
-        <!--            <el-icon><el-icon-download /></el-icon>-->
-        <!--            <span>Download an archive of your data</span>-->
-        <!--            <el-button type="text" @click="downloadData">Get insights into the type of information stored for your account.</el-button>-->
-        <!--          </el-menu-item>-->
-        <!--          <el-menu-item>-->
-        <!--            <el-icon><el-icon-close /></el-icon>-->
-        <!--            <span>Deactivate your account</span>-->
-        <!--            <el-button type="text" @click="deactivateAccount">Find out how you can deactivate your account.</el-button>-->
-        <!--          </el-menu-item>-->
-        <!--        </el-menu>-->
+        <el-upload
+            class="upload-demo"
+            :show-file-list="false"
+            :on-change="handleFileChange"
+            :before-upload="beforeAvatarUpload"
+        >
+          <el-button
+              size="small" class="selectpicture"
+              type="primary"
+          >
+            {{ translations.seletcAvatar }}
+          </el-button>
+        </el-upload>
+        <el-form-item>
+          <el-button
+              type="primary"
+              class="uploadnow"
+              native-type="submit"
+              :disabled="!imageSelected"
+              @click="uploadimagenow"
+          >
+            {{ translations.uploadnow }}
+          </el-button>
+        </el-form-item>
 
 
       </div>
