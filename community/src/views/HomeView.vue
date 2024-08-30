@@ -1,76 +1,52 @@
-<script setup lang="ts">
-import {
-  searchQuery,
-  orderMode,
-  page,
-  paginatedItems,
-  handlePageChange,
-  handleTabClick,
-  search,
-} from '@/js/global.ts';
-
-import {ref} from 'vue';
-import {useCommonTranslations} from '@/lang/i18nhelper';
-import {useI18n} from 'vue-i18n';
-import postbox from "@/views/PostBox/Postbox.vue"
-
-const translations = useCommonTranslations();
-const {t, locale} = useI18n({useScope: "global"});
-const selectedLanguage = ref('zh')
-const changeLanguage = () => {
-  locale.value = selectedLanguage.value
-}
-</script>
-
 <template>
   <el-container>
     <el-aside class="leftsidebar">
-      <el-menu type="flex">
-        <!-- 首页 -->
-        <el-menu-item index="1">
-          <!--         <router-link to="/">{{ translations.home }}</router-link>-->
-          <a href="/" class="redirection" style="font-weight: bold">{{ translations.home }}</a>
-        </el-menu-item>
+<!--      <el-menu type="flex">-->
+<!--        &lt;!&ndash; 首页 &ndash;&gt;-->
+<!--        <el-menu-item index="1">-->
+<!--          &lt;!&ndash;         <router-link to="/">{{ translations.home }}</router-link>&ndash;&gt;-->
+<!--          <a href="/" class="redirection" style="font-weight: bold">{{ translations.home }}</a>-->
+<!--        </el-menu-item>-->
 
-        <!-- 消息 -->
-        <el-menu-item index="2">
-          <!--         <router-link to="/letter">{{ translations.news }}</router-link>-->
-          <a href="/letter" class="redirection" style="font-weight: bold">{{ translations.news }}</a>
-          <el-badge :value="12" class="item"/>
-        </el-menu-item>
+<!--        &lt;!&ndash; 消息 &ndash;&gt;-->
+<!--        <el-menu-item index="2">-->
+<!--          &lt;!&ndash;         <router-link to="/letter">{{ translations.news }}</router-link>&ndash;&gt;-->
+<!--          <a href="/letter" class="redirection" style="font-weight: bold">{{ translations.news }}</a>-->
+<!--          <el-badge :value="12" class="item"/>-->
+<!--        </el-menu-item>-->
 
-        <!-- 注册 -->
-        <el-menu-item index="3">
-          <!--         <router-link to="/register">{{ translations.register }}</router-link>-->
-          <a href="/register" class="redirection" style="font-weight: bold">{{ translations.register }}</a>
-        </el-menu-item>
+<!--        &lt;!&ndash; 注册 &ndash;&gt;-->
+<!--        <el-menu-item index="3">-->
+<!--          &lt;!&ndash;         <router-link to="/register">{{ translations.register }}</router-link>&ndash;&gt;-->
+<!--          <a href="/register" class="redirection" style="font-weight: bold">{{ translations.register }}</a>-->
+<!--        </el-menu-item>-->
 
-        <!-- 登录 -->
-        <el-menu-item index="4">
-          <!--         <router-link to="/login">{{ translations.login }}</router-link>-->
-          <a href="/login" class="redirection" style="font-weight: bold">{{ translations.login }}</a>
-        </el-menu-item>
+<!--        &lt;!&ndash; 登录 &ndash;&gt;-->
+<!--        <el-menu-item index="4">-->
+<!--          &lt;!&ndash;         <router-link to="/login">{{ translations.login }}</router-link>&ndash;&gt;-->
+<!--          <a href="/login" class="redirection" style="font-weight: bold">{{ translations.login }}</a>-->
+<!--        </el-menu-item>-->
 
-        <!-- 个人主页 -->
-        <el-menu-item index="5">
-          <!--         <router-link to="/profile">{{ translations.profile }}</router-link>-->
-          <a href="/profile" class="redirection" style="font-weight: bold">{{ translations.profile }}</a>
-        </el-menu-item>
+<!--        &lt;!&ndash; 个人主页 &ndash;&gt;-->
+<!--        <el-menu-item index="5">-->
+<!--          &lt;!&ndash;         <router-link to="/profile">{{ translations.profile }}</router-link>&ndash;&gt;-->
+<!--          <a href="/profile" class="redirection" style="font-weight: bold">{{ translations.profile }}</a>-->
+<!--        </el-menu-item>-->
 
-        <!-- 账号设置 -->
-        <el-menu-item index="6">
-          <!--         <router-link to="/settings">{{ translations.settings }}</router-link>-->
-          <a href="/settings" class="redirection" style="font-weight: bold">{{ translations.settings }}</a>
-        </el-menu-item>
+<!--        &lt;!&ndash; 账号设置 &ndash;&gt;-->
+<!--        <el-menu-item index="6">-->
+<!--          &lt;!&ndash;         <router-link to="/settings">{{ translations.settings }}</router-link>&ndash;&gt;-->
+<!--          <a href="/settings" class="redirection" style="font-weight: bold">{{ translations.settings }}</a>-->
+<!--        </el-menu-item>-->
 
-        <!-- 视频聊天 -->
-        <el-menu-item index="7">
-          <!--         <router-link to="/settings">视频聊天</router-link>-->
-          <a href="/" class="redirection" style="font-weight: bold">{{translations.videochat}}</a>
-        </el-menu-item>
+<!--        &lt;!&ndash; 视频聊天 &ndash;&gt;-->
+<!--        <el-menu-item index="7">-->
+<!--          &lt;!&ndash;         <router-link to="/settings">视频聊天</router-link>&ndash;&gt;-->
+<!--          <a href="/" class="redirection" style="font-weight: bold">{{translations.videochat}}</a>-->
+<!--        </el-menu-item>-->
 
-      </el-menu>
-
+<!--      </el-menu>-->
+        <Leftsidebar></Leftsidebar>
     </el-aside>
 
     <!-- 内容 -->
@@ -159,7 +135,29 @@ const changeLanguage = () => {
     </el-aside>
   </el-container>
 </template>
+<script setup lang="ts">
+import {
+  searchQuery,
+  orderMode,
+  page,
+  paginatedItems,
+  handlePageChange,
+  handleTabClick,
+  search,
+} from '@/js/global.ts';
 
+import {ref} from 'vue';
+import {useCommonTranslations} from '@/lang/i18nhelper';
+import {useI18n} from 'vue-i18n';
+import postbox from "@/views/PostBox/Postbox.vue"
+import Leftsidebar  from "@/components/Leftsidebar.vue";
+const translations = useCommonTranslations();
+const {t, locale} = useI18n({useScope: "global"});
+const selectedLanguage = ref('zh')
+const changeLanguage = () => {
+  locale.value = selectedLanguage.value
+}
+</script>
 <style scoped>
 @import "@/css/views/HomeView.css";
 </style>
