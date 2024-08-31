@@ -55,12 +55,16 @@ const router = createRouter({
       name:'search',
       component: () => import('@/views/search/Search.vue')
     },
-   
     {
       path:'/settings',
       name:'settings',
         component: () => import('@/views/settings/Settings.vue')
-    }
+    },
+    {
+      path:'/mypost',
+      name:'mypost',
+        component: () => import('@/views/my-post_reply/My-post.vue')
+    },
   ]
 });
 

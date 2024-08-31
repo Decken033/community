@@ -20,4 +20,7 @@ export default {
         studentlist:ip+'student/studentlist',
         allstudent:ip+'student/allstudent'
     },
+    comment:{
+
+    }
 };
