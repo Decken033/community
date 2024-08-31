@@ -12,38 +12,157 @@
     <el-main>
       <div class="container">
         <!-- 选项 -->
-        <el-tabs v-model="activeTab">
-          <el-tab-pane label="个人信息" name="info">
-            <!-- 个人信息 -->
-            <el-row class="mt-5">
-              <el-col :span="4">
-                <el-avatar src="http://images.nowcoder.com/head/1t.png" size="large"></el-avatar>
-              </el-col>
-              <el-col :span="20">
-                <h5 class="mt-0 text-warning">
-                  <span>{{ user.username }}</span>
+<!--        <el-tabs v-model="activeTab">-->
+<!--          <el-tab-pane label="个人信息" name="info">-->
+<!--            &lt;!&ndash; 个人信息 &ndash;&gt;-->
+<!--            <el-row class="mt-5">-->
+<!--              <el-col :span="4">-->
+<!--                <el-avatar src="http://images.nowcoder.com/head/1t.png" size="large"></el-avatar>-->
+<!--              </el-col>-->
+<!--              <el-col :span="20">-->
+<!--                <h5 class="mt-0 text-warning">-->
+<!--                  <span>{{ user.username }}</span>-->
 <!--                  <el-button :type="hasFollowed ? 'default' : 'primary'" class="float-right" @click="toggleFollow">-->
 <!--                    {{ hasFollowed ? '已关注' : '关注TA' }}-->
 <!--                  </el-button>-->
-                </h5>
-                <div class="text-muted mt-3">
-                  <span>注册于 <i class="text-muted">{{ formattedCreateTime }}</i></span>
+<!--                </h5>-->
+<!--                <div class="text-muted mt-3">-->
+<!--                  <span>注册于 <i class="text-muted">{{ formattedCreateTime }}</i></span>-->
+<!--                </div>-->
+<!--                <div class="text-muted mt-3 mb-5">-->
+<!--                  <span>关注了 <router-link :to="followeesUrl">{{ followeeCount }}</router-link> 人</span>-->
+<!--                  <span class="ml-4">关注者 <router-link :to="followersUrl">{{ followerCount }}</router-link> 人</span>-->
+<!--                  <span class="ml-4">获得了 <i class="text-danger">{{ likeCount }}</i> 个赞</span>-->
+<!--                </div>-->
+<!--              </el-col>-->
+<!--            </el-row>-->
+
+            <el-tabs v-model="activeTab">
+              <el-tab-pane label="个人信息" name="info">
+                  <div class="profile-card">
+                    <el-row>
+                      <el-col :span="4">
+                        <el-avatar :src="user.headerUrl" size="large"></el-avatar>
+                      </el-col>
+                      <el-col :span="20">
+                        <h5 class="profile-username">
+                          <span>{{ user.username }}</span>
+                          <el-button :type="hasFollowed ? 'default' : 'primary'" class="follow-button" @click="toggleFollow">
+                            {{ hasFollowed ? '已关注' : '关注TA' }}
+                          </el-button>
+                        </h5>
+                        <div class="profile-meta">
+                          <span>注册于 <i>{{ formattedCreateTime }}</i></span>
+                        </div>
+                        <div class="profile-stats">
+                          <span>关注了 <router-link :to="followeesUrl">{{ followeeCount }}</router-link> 人</span>
+                          <span class="ml-4">关注者 <router-link :to="followersUrl">{{ followerCount }}</router-link> 人</span>
+                          <span class="ml-4">获得了 <i class="text-danger">{{ likeCount }}</i> 个赞</span>
+                        </div>
+                      </el-col>
+                    </el-row>
+                  </div>
+              </el-tab-pane>
+
+              <!-- 我的帖子选项卡 -->
+              <el-tab-pane label="我的帖子" name="posts">
+                <div>
+                  <div class="mt-4">
+                    <el-card>
+                      <h6>
+                        <b class="square"></b> 发布的帖子({{ page.total }})
+                      </h6>
+                      <el-list class="mt-4 pl-3 pr-3" v-if="page.total > 0">
+                        <el-list-item
+                            v-for="(post, index) in paginatedPosts"
+                            :key="index"
+                            class="border-bottom pb-3 mt-4"
+                        >
+                          <div class="font-size-16 text-info">
+                            <el-link :underline="false" href="#" class="text-info">{{ post.title }}</el-link>
+                          </div>
+                          <div class="mt-1 font-size-14">
+                            {{ post.content }}
+                          </div>
+                          <div class="text-right font-size-12 text-muted">
+                            赞 <i class="mr-3">{{ post.likes }}</i> 发布于 <b>{{ post.publishedAt }}</b>
+                          </div>
+                        </el-list-item>
+                      </el-list>
+                      <el-pagination
+                          class="page"
+                          v-if="page.total > 0"
+                          :current-page="page.current"
+                          :page-size="page.pageSize"
+                          :total="page.total"
+                          layout="total, prev, pager, next, jumper"
+                          @current-change="handlePageChange"
+                      >
+                      </el-pagination>
+                    </el-card>
+                  </div>
                 </div>
-                <div class="text-muted mt-3 mb-5">
-                  <span>关注了 <router-link :to="followeesUrl">{{ followeeCount }}</router-link> 人</span>
-                  <span class="ml-4">关注者 <router-link :to="followersUrl">{{ followerCount }}</router-link> 人</span>
-                  <span class="ml-4">获得了 <i class="text-danger">{{ likeCount }}</i> 个赞</span>
+              </el-tab-pane>
+
+              <!-- 回复内容选项卡 -->
+              <el-tab-pane label="我的回复" name="replies">
+                <div>
+                  <h2>我的回复</h2>
+                  <div class="mt-4">
+                    <el-card>
+                      <h6>
+                        <b class="square"></b> 回复的帖子({{ page.total }})
+                      </h6>
+                      <el-list class="mt-4 pl-3 pr-3" v-if="paginatedReplies.length">
+                        <el-list-item
+                            v-for="(reply, index) in paginatedReplies"
+                            :key="index"
+                            class="border-bottom pb-3 mt-4"
+                        >
+                          <div class="font-size-16 text-info">
+                            <el-link :underline="false" href="#" class="text-info">{{ reply.title }}</el-link>
+                          </div>
+                          <div class="mt-1 font-size-14">
+                            {{ reply.content }}
+                          </div>
+                          <div class="text-right font-size-12 text-muted">
+                            回复于 <b>{{ reply.repliedAt }}</b>
+                          </div>
+                        </el-list-item>
+                      </el-list>
+                      <el-pagination
+                          class="page"
+                          v-if="page.total > 0"
+                          :current-page="page.current"
+                          :page-size="page.pageSize"
+                          :total="page.total"
+                          layout="total, prev, pager, next, jumper"
+                          @current-change="handlePageChange"
+                      >
+                      </el-pagination>
+                    </el-card>
+                  </div>
                 </div>
-              </el-col>
-            </el-row>
-          </el-tab-pane>
-          <el-tab-pane label="我的帖子" name="posts">
+              </el-tab-pane>
+
+              <!-- 其他选项卡 -->
+              <el-tab-pane label="其他内容" name="other">
+                <div>
+                  <h2>其他内容</h2>
+                  <p>这里是“其他内容”选项卡中的内容。</p>
+                  <!-- 你可以根据需要添加更多的选项卡和内容 -->
+                </div>
+              </el-tab-pane>
+            </el-tabs>
+
+
+
             <!-- 我的帖子内容 -->
-          </el-tab-pane>
-          <el-tab-pane label="我的回复" name="replies">
-            <!-- 我的回复内容 -->
-          </el-tab-pane>
-        </el-tabs>
+<!--          </el-tab-pane>-->
+<!--          <el-tab-pane label="我的回复" name="replies">-->
+<!--            &lt;!&ndash; 我的回复内容 &ndash;&gt;-->
+<!--          </el-tab-pane>-->
+<!--        </el-tabs>-->
       </div>
     </el-main>
 
@@ -75,6 +194,8 @@ import {useI18n} from 'vue-i18n';
 import {useCommonTranslations} from '@/lang/i18nhelper';
 import leftsidebar from '@/components/Leftsidebar.vue';
 
+
+//个人信息部分
 const {t, locale} = useI18n();
 const user = {
   id: 1,
@@ -82,14 +203,20 @@ const user = {
   headerUrl: 'http://images.nowcoder.com/head/1t.png',
   createTime: new Date(),
 };
-const followeeCount = 5;
-const followerCount = 123;
+const followeeCount = 123;
+const followerCount = 456;
+const hasFollowed = ref(false);
 const likeCount = 87;
-const hasFollowed = false;
 const searchQuery = ref('');
 const selectedLanguage = ref('zh');
 const activeTab = ref('info');
 const translations = useCommonTranslations();
+
+
+function toggleFollow() {
+  hasFollowed.value = !hasFollowed.value;
+}
+
 const formattedCreateTime = computed(() => {
   return new Intl.DateTimeFormat('zh-CN', {dateStyle: 'full', timeStyle: 'short'}).format(user.createTime);
 });
@@ -102,13 +229,103 @@ const changeLanguage = (value) => {
   locale.value = value;
 };
 
-const toggleFollow = () => {
-  // Toggle follow logic
-  console.log('Toggled follow');
-};
+
 // 增加根据id生成路径
 const followeesUrl = computed(() => `/followee/${user.id}`);
 const followersUrl = computed(() => `/follower/${user.id}`);
+
+
+
+//我的帖子部分
+const posts = ref([
+  {
+    title: '备战春招，面试刷题跟他复习，一个月全搞定！',
+    content: `金三银四的金三已经到了，你还沉浸在过年的喜悦中吗？
+    如果是，那我要让你清醒一下了：目前大部分公司已经开启了内推，正式网申也将在3月份陆续开始，金三银四，春招的求职黄金时期已经来啦！！！
+    再不准备，作为19应届生的你可能就找不到工作了。。。作为20届实习生的你可能就找不到实习了。。。
+    现阶段时间紧，任务重，能做到短时间内快速提升的也就只有算法了，
+    那么算法要怎么复习？重点在哪里？常见笔试面试算法题型和解题思路以及最优代码是怎样的？
+    跟左程云老师学算法，不仅能解决以上所有问题，还能在短时间内得到最大程度的提升！！！`,
+    likes: 11,
+    publishedAt: '2019-04-15 10:10:10',
+  },
+  {
+    title: '如何高效准备技术面试',
+    content: `面试不仅仅是考察你的技术能力，也是对你问题解决能力的一个检验。为了更好地应对面试，建议大家在备战的时候，多做一些系统性的准备，包括算法、数据结构、系统设计等方面的知识。`,
+    likes: 8,
+    publishedAt: '2019-03-20 15:30:00',
+  },
+  {
+    title: '春招求职攻略：从简历到面试',
+    content: `金三银四，春招的求职黄金期已经来临。本文为大家整理了一份从简历制作到面试技巧的完整攻略，帮助应届生更好地准备春招。`,
+    likes: 5,
+    publishedAt: '2019-03-10 12:00:00',
+  },
+  {
+    title: '算法复习：必刷的LeetCode经典题目',
+    content: `在准备技术面试时，刷题是一个必不可少的环节。本文推荐了一些LeetCode上经典的算法题目，帮助大家在短时间内快速提升算法能力。`,
+    likes: 20,
+    publishedAt: '2019-02-28 09:45:00',
+  },
+  {
+    title: '面试心态调整及注意事项',
+    content: `在面试过程中，心态的好坏往往决定了面试的成败。本文将介绍一些调整心态的方法，并总结了面试时需要注意的事项，帮助大家在面试中发挥出最佳水平。`,
+    likes: 15,
+    publishedAt: '2019-01-22 08:30:00',
+  }
+])
+
+const page = ref({
+  current: 1,
+  pageSize: 3,
+  total: posts.value.length,
+})
+
+const paginatedPosts = computed(() => {
+  const start = (page.value.current - 1) * page.value.pageSize
+  const end = start + page.value.pageSize
+  return posts.value.slice(start, end)
+})
+
+const handlePageChange = (newPage) => {
+  page.value.current = newPage
+  ElMessage.success({
+    message: `切换到第 ${newPage} 页`,
+    duration: 1000 // 显示时间调整1秒
+  })
+}
+
+
+
+
+//我的回复
+const replies = ref([
+  {
+    title: '备战春招，面试刷题跟他复习，一个月全搞定！',
+    content: '顶顶顶!',
+    repliedAt: '2019-04-15 10:10:10',
+  },
+  {
+    title: '备战春招，面试刷题跟他复习，一个月全搞定！',
+    content: '顶顶顶!',
+    repliedAt: '2019-04-15 10:10:10',
+  },
+  // 其他回复...
+  {
+    title: '备战春招，面试刷题跟他复习，一个月全搞定！',
+    content: '顶顶顶!',
+    repliedAt: '2019-04-15 10:10:10',
+  }
+])
+
+
+//根据当前页码和每页的条目数，计算并返回当前页面应显示的回复列表
+const paginatedReplies = computed(() => {
+  const start = (page.value.current - 1) * page.value.pageSize
+  const end = start + page.value.pageSize
+  return replies.value.slice(start, end)
+})
+
 
 
 </script>
