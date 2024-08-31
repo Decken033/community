@@ -26,7 +26,7 @@
 import { ref } from 'vue';
 import { ElInput, ElButton, ElIcon } from 'element-plus';
 import axios  from "axios";
-import api from "@/api/api.js";
+// import api from "@/api/api.ts";
 
 
 // 这里导入Element Plus中已有的图标
@@ -39,12 +39,12 @@ const comment = ref('');
 
 async function postTweet() {
 
-  //暂时假设讨论帖id为1
-  // const discussPostId = 1;
-  try {
-    const res = await axios.post(api.comment.addcomment, {
-      comment: comment.value,
-    });
+    //暂时假设讨论帖id为1
+    const discussPostId = 1;
+    try {
+      const res = await axios.post(`http://localhost:8080/comment/add/${discussPostId}`, {
+        comment: comment.value,
+      });
     if (res.data.RESULT_CODE === 0) {
       alert('评论发布成功');
     } else {
