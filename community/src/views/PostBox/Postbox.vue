@@ -2,7 +2,7 @@
   <div class="tweet-box">
     <el-input
         type="textarea"
-        v-model="tweetContent"
+        v-model="comment"
         placeholder="What is happening?!"
         rows="3"
         maxlength="280"
@@ -15,7 +15,7 @@
         <el-icon><calendar></calendar></el-icon>
         <el-icon><location></location></el-icon>
       </div>
-      <el-button type="primary" :disabled="!tweetContent" @click="postTweet">
+      <el-button type="primary" :disabled="!comment" @click="postTweet">
         Post
       </el-button>
     </div>
@@ -25,27 +25,48 @@
 <script setup>
 import { ref } from 'vue';
 import { ElInput, ElButton, ElIcon } from 'element-plus';
+import axios  from "axios";
+import api from "@/api/api.js";
+
 
 // 这里导入Element Plus中已有的图标
 import { Picture, VideoCamera, Calendar, Location } from '@element-plus/icons-vue';
 
-const tweetContent = ref('');
 
-const postTweet = () => {
-  if (tweetContent.value) {
-    console.log('Tweet content:', tweetContent.value);
-    tweetContent.value = '';  // 清空输入框内容
+
+//发布推文
+const comment = ref('');
+
+async function postTweet() {
+
+  //暂时假设讨论帖id为1
+  // const discussPostId = 1;
+  try {
+    const res = await axios.post(api.comment.addcomment, {
+      comment: comment.value,
+    });
+    if (res.data.RESULT_CODE === 0) {
+      alert('评论发布成功');
+    } else {
+      alert('评论发布失败');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert(`请求失败: ${error.response?.data?.message || '未知错误'}`);
   }
-};
+}
+
+
+
+
+
+
 </script>
 
 <style scoped>
 .tweet-box {
-  background-color: white;
-  padding: 16px;
-  border-radius: 8px;
-  //margin-top:50px;
-  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .el-input__inner {

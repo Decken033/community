@@ -19,5 +19,8 @@ export default {
         addstudent:ip+'student/addstudent',
         studentlist:ip+'student/studentlist',
         allstudent:ip+'student/allstudent'
+    },
+    comment:{
+        addcomment:ip+`add/${discussPostId}`,
     }
 };

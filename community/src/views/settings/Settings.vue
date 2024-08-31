@@ -63,7 +63,7 @@ const changePassword = async () => {
     // 根据后端的响应处理
     if (response.data.msg) {
       ElMessage.success(response.data.msg);
-      router.push('/'); // 导航到目标页面
+      router.push('/'); // 导航到主页
     } else {
       // 如果返回失败信息，处理并显示错误消息
       if (response.data.oldMsg) {
@@ -72,7 +72,7 @@ const changePassword = async () => {
       if (response.data.newMsg) {
         ElMessage.error(response.data.newMsg);
       }
-      router.push('/settings'); // 导航到目标页面
+      router.push('/settings'); // 导航到settings页面
     }
   } catch (error) {
     // 处理请求失败的情况
@@ -160,7 +160,7 @@ async function uploadImagenow() {
 const nickname = ref('');
 const changeNickname = async () => {
   try {
-    // Assuming you have an API endpoint to update the nickname
+
     const response = await axios.post(api.user.changenickname, {
       nickname: nickname.value,
     });
