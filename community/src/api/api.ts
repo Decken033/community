@@ -21,6 +21,6 @@ export default {
         allstudent:ip+'student/allstudent'
     },
     comment:{
-        addcomment:ip+`add/${discussPostId}`,
+
     }
 };
