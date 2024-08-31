@@ -79,7 +79,7 @@
           <div class="conversation-meta">
             <span class="conversation-username">{{ conversation.target.username }}</span> {{ translations.publishtime }} {{ conversation.createTime }}
             <div class="conversation-stats">
-              <el-tag v-if="conversation.unreadCount != 0" type="danger">{{ conversation.unreadCount }}</el-tag>
+              <el-tag v-if="conversation.unreadCount != 0" type="danger">{{translations.unreadCount}}{{ conversation.unreadCount }}</el-tag>
               <el-tag>{{ translations.letterCount }} {{ conversation.letterCount }}</el-tag>
             </div>
           </div>

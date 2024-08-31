@@ -28,7 +28,7 @@ const form = ref({
     content: '', // 发布表单中的正文
 });
 
-const searchQuery = ref('');
+
 
 // 定义 orderMode 的类型并初始化
 const orderMode = ref<string | number>('0'); // 初始值为 '0'
@@ -177,20 +177,12 @@ const handleTabClick = (tab: { label: string; name: string }) => {
 };
 
 // 搜索功能
-const router = useRouter();
-const search = () => {
-    console.log('Search query:', searchQuery.value);
-    if (searchQuery.value.trim()) {
-        // 使用 router.push 进行路由导航
-        router.push({name: 'search', query: {keyword: searchQuery.value}});
-    }
-};
+
 
 
 export {
     setRem,
     form,
-    searchQuery,
     orderMode,
     posts,
     isPublishModalVisible,
@@ -200,5 +192,4 @@ export {
     paginatedItems,
     handlePageChange,
     handleTabClick,
-    search,
 }
