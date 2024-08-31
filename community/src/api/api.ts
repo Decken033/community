@@ -5,6 +5,10 @@ export default {
     user:{
         login:ip+'login',
         verifycode:ip+'verifycode',
+        header:ip+'header',
+        uploadavatar:ip+'uploadavatar',
+        changenickname:ip+'changenickname',
+        changepassword:ip+'changepassword'
     },
     school:{
         addschool:ip+'school/addschool',
@@ -15,5 +19,8 @@ export default {
         addstudent:ip+'student/addstudent',
         studentlist:ip+'student/studentlist',
         allstudent:ip+'student/allstudent'
+    },
+    comment:{
+        addcomment:ip+`add/${discussPostId}`,
     }
 };
