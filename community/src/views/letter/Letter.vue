@@ -1,56 +1,10 @@
 <template>
   <el-container>
     <el-aside class="leftsidebar">
-      <el-menu type="flex">
-        <!-- 首页 -->
-        <el-menu-item index="1">
-          <!--         <router-link to="/">{{ translations.home }}</router-link>-->
-          <a href="/" class="redirection" style="font-weight: bold">{{ translations.home }}</a>
-        </el-menu-item>
-
-        <!-- 消息 -->
-        <el-menu-item index="2">
-          <!--         <router-link to="/letter">{{ translations.news }}</router-link>-->
-          <a href="/letter" class="redirection" style="font-weight: bold">{{ translations.news }}</a>
-          <el-badge :value="12" class="item"/>
-        </el-menu-item>
-
-        <!-- 注册 -->
-        <el-menu-item index="3">
-          <!--         <router-link to="/register">{{ translations.register }}</router-link>-->
-          <a href="/register" class="redirection" style="font-weight: bold">{{ translations.register }}</a>
-        </el-menu-item>
-
-        <!-- 登录 -->
-        <el-menu-item index="4">
-          <!--         <router-link to="/login">{{ translations.login }}</router-link>-->
-          <a href="/login" class="redirection" style="font-weight: bold">{{ translations.login }}</a>
-        </el-menu-item>
-
-        <!-- 个人主页 -->
-        <el-menu-item index="5">
-          <!--         <router-link to="/profile">{{ translations.profile }}</router-link>-->
-          <a href="/profile" class="redirection" style="font-weight: bold">{{ translations.profile }}</a>
-        </el-menu-item>
-
-        <!-- 账号设置 -->
-        <el-menu-item index="6">
-          <!--         <router-link to="/settings">{{ translations.settings }}</router-link>-->
-          <a href="/settings" class="redirection" style="font-weight: bold">{{ translations.settings }}</a>
-        </el-menu-item>
-
-        <!-- 视频聊天 -->
-        <el-menu-item index="7">
-          <!--         <router-link to="/settings">视频聊天</router-link>-->
-          <a href="/" class="redirection" style="font-weight: bold">{{translations.videochat}}</a>
-        </el-menu-item>
-
-      </el-menu>
-
+      <Leftsidebar></Leftsidebar>
     </el-aside>
     <!-- 内容 -->
     <el-main>
-
       <el-tabs v-model="orderMode" @tab-click="handleTabClick" class="tabs">
         <el-tab-pane>
           <template #label>
@@ -78,7 +32,7 @@
           <div class="conversation-meta">
             <span class="conversation-username">{{ conversation.target.username }}</span> {{ translations.publishtime }} {{ conversation.createTime }}
             <div class="conversation-stats">
-              <el-tag v-if="conversation.unreadCount != 0" type="danger">{{ conversation.unreadCount }}</el-tag>
+              <el-tag v-if="conversation.unreadCount != 0" type="danger">{{translations.unreadCount}}{{ conversation.unreadCount }}</el-tag>
               <el-tag>{{ translations.letterCount }} {{ conversation.letterCount }}</el-tag>
             </div>
           </div>
@@ -102,46 +56,68 @@
       <div class="search-bar">
         <el-input v-model="searchQuery" @keyup.enter="search" style="width: 200px;"/>
         <el-button @click="search" type="primary">{{ translations.search }}</el-button>
-        <!--      <p>当前搜索关键字: {{ searchQuery }}</p> 应该改为placeholder-->
-
         <el-select v-model="selectedLanguage" @change="changeLanguage" placeholder="Select Language" class="selectbar">
           <el-option label="English" value="en"></el-option>
           <el-option label="中文" value="zh"></el-option>
           <el-option label="Español" value="sp"></el-option>
         </el-select>
       </div>
-
-
     </el-aside>
   </el-container>
 </template>
 
-<style>
-/* 添加任何额外的样式 */
-@import "@/css/views/letter.css";
-</style>
 
-<script setup>
-import {useCommonTranslations} from '@/lang/i18nhelper';
-import {useI18n} from 'vue-i18n';
+
+<script setup lang="ts">
 import {ref} from "vue";
+import router from "@/router/index.ts";
 
-const translations = useCommonTranslations();
-const {t, locale} = useI18n({useScope: "global"});
-const selectedLanguage = ref('zh')
-const changeLanguage = () => {
-  locale.value = selectedLanguage.value
-}
 
 import {
-  searchQuery,
   orderMode,
   page,
   paginatedItems,
   handlePageChange,
   handleTabClick,
-  search,
 } from '@/js/letter.ts';
+
+
+
+
+
+
+
+
+
+
+
+
+
+//搜索调用
+const searchQuery = ref('');
+const search = () => {
+  console.log('Search query:', searchQuery.value);
+  if (searchQuery.value.trim()) {
+    // 使用 router.push 进行路由导航
+    router.push({name: 'search', query: {keyword: searchQuery.value}});
+  }
+};
+//多语言支持
+import {useCommonTranslations} from '@/lang/i18nhelper';
+import {useI18n} from 'vue-i18n';
+const translations = useCommonTranslations();
+const {t, locale} = useI18n({useScope: "global"});
+const selectedLanguage = ref('zh');
+const changeLanguage = () => {
+  locale.value = selectedLanguage.value
+}
+//样式
+import Leftsidebar from "@/components/Leftsidebar.vue";
 </script>
 
+
+<style>
+/* 添加任何额外的样式 */
+@import "@/css/views/letter.css";
+</style>
 

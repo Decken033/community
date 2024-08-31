@@ -47,26 +47,33 @@
 </template>
 
 <script setup lang="ts">
-//数据部分
 import {ref} from 'vue';
+
+
+
+//验证码url
+const img = ref('');
+//验证码接口
+import api from "@/api/api.ts";
+import {ElMessage} from "element-plus";
+const refreshKaptcha = async () => {
+  const response = await fetch(api.user.verifycode);
+  const blob = await response.blob();
+  img.value = URL.createObjectURL(blob);
+  // const data = await response.json();
+  // img.value = data.img;
+};
+
+
+
+
+//登录接口
 const form = ref({
   username: '',
   password: '',
   code: '',
   rememberMe: false,
 });
-//验证码url
-const img = ref('');
-
-
-//验证码接口和登录接口
-import api from "@/api/api.ts";
-import {ElMessage} from "element-plus";
-const refreshKaptcha = async () => {
-  const response = await fetch(api.user.verifycode);
-  const data = await response.json();
-  img.value = data.img;
-};
 const handleSubmit = async() => {
     const response = await fetch(api.user.login, {
       method: 'POST',
@@ -74,10 +81,10 @@ const handleSubmit = async() => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: username.value,
-        password: password.value,
-        code: code.value,
-        rememberMe: rememberMe.value,
+        username: form.value.username,
+        password: form.value.password,
+        code: form.value.code,
+        rememberMe: form.value.rememberMe,
       }),
     });
     const data = await response.json();
@@ -96,12 +103,12 @@ const handleSubmit = async() => {
 
 
 
+
 //加入返回按钮
 import router from "@/router/index.ts";
 const handleBack = () => {
   router.push('/');
 };
-const kaptchaSrc = ref('/kaptcha');
 const navigateToRegister = () => {
   router.push('/register');
 };

@@ -46,5 +46,7 @@ export default {
     enterConfirmPassword:'confirmar',
     seletcAvatar:'Seleccionar Avatar',
     uploadnow:'Subir ahora',
+    letterCount:'mensajes privados',
+    unreadCount:'Mensajes no leídos',
   }
 };

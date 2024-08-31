@@ -1,5 +1,5 @@
 // api-config.js
-const ip = 'http://localhost:8080/';
+const ip = 'http://localhost:8080/community/';
 
 export default {
     user:{
@@ -20,7 +20,4 @@ export default {
         studentlist:ip+'student/studentlist',
         allstudent:ip+'student/allstudent'
     },
-    comment:{
-        addcomment:ip+`add/${discussPostId}`,
-    }
 };

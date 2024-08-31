@@ -46,6 +46,7 @@ export default {
     enterConfirmPassword: '确认密码',
     seletcAvatar: '选择头像',
     uploadnow: '立即上传',
-
+    letterCount: '私信数量',
+    unreadCount: '未读消息',
   }
 };
