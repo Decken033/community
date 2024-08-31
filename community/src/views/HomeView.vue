@@ -6,29 +6,6 @@
 
     <!-- 内容 -->
     <el-main>
-      <!-- 筛选条件 -->
-
-      <!--TODO-->
-      <!-- 发布弹出框 -->
-
-      <!--      <el-button @click="openPublishModal">发布新帖</el-button>-->
-
-      <!--      &lt;!&ndash; 弹出框 &ndash;&gt;-->
-      <!--      <el-dialog title="新帖发布" :visible.sync="isPublishModalVisible" width="100%">-->
-      <!--        <el-form>-->
-      <!--          <el-form-item label="标题">-->
-      <!--            <el-input placeholder="请输入标题"></el-input>-->
-      <!--          </el-form-item>-->
-      <!--          <el-form-item label="正文">-->
-      <!--            <el-input type="textarea" placeholder="请输入正文" rows="15"></el-input>-->
-      <!--          </el-form-item>-->
-      <!--        </el-form>-->
-      <!--        <div slot="footer" class="dialog-footer">-->
-      <!--          <el-button @click="isPublishModalVisible = false">取消</el-button>-->
-      <!--          <el-button type="primary" @click="publishPost">发布</el-button>-->
-      <!--        </div>-->
-      <!--      </el-dialog>-->
-
       <!--      发帖-->
       <el-aside class="topsidebar">
         <postbox></postbox>
