@@ -1,6 +1,13 @@
 import axios from 'axios';
 import {onMounted, onBeforeUnmount, computed, ref} from 'vue';
 import {useRouter} from "vue-router";
+import avatar1 from '@/images/avatar1.jpg';
+import avatar2 from '@/images/avatar2.jpg';
+import avatar3 from '@/images/avatar3.jpg';
+import avatar4 from '@/images/avatar4.jpg';
+import avatar5 from '@/images/avatar5.jpg';
+import avatar6 from '@/images/avatar6.jpg';
+
 // 动态设置 rem 基准
 const setRem = () => {
     const baseSize = window.innerWidth / 100; // 1rem = 视窗宽度的 1/100
@@ -37,88 +44,89 @@ const orderMode = ref<string | number>('0'); // 初始值为 '0'
 const posts = ref([
     {
         id: 1,
-        title: '1备战春招，面试刷题跟他复习，一个月全搞定！',
-        userAvatar: '/path/to/avatar.png',
+        title: '如何高效备战春招？分享面试刷题技巧，一个月轻松搞定！',
+        userAvatar: avatar6,
         author: '寒江雪',
         createTime: '2024-08-19',
-        likeCount: 11,
-        commentCount: 7
+        likeCount: 23,
+        commentCount: 10
     },
     {
-        id: 1,
-        title: '2备战春招，面试刷题跟他复习，一个月全搞定！',
-        userAvatar: '/path/to/avatar.png',
-        author: '寒江雪',
-        createTime: '2024-08-19',
-        likeCount: 11,
-        commentCount: 7
+        id: 2,
+        title: '面试攻略：掌握这五个技巧，拿下大厂Offer！',
+        userAvatar: avatar1,
+        author: '青山白',
+        createTime: '2024-08-20',
+        likeCount: 30,
+        commentCount: 15
     },
     {
-        id: 1,
-        title: '3备战春招，面试刷题跟他复习，一个月全搞定！',
-        userAvatar: '/path/to/avatar.png',
-        author: '寒江雪',
-        createTime: '2024-08-19',
-        likeCount: 11,
-        commentCount: 7
+        id: 3,
+        title: '春招求职经验谈：我如何从零开始备考，成功拿下心仪工作',
+        userAvatar: avatar3,
+        author: '沧海月',
+        createTime: '2024-08-21',
+        likeCount: 18,
+        commentCount: 12
     },
     {
-        id: 1,
-        title: '4备战春招，面试刷题跟他复习，一个月全搞定！',
-        userAvatar: '/path/to/avatar.png',
+        id: 4,
+        title: '求职必读：一份完整的面试题库，助你轻松上岸！',
+        userAvatar: avatar4,
         author: '寒江雪',
-        createTime: '2024-08-19',
-        likeCount: 11,
-        commentCount: 7
+        createTime: '2024-08-22',
+        likeCount: 40,
+        commentCount: 22
     },
     {
-        id: 1,
-        title: '5备战春招，面试刷题跟他复习，一个月全搞定！',
-        userAvatar: '/path/to/avatar.png',
-        author: '寒江雪',
-        createTime: '2024-08-19',
-        likeCount: 11,
-        commentCount: 7
+        id: 5,
+        title: '从刷题到面试：我的备考心得分享，助你成功上岸',
+        userAvatar: avatar2,
+        author: '白衣渡',
+        createTime: '2024-08-23',
+        likeCount: 29,
+        commentCount: 14
     },
     {
-        id: 1,
-        title: '6备战春招，面试刷题跟他复习，一个月全搞定！',
-        userAvatar: '/path/to/avatar.png',
-        author: '寒江雪',
-        createTime: '2024-08-19',
-        likeCount: 11,
-        commentCount: 7
+        id: 6,
+        title: '算法面试高频题目汇总，一起突破大厂面试',
+        userAvatar: avatar5,
+        author: '青山白',
+        createTime: '2024-08-24',
+        likeCount: 35,
+        commentCount: 19
     },
     {
-        id: 1,
-        title: '7备战春招，面试刷题跟他复习，一个月全搞定！',
-        userAvatar: '/path/to/avatar.png',
-        author: '寒江雪',
-        createTime: '2024-08-19',
-        likeCount: 11,
-        commentCount: 7
+        id: 7,
+        title: '找工作，不焦虑：如何科学规划备考时间？',
+        userAvatar: '/path/to/avatar7.png',
+        author: '沧海月',
+        createTime: '2024-08-25',
+        likeCount: 27,
+        commentCount: 13
     },
     {
-        id: 1,
-        title: '8备战春招，面试刷题跟他复习，一个月全搞定！',
-        userAvatar: '/path/to/avatar.png',
-        author: '寒江雪',
-        createTime: '2024-08-19',
-        likeCount: 11,
-        commentCount: 7
+        id: 8,
+        title: '求职季的避坑指南：从简历到面试的完整攻略',
+        userAvatar: '/path/to/avatar8.png',
+        author: '白衣渡',
+        createTime: '2024-08-26',
+        likeCount: 31,
+        commentCount: 16
     },
     {
-        id: 1,
-        title: '9备战春招，面试刷题跟他复习，一个月全搞定！',
-        userAvatar: '/path/to/avatar.png',
+        id: 9,
+        title: '春招刷题大作战：一份面试刷题计划助你高效复习',
+        userAvatar: '/path/to/avatar9.png',
         author: '寒江雪',
-        createTime: '2024-08-19',
-        likeCount: 11,
-        commentCount: 7
+        createTime: '2024-08-27',
+        likeCount: 25,
+        commentCount: 18
     },
 
-    // 添加更多帖子
+
 ]);
+
 
 
 // 发布弹出框的显示状态
