@@ -9,7 +9,7 @@
             <div class="user-info">
               <span class="user-name">{{ user.name }}</span>
               <p class="user-post">{{ user.latestPost }}</p> <!-- 显示用户的最新帖子内容 -->
-              <button>关注</button>
+              <button class="attention">关注</button>
             </div>
           </li>
         </ul>
