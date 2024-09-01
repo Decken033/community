@@ -40,8 +40,11 @@ const form = ref({
 // 定义 orderMode 的类型并初始化
 const orderMode = ref<string | number>('0'); // 初始值为 '0'
 
+
+//前端模拟帖子数据
 // 帖子列表数据
 const posts = ref([
+
     {
         id: 1,
         title: '如何高效备战春招？分享面试刷题技巧，一个月轻松搞定！',
@@ -127,8 +130,6 @@ const posts = ref([
 
 ]);
 
-
-
 // 发布弹出框的显示状态
 const isPublishModalVisible = ref(false);
 
@@ -138,17 +139,17 @@ const openPublishModal = () => {
 };
 
 // 发布帖子
-const publishPost = () => {
-    axios.post('/posts', {
-        title: form.value.title,
-        content: form.value.content,
-    }).then(response => {
-        console.log('发布成功');
-        isPublishModalVisible.value = false;
-    }).catch(error => {
-        console.error('发布失败:', error);
-    });
-};
+// const publishPost = () => {
+//     axios.post('/posts', {
+//         title: form.value.title,
+//         content: form.value.content,
+//     }).then(response => {
+//         console.log('发布成功');
+//         isPublishModalVisible.value = false;
+//     }).catch(error => {
+//         console.error('发布失败:', error);
+//     });
+// };
 
 
 // 分页信息
@@ -160,6 +161,7 @@ const page = ref({
 
 //使用 computed 属性计算当前页需要显示的数据
 const paginatedItems = computed(() => {
+
     const start = (page.value.current - 1) * page.value.pageSize;
     const end = start + page.value.pageSize;
     return posts.value.slice(start, end);
@@ -169,14 +171,6 @@ const paginatedItems = computed(() => {
 // 处理分页变化
 const handlePageChange = (newPage: number) => {
     page.value.current = newPage;
-    // 在这里你可以根据新的页码请求数据
-
-    // 示例 API 请求
-    // const response = await fetch(`/api/items?page=${newPage}&pageSize=${page.value.pageSize}`);
-    // const data = await response.json();
-
-    // posts.value = data.items;
-    // page.value.total = data.total;
 };
 
 // 定义 handleTabClick 函数
