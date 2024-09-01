@@ -22,17 +22,17 @@
         <el-tab-pane :label="translations.latest.value" name="1"></el-tab-pane>
       </el-tabs>
 
-      <!-- 帖子列表 -->
       <div v-for="post in paginatedItems" :key="post.id" class="post-item">
-        <el-avatar :src="post.userAvatar"></el-avatar>
+        <el-avatar :src="post.userAvatar" class="post-avatar"></el-avatar>
         <div class="post-content">
-          <el-link :href="`/discuss/detail/${post.id}`" class="post-title">{{ post.title }}</el-link>
+          <router-link :to="`/discuss/detail/${post.id}`" class="post-title">{{ post.title }}</router-link>
           <div class="post-meta">
-            <span>{{ post.author }}</span> {{translations.publishtime}} {{ post.createTime }}
-            <div class="post-stats">
-              <el-tag>{{ translations.like }} {{ post.likeCount }}</el-tag>
-              <el-tag>{{ translations.reply }} {{ post.commentCount }}</el-tag>
-            </div>
+            <span class="post-author">{{ post.author }}</span>
+            <span class="post-time">{{ translations.publishtime }} {{ post.createTime }}</span>
+          </div>
+          <div class="post-stats">
+            <el-tag>{{ translations.like }} {{ post.likeCount }}</el-tag>
+            <el-tag>{{ translations.reply }} {{ post.commentCount }}</el-tag>
           </div>
         </div>
       </div>
@@ -61,6 +61,10 @@
           <el-option label="中文" value="zh"></el-option>
           <el-option label="Español" value="sp"></el-option>
         </el-select>
+
+        <div>
+          <recommendbar></recommendbar>
+        </div>
       </div>
 
 
@@ -83,6 +87,8 @@ import {useCommonTranslations} from '@/lang/i18nhelper';
 import {useI18n} from 'vue-i18n';
 import postbox from "@/views/PostBox/Postbox.vue"
 import Leftsidebar  from "@/components/Leftsidebar.vue";
+import recommendbar from "@/components/recommendbar.vue";
+
 const translations = useCommonTranslations();
 const {t, locale} = useI18n({useScope: "global"});
 const selectedLanguage = ref('zh')

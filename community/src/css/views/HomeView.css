@@ -1,4 +1,5 @@
 
+
 .topsidebar {
     width: 80%;
     height: auto;
@@ -25,7 +26,7 @@
     padding-top: 0px;
     width: 40%;
     height: 100%;
-//transform: translateX(-30%)；
+    flex-grow: 1;
 }
 
 .el-main::-webkit-scrollbar {
@@ -45,6 +46,7 @@
     display: flex;
     width: 25%;
     height: 100%;
+    flex-direction: column;
 }
 
 .rightsidebar {
@@ -77,50 +79,73 @@
 }
 
 
-.post-item {
-    display: flex;
-    align-items: center;
-    width:100%;
-    margin-bottom: 20px;
-}
-
-.post-content {
-    margin-left: 10px;
-}
-
-.post-title {
-    font-weight: bold;
-    font-size: 1.2em;
-}
-
-.post-meta {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-}
-
-.post-stats {
-    display: flex;
-    gap: 10px;
-}
-
-.float-right {
-    float: right;
-}
-
-.redirection:hover {
-    background: white;
-}
-
-.tabs{
-    background: white;
-}
-
-.page{
-    background: white;
-}
-
 .selectbar{
     margin-left: 20px;
     width: 80px;
 }
+
+
+/*main中最新最热的内容*/
+.post-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.post-avatar {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+}
+
+.post-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.post-title {
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 5px;
+    margin-left: 0px;
+}
+
+.post-title:hover {
+    color: #409eff; /* 鼠标悬停时的颜色 */
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 5px; /* 在作者和时间信息下方添加间距 */
+}
+
+.post-author {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #666;
+}
+
+.post-time {
+    color: #999;
+}
+
+.post-stats {
+    display: flex;
+    align-items: center;
+    margin-top: 5px; /* 使统计信息与meta信息有一定的间隔 */
+}
+
+.post-stats .el-tag {
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+

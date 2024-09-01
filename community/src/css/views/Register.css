@@ -42,6 +42,8 @@ canvas {
     align-items: flex-start;
     justify-content: flex-start; */
     background: transparent;
+
+    overflow: hidden;
 }
 
 .logo{
@@ -78,3 +80,4 @@ canvas {
 {
     width: 50%;
 }
+
