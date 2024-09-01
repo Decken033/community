@@ -161,6 +161,10 @@ const page = ref({
     total: 10 // Total number of items
 });
 
+// 定义 handleTabClick 函数
+const handleTabClick = (tab: { label: string; name: string }) => {
+    console.log(`当前选中的标签: ${tab.label}`);
+};
 
 //使用 computed 属性计算当前页需要显示的数据
 const paginatedItems = computed(() => {
@@ -175,10 +179,6 @@ const handlePageChange = (newPage: number) => {
     page.value.current = newPage;
 };
 
-// 定义 handleTabClick 函数
-const handleTabClick = (tab: { label: string; name: string }) => {
-    console.log(`当前选中的标签: ${tab.label}`);
-};
 
 // 搜索功能
 const router = useRouter();

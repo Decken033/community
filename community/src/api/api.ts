@@ -22,5 +22,8 @@ export default {
     },
     comment:{
 
+    },
+    letter:{
+        list:ip+'letter/list'
     }
 };
