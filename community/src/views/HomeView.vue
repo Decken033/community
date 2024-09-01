@@ -73,14 +73,22 @@
 </template>
 <script setup lang="ts">
 import {
-  searchQuery,
   orderMode,
   page,
   paginatedItems,
   handlePageChange,
   handleTabClick,
-  search,
 } from '@/js/global.ts';
+
+const searchQuery = ref('');
+import router from "@/router/index.ts";
+const search = () => {
+  console.log('Search query:', searchQuery.value);
+  if (searchQuery.value.trim()) {
+    // 使用 router.push 进行路由导航
+    router.push({name: 'search', query: {keyword: searchQuery.value}});
+  }
+};
 
 import {ref} from 'vue';
 import {useCommonTranslations} from '@/lang/i18nhelper';

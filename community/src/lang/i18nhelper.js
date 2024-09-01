@@ -52,7 +52,8 @@ export function useCommonTranslations() {
     const enterConfirmPassword = computed(() => t('message.enterConfirmPassword'));
     const seletcAvatar = computed(() => t('message.seletcAvatar'));
     const uploadnow = computed(() => t('message.uploadnow'));
-
+    const letterCount = computed(() => t('message.letterCount'));
+    const unreadCount = computed(() => t('message.unreadCount'));
     // 返回所有翻译内容
 
 
@@ -104,6 +105,8 @@ export function useCommonTranslations() {
         enterConfirmPassword,
         seletcAvatar,
         uploadnow,
+        letterCount,
+        unreadCount,
     };
 
 }
