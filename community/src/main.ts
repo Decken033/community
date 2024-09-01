@@ -9,7 +9,6 @@ import { createI18n } from 'vue-i18n';
 import zh from './lang/zh';
 import en from './lang/en';
 import sp from './lang/sp';
-import VueCookies from 'vue-cookies'
 
 //tailwindcss
 import "./style.css";
@@ -34,4 +33,3 @@ app.use(i18n);
 app.use(router)
 app.mount('#app')
 app.use(ElementPlus)
-app.use(VueCookies)

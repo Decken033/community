@@ -60,8 +60,6 @@ const refreshKaptcha = async () => {
   const response = await fetch(api.user.verifycode);
   const blob = await response.blob();
   img.value = URL.createObjectURL(blob);
-  // const data = await response.json();
-  // img.value = data.img;
 };
 
 
@@ -88,7 +86,7 @@ const handleSubmit = async() => {
       }),
     });
     const data = await response.json();
-    console.log(data)
+    console.log(data);
     if(data.status==0){
       //正确
       router.push('/');
