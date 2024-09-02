@@ -48,5 +48,6 @@ export default {
     uploadnow: 'Upload Now',
     letterCount: 'Private Messages',
     unreadCount: 'Unread Messages',
+    match: 'RandomMatch',
   }
 };
