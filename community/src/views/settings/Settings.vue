@@ -92,7 +92,7 @@ const imageSelected = ref(false); // 是否已选择图片的标志
 // 获取初始头像数据
 onMounted(async () => {
   try {
-    const response = await fetch(api.user.header); // API 返回头像 URL
+    const response = await fetch("http://localhost:8080/community/header"); // API 返回头像 URL
     if (response.ok) {
       const data = await response.json();
       avatarUrl.value = data.avatarUrl || defaultAvatar;// 默认头像路径
@@ -109,16 +109,28 @@ onMounted(async () => {
 const handleFileChange = (file) => {
   const isImage = file.raw.type.startsWith('image/');
   if (isImage) {
-    avatarUrl.value = URL.createObjectURL(file.raw);
-    selectedFile.value = file.raw;
-    imageSelected.value = true;
+    const reader = new FileReader();
+    reader.readAsDataURL(file.raw);
+
+    reader.onload = () => {
+      avatarUrl.value = reader.result;  // Base64 string
+      selectedFile.value = file.raw;
+      imageSelected.value = true;
+    };
+
+    reader.onerror = () => {
+      ElMessage.error('文件读取失败');
+    };
   } else {
     ElMessage.error('请选择有效的图片文件');
   }
 };
 
+
+import { ElMessage } from 'element-plus';
 // 上传前的校验
 const beforeAvatarUpload = (file) => {
+  console.log('beforeAvatarUpload:', file);
   const isImage = file.type.startsWith('image/');
   if (!isImage) {
     ElMessage.error('上传的文件必须是图片!');
@@ -127,33 +139,68 @@ const beforeAvatarUpload = (file) => {
   return true;
 };
 
-//立即上传图片
-async function uploadImagenow() {
+
+
+
+
+
+const userId = '12345'; // 用户ID示例
+// 将用户ID存储到localStorage中
+localStorage.setItem('userId', userId);
+const myuserId = localStorage.getItem('userId');
+
+// 立即上传图片
+async function UploadImagenow() {
+  console.log('Uploading image now...');
   if (!selectedFile.value) {
-    message.error('请先选择一张图片!');
+    ElMessage.error('请先选择一张图片!');
     return;
   }
 
-  const formData = new FormData();
-  formData.append('headerImage', selectedFile.value);
-
   try {
-    const response = await fetch(api.user.avatar, {
-      method: 'POST',
-      body: formData,
-    });
+    // 将图片编码为Base64字符串
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile.value);
 
-    if (response.ok) {
-      const data = await response.json();
-      avatarUrl.value = data.avatarUrl; // 更新头像 URL
-      message.success('头像上传成功!');
-    } else {
-      message.error('上传失败，请重试!');
-    }
+    reader.onload = async () => {
+      const base64Data = reader.result;
+
+
+      // 获取图片类型
+      const imageType = selectedFile.value.type;
+
+      // 构建请求体
+      const payload = {
+        headerImage: base64Data,
+        imageType: imageType,
+        userId: myuserId, // 用户 ID
+      };
+
+      const response = await fetch("http://localhost:8080/community/uploadavatar", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),  // 发送 JSON 格式的 Base64 数据
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        avatarUrl.value = data.avatarUrl; // 更新头像 URL
+        ElMessage.success('头像上传成功!');
+      } else {
+        ElMessage.error('上传失败，请重试!');
+      }
+    };
+
+    reader.onerror = () => {
+      ElMessage.error('文件读取失败');
+    };
   } catch (error) {
-    message.error('上传过程中出现错误!');
+    ElMessage.error('上传过程中出现错误: ' + error.message);
   }
 }
+
 
 
 //修改昵称
@@ -175,6 +222,7 @@ const changeNickname = async () => {
     console.error('Error changing nickname:', error);
   }
 };
+
 
 </script>
 
@@ -349,7 +397,7 @@ const changeNickname = async () => {
               class="uploadnow"
               native-type="submit"
               :disabled="!imageSelected"
-              @click="uploadimagenow"
+              @click="UploadImagenow"
           >
             {{ translations.uploadnow }}
           </el-button>

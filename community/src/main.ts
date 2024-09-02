@@ -10,6 +10,7 @@ import zh from './lang/zh';
 import en from './lang/en';
 import sp from './lang/sp';
 
+
 //tailwindcss
 import "./style.css";
 
@@ -33,3 +34,5 @@ app.use(i18n);
 app.use(router)
 app.mount('#app')
 app.use(ElementPlus)
+
+
