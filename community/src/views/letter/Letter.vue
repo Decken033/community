@@ -69,20 +69,42 @@
 
 
 <script setup lang="ts">
-import {ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import router from "@/router/index.ts";
-
-
 import {
   orderMode,
-  page,
   paginatedItems,
   handlePageChange,
-  handleTabClick,
 } from '@/js/letter.ts';
+//分页信息
+const page = ref({
+  current: 1,
+  pageSize: 6,
+  total: 10
+});
+const letterUnreadCount = ref(5);
+const noticeUnreadCount = ref(3);
+const conversations = ref([]);
+const getLetter = async () => {
+  const response = await fetch(api.letter.list);
+  const data = await response.json();
+  letterUnreadCount.value = data.letterUnreadCount;
+  noticeUnreadCount.value = data.noticeUnreadCount;
+  page.value.total = data.Page.rows;
+  page.value.current = data.Page.current;
+  page.value.pageSize = data.Page.limit;
+  conversations.value = data.conversations;
+  console.log(conversations.value);
+  const paginatedItems = computed(() => {
+    const start = (page.value.current - 1) * page.value.pageSize;
+    const end = start + page.value.pageSize;
+    return conversations.value.slice(start, end);
+  });
+};
 
-
-
+onMounted(() => {
+  getLetter();
+});
 
 
 
@@ -113,6 +135,7 @@ const changeLanguage = () => {
 }
 //样式
 import Leftsidebar from "@/components/Leftsidebar.vue";
+import api from "@/api/api";
 </script>
 
 
