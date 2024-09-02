@@ -25,15 +25,15 @@
       </el-tabs>
 
       <!-- 私信列表 -->
-      <div v-for="conversation in paginatedItems" :key="conversation.conversationId" class="conversation-card">
-        <el-avatar :src="conversation.target.headerUrl" class="conversation-avatar"></el-avatar>
+      <div v-for="(item,index) in conversations" :key="index" v-show="isInRange(index)" class="conversation-card">
+<!--        <el-avatar :src="item.conversation.target.headerUrl" class="conversation-avatar"></el-avatar>-->
         <div class="conversation-content">
-          <el-link :href="`/letter/detail/${conversation.conversationId}`" class="conversation-title">{{ conversation.content }}</el-link>
+          <el-link :href="`/letter/detail/${item.conversation.conversationId}`" class="conversation-title">{{ item.conversation.content }}</el-link>
           <div class="conversation-meta">
-            <span class="conversation-username">{{ conversation.target.username }}</span> {{ translations.publishtime }} {{ conversation.createTime }}
+            <span class="conversation-username">{{ item.target.username }}</span> {{ translations.publishtime }} {{ item.conversation.createTime }}
             <div class="conversation-stats">
-              <el-tag v-if="conversation.unreadCount != 0" type="danger">{{translations.unreadCount}}{{ conversation.unreadCount }}</el-tag>
-              <el-tag>{{ translations.letterCount }} {{ conversation.letterCount }}</el-tag>
+              <el-tag v-if="item.unreadCount != 0" type="danger">{{translations.unreadCount}}{{ item.unreadCount }}</el-tag>
+            <el-tag>{{ translations.letterCount }} </el-tag>
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@ import {computed, onMounted, ref} from "vue";
 import router from "@/router/index.ts";
 import {
   orderMode,
-  paginatedItems,
+  // paginatedItems,
   handlePageChange,
 } from '@/js/letter.ts';
 //分页信息
@@ -84,6 +84,16 @@ const page = ref({
 });
 const letterUnreadCount = ref(5);
 const noticeUnreadCount = ref(3);
+const start=ref(0);
+const end=ref(1);
+const isInRange = (index) =>{
+  console.log(index);
+  if(index<=end.value-1&&index>=start.value){
+    return 1;
+  }else{
+    return 0;
+  }
+}
 const conversations = ref([]);
 const getLetter = async () => {
   const response = await fetch(api.letter.list);
@@ -94,23 +104,22 @@ const getLetter = async () => {
   page.value.current = data.Page.current;
   page.value.pageSize = data.Page.limit;
   conversations.value = data.conversations;
-  console.log(conversations.value);
-  const paginatedItems = computed(() => {
-    const start = (page.value.current - 1) * page.value.pageSize;
-    const end = start + page.value.pageSize;
-    return conversations.value.slice(start, end);
-  });
+  start.value = (page.value.current - 1) * page.value.pageSize;
+  if (start.value + page.value.pageSize  > page.value.total){
+    end.value = page.value.total;
+  }else{
+    end.value = start.value + page.value.pageSize;
+  }
+  console.log(start.value+"-"+end.value);
+  console.log(conversations.value)
 };
+
+
+
 
 onMounted(() => {
   getLetter();
 });
-
-
-
-
-
-
 
 
 
