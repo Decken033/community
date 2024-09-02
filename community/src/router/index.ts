@@ -65,6 +65,11 @@ const router = createRouter({
       name:'mypost',
         component: () => import('@/views/my-post_reply/My-post.vue')
     },
+    {
+      path:'/data',
+      name:'data',
+      component: () => import('@/views/data/Data.vue')
+    }
   ]
 });
 
