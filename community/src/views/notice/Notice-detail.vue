@@ -4,7 +4,7 @@
       <Leftsidebar></Leftsidebar>
     </el-aside>
 
-    <!-- 内容 -->
+    <!-- 内容  -->
     <el-main>
       <el-row :gutter="20">
         <el-col :span="24" v-for="(notice,index) in notices" :key="notice.entityId" v-show="isInRange(index)">
