@@ -101,7 +101,7 @@ const commentCount = ref(1);
 
 const fetchPosts = async (orderModeValue) => {
   try {
-    const response = await axios.get('/', {
+    const response = await axios.get('/index', {
       params: { orderMode: orderModeValue }
     });
     const data = await response.json();
@@ -117,7 +117,7 @@ const fetchPosts = async (orderModeValue) => {
 
     likeCount.value = data.likeCount;
     commentCount.value = data.commentCount;
-    titel.value = data.title;
+    title.value = data.title;
     discussPosts.value = data.discussPosts;
 
 
