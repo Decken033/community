@@ -28,6 +28,6 @@ export default {
     },
     notice:{
         list:ip+'notice/list',
-        detail:ip+'notice/detail/'
+        detail:ip+'notice/detail/like'
     },
 };
