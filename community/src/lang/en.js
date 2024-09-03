@@ -53,5 +53,6 @@ export default {
     comment: 'Comment',
     follow: 'Follow',
     all: 'Total',
+    match: 'RandomMatch',
   }
 };

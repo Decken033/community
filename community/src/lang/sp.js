@@ -53,5 +53,6 @@ export default {
     comment:'Comentario',
     follow:'Seguir',
     all:'Toda',
+    match: 'Emparejamiento aleatorio',
   }
 };

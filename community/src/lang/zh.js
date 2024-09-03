@@ -53,5 +53,6 @@ export default {
     comment: '评论',
     follow: '关注',
     all: '全部',
+    match: '随机匹配',
   }
 };

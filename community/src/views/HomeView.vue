@@ -17,8 +17,8 @@
         <el-tab-pane :label="translations.latest.value" name="1"></el-tab-pane>
       </el-tabs>
 
-      <div v-for="post in paginatedItems" :key="post.id" class="post-item">
-        <el-avatar :src="post.userAvatar" class="post-avatar"></el-avatar>
+      <div v-for="post in discussPosts" :key="post.id" class="post-item">
+<!--        <el-avatar :src="`data:image/png;base64,${user.avatar}`" class="post-avatar"></el-avatar>-->
         <div class="post-content">
           <router-link :to="`/discuss/detail/${post.id}`" class="post-title">{{ post.title }}</router-link>
           <div class="post-meta">
@@ -31,41 +31,6 @@
           </div>
         </div>
       </div>
-
-<!--      <el-tabs v-model="orderMode" @tab-click="handleTabClick" class="tabs">-->
-<!--        <el-tab-pane :label="translations.hottest.value" name="0">-->
-<!--          <div  v-for="post in hottestPosts" :key="post.id" class="post-item">-->
-<!--            <el-avatar :src="post.userAvatar" class="post-avatar"></el-avatar>-->
-<!--            <div class="post-content">-->
-<!--              <router-link :to="`/discuss/detail/${post.id}`" class="post-title">{{ post.title }}</router-link>-->
-<!--              <div class="post-meta">-->
-<!--                <span class="post-author">{{ post.author }}</span>-->
-<!--                <span class="post-time">{{ translations.publishtime }} {{ post.createTime }}</span>-->
-<!--              </div>-->
-<!--              <div class="post-stats">-->
-<!--                <el-tag>{{ translations.like }} {{ post.likeCount }}</el-tag>-->
-<!--                <el-tag>{{ translations.reply }} {{ post.commentCount }}</el-tag>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </el-tab-pane>-->
-<!--        <el-tab-pane :label="translations.latest.value" name="1">-->
-<!--          <div v-for="post in latestPosts" :key="post.id" class="post-item">-->
-<!--            <el-avatar :src="post.userAvatar" class="post-avatar"></el-avatar>-->
-<!--            <div class="post-content">-->
-<!--              <router-link :to="`/discuss/detail/${post.id}`" class="post-title">{{ post.title }}</router-link>-->
-<!--              <div class="post-meta">-->
-<!--                <span class="post-author">{{ post.author }}</span>-->
-<!--                <span class="post-time">{{ translations.publishtime }} {{ post.createTime }}</span>-->
-<!--              </div>-->
-<!--              <div class="post-stats">-->
-<!--                <el-tag>{{ translations.like }} {{ post.likeCount }}</el-tag>-->
-<!--                <el-tag>{{ translations.reply }} {{ post.commentCount }}</el-tag>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </el-tab-pane>-->
-<!--      </el-tabs>-->
 
       <!-- 分页 -->
       <el-pagination class="page"
@@ -102,13 +67,7 @@
   </el-container>
 </template>
 <script setup lang="ts">
-import {
-  orderMode,
-  page,
-  paginatedItems,
-  handlePageChange,
-  handleTabClick, posts,
-} from '@/js/global.ts';
+
 //搜索
 const searchQuery = ref('');
 import router from "@/router/index.ts";
@@ -122,11 +81,68 @@ const search = () => {
 };
 
 import {computed, ref} from 'vue';
+
+
+
+
+//最新，最热
+const orderMode = ref('0');
+const page = ref({
+  current: 1,
+  pageSize: 6,
+  total: 10
+});
+const start=ref(0);
+const end=ref(1);
+const discussPosts = ref([]);
+const title = ref('');
+const likeCount = ref(1);
+const commentCount = ref(1);
+
+const fetchPosts = async (orderModeValue) => {
+  try {
+    const response = await axios.get('/index', {
+      params: { orderMode: orderModeValue }
+    });
+    const data = await response.json();
+    page.value.total = data.Page.rows;
+    page.value.current = data.Page.current;
+    page.value.pageSize = data.Page.limit;
+    start.value = (page.value.current - 1) * page.value.pageSize;
+    if (start.value + page.value.pageSize  > page.value.total){
+      end.value = page.value.total;
+    }else{
+      end.value = start.value + page.value.pageSize;
+    }
+
+    likeCount.value = data.likeCount;
+    commentCount.value = data.commentCount;
+    title.value = data.title;
+    discussPosts.value = data.discussPosts;
+
+
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+  }
+};
+
+
+const handleTabClick = (tab) => {
+  console.log('Tab clicked:', tab.name);
+  orderMode.value = tab.name;
+  fetchPosts(orderMode.value);
+};
+
+
+
+
+//切换语言，侧边栏
 import {useCommonTranslations} from '@/lang/i18nhelper';
 import {useI18n} from 'vue-i18n';
 import postbox from "@/views/PostBox/Postbox.vue"
 import Leftsidebar from "@/components/Leftsidebar.vue";
 import recommendbar from "@/components/recommendbar.vue";
+
 
 const translations = useCommonTranslations();
 const {t, locale} = useI18n({useScope: "global"});
@@ -134,58 +150,6 @@ const selectedLanguage = ref('zh')
 const changeLanguage = () => {
   locale.value = selectedLanguage.value
 }
-
-//
-// //posts前后端交互
-// import { onMounted } from 'vue';
-//
-// // 获取帖子列表数据
-// const  posts2 = ref([]);
-// onMounted(async () => {
-//   try {
-//     const response = await fetch('/api/getPostsData');
-//     const data = await response.json();
-//     posts2.value = data;
-//   } catch (error) {
-//     console.error('Error fetching posts data:', error);
-//   }
-// });
-//
-//
-//
-// // 分页信息
-// const page = ref({
-//   current: 1, // 当前页码
-//   pageSize: 6, // 每页显示条数
-//   total: posts2.value.length, // 总条数
-// });
-//
-// //使用 computed 属性计算当前页需要显示的数据
-// const paginatedItems = computed(() => {
-//   const start = (page.value.current - 1) * page.value.pageSize;
-//   const end = start + page.value.pageSize;
-//   return posts2.value.slice(start, end);
-// });
-//
-//
-// // 处理分页变化
-// const handlePageChange = (newPage: number) => {
-//   page.value.current = newPage;
-// };
-//
-// // 定义 handleTabClick 函数
-// const handleTabClick = (tab: { label: string; name: string }) => {
-//   console.log(`当前选中的标签: ${tab.label}`);
-// };
-//
-//
-// const hottestPosts = computed(() => {
-//
-//   const start = (page.value.current - 1) * page.value.pageSize;
-//   const end = start + page.value.pageSize;
-//   return posts.value.slice(start, end);
-// });
-
 
 </script>
 <style scoped>

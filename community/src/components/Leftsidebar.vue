@@ -9,8 +9,12 @@
 
       <!-- 视频聊天 -->
       <el-menu-item index="3">
-        <!--         <router-link to="/settings">视频聊天</router-link>-->
         <a @click="navigateToVideoChat" class="redirection" style="font-weight: bold">{{translations.videochat}}</a>
+      </el-menu-item>
+
+      <!-- 随机匹配 -->
+      <el-menu-item index="4">
+        <a @click="navigateToRandomMatch" class="redirection" style="font-weight: bold">{{translations.match}}</a>
       </el-menu-item>
 
       <!-- 消息 -->
@@ -80,6 +84,9 @@ const navigateToSettings = () => {
 };
 const navigateToVideoChat = () => {
   router.push('/');
+};
+const navigateToRandomMatch = () => {
+  router.push('/match');
 };
 </script>
 

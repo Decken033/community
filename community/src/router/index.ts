@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import {createRouter, createWebHistory} from 'vue-router';
 
 // 创建路由实例
 const router = createRouter({
@@ -84,8 +84,13 @@ const router = createRouter({
       path: '/notice/detail/:type',
       name: 'noticeDetail',
       component: () => import('@/views/notice/Notice-detail.vue')
-    }
-  ]
+    },
+        {
+            path: '/match',
+            name: 'match',
+            component: () => import('@/views/match/Match.vue')
+        }
+    ]
 });
 
 export default router;
