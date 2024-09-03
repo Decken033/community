@@ -36,7 +36,7 @@
 
       <el-sub-menu>
         <template #title>
-          <a style="font-weight: bold;">用户</a>
+          <a style="font-weight: bold;">{{translations.user}}</a>
         </template>
         <!-- 注册 -->
         <el-menu-item index="1">

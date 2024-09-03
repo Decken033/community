@@ -1,5 +1,4 @@
 
-
 .topsidebar {
     width: 80%;
     height: auto;
@@ -27,6 +26,7 @@
     width: 40%;
     height: 100%;
     flex-grow: 1;
+//transform: translateX(-30%)；
 }
 
 .el-main::-webkit-scrollbar {
@@ -34,7 +34,10 @@
 }
 
 .el-menu {
-    margin-left: auto; /* 自动推到右侧 */
+    /*margin-left: auto; !* 自动推到右侧 *!*/
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .el-menu-item:hover {
@@ -67,85 +70,72 @@
 }
 
 .el-tabs {
-    width: 300px;
+    width: 100%;
     max-width: 100%;
 
     margin-top: auto;
     margin-bottom: auto;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding-top: 0;
     padding: 0px;
     height: auto;
 }
 
 
+.post-item {
+    display: flex;
+    width:100%;
+    align-items: center;
+    margin-bottom: 20px;
+
+}
+
+.post-content {
+    margin-left: 10px;
+    width: 100%;
+}
+
+.post-title {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.post-stats {
+    display: flex;
+    gap: 10px;
+}
+
+.float-right {
+    float: right;
+}
+
+.redirection:hover {
+    background: white;
+}
+
+.tabs{
+    background: white;
+}
+
+.page{
+    background: white;
+}
+
 .selectbar{
     margin-left: 20px;
     width: 80px;
 }
 
-
-/*main中最新最热的内容*/
-.post-item {
-    display: flex;
-    align-items: flex-start;
-    padding: 15px 0;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.post-avatar {
+.small-icon{
     width: 50px;
     height: 50px;
-    margin-right: 15px;
-    border-radius: 50%;
-    background-color: #e0e0e0;
+    margin-right: 5px;
 }
-
-.post-content {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.post-title {
-    font-weight: bold;
-    color: #333;
-    text-decoration: none;
-    margin-bottom: 5px;
-    margin-left: 0px;
-}
-
-.post-title:hover {
-    color: #409eff; /* 鼠标悬停时的颜色 */
-}
-
-.post-meta {
-    display: flex;
-    align-items: center;
-    color: #999;
-    font-size: 14px;
-    margin-bottom: 5px; /* 在作者和时间信息下方添加间距 */
-}
-
-.post-author {
-    margin-right: 10px;
-    font-weight: bold;
-    color: #666;
-}
-
-.post-time {
-    color: #999;
-}
-
-.post-stats {
-    display: flex;
-    align-items: center;
-    margin-top: 5px; /* 使统计信息与meta信息有一定的间隔 */
-}
-
-.post-stats .el-tag {
-    margin-left: 5px;
-    font-size: 12px;
-}
-
-

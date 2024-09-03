@@ -30,6 +30,16 @@ const router = createRouter({
       component: () => import('@/views/letter/Letterdetail.vue')
     },
     {
+      path: '/notice',
+      name: 'notice',
+      component: () => import('@/views/notice/Notice.vue')
+    },
+    {
+      path: '/notice/detail/:id',
+      name: 'noticedetail',
+      component: () => import('@/views/notice/Notice-detail.vue')
+    },
+    {
       path:'/profile',
       name:'profile',
       component: () => import('@/views/profile/Profile.vue')
@@ -69,6 +79,11 @@ const router = createRouter({
       path:'/data',
       name:'data',
       component: () => import('@/views/data/Data.vue')
+    },
+    {
+      path: '/notice/detail/:type',
+      name: 'noticeDetail',
+      component: () => import('@/views/notice/Notice-detail.vue')
     }
   ]
 });

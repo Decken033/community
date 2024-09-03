@@ -48,5 +48,10 @@ export default {
     uploadnow: 'Upload Now',
     letterCount: 'Private Messages',
     unreadCount: 'Unread Messages',
+    user: 'User',
+    conversations: 'Conversations',
+    comment: 'Comment',
+    follow: 'Follow',
+    all: 'Total',
   }
 };

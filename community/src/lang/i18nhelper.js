@@ -54,6 +54,12 @@ export function useCommonTranslations() {
     const uploadnow = computed(() => t('message.uploadnow'));
     const letterCount = computed(() => t('message.letterCount'));
     const unreadCount = computed(() => t('message.unreadCount'));
+    const user = computed(() => t('message.user'));
+    const conversations = computed(() => t('message.conversations'));
+    const comment = computed(() => t('message.comment'));
+    const follow = computed(() => t('message.follow'));
+    const all = computed(() => t('message.all'));
+
     // 返回所有翻译内容
 
 
@@ -107,6 +113,11 @@ export function useCommonTranslations() {
         uploadnow,
         letterCount,
         unreadCount,
+        user,
+        conversations,
+        comment,
+        follow,
+        all
     };
 
 }

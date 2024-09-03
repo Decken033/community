@@ -48,5 +48,10 @@ export default {
     uploadnow:'Subir ahora',
     letterCount:'mensajes privados',
     unreadCount:'Mensajes no leídos',
+    user:'Usuario',
+    conversations:'Conversaciones',
+    comment:'Comentario',
+    follow:'Seguir',
+    all:'Toda',
   }
 };
