@@ -62,6 +62,7 @@
           <el-option label="Español" value="sp"></el-option>
         </el-select>
       </div>
+
     </el-aside>
   </el-container>
 </template>
@@ -71,11 +72,6 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from "vue";
 import router from "@/router/index.ts";
-import {
-  orderMode,
-  // paginatedItems,
-  handlePageChange,
-} from '@/js/letter.ts';
 //分页信息
 const page = ref({
   current: 1,
@@ -94,6 +90,15 @@ const isInRange = (index) =>{
     return 0;
   }
 }
+const handlePageChange = (newPage) => {
+  page.value.current = newPage;
+  start.value = (page.value.current - 1) * page.value.pageSize;
+  if (start.value + page.value.pageSize  > page.value.total){
+    end.value = page.value.total;
+  }else{
+    end.value = start.value + page.value.pageSize;
+  }
+};
 const conversations = ref([]);
 const getLetter = async () => {
   const response = await fetch(api.letter.list);
@@ -110,8 +115,6 @@ const getLetter = async () => {
   }else{
     end.value = start.value + page.value.pageSize;
   }
-  console.log(start.value+"-"+end.value);
-  console.log(conversations.value)
 };
 
 
@@ -144,6 +147,7 @@ const changeLanguage = () => {
 }
 //样式
 import Leftsidebar from "@/components/Leftsidebar.vue";
+import recommendbar from "@/components/recommendbar.vue";
 import api from "@/api/api";
 </script>
 

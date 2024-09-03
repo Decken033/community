@@ -25,5 +25,9 @@ export default {
     },
     letter:{
         list:ip+'letter/list'
-    }
+    },
+    notice:{
+        list:ip+'notice/list',
+        detail:ip+'notice/detail/'
+    },
 };
