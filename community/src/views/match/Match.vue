@@ -1,46 +1,57 @@
 <template>
   <div>
-    <el-button type="primary" @click="startVideo">开始捕获视频信息</el-button>
-    <el-button type="danger" @click="stopVideo">停止捕获视频信息</el-button>
-    <el-button type="primary" @click="connect">建立连接</el-button>
-    <el-button type="danger" @click="hangUp">挂断</el-button>
+
+    <div class="top">
+      <el-button type="primary" @click="startVideo">开始捕获视频信息</el-button>
+      <el-button type="danger" @click="stopVideo">停止捕获视频信息</el-button>
+      <el-button type="primary" @click="connect">建立连接</el-button>
+      <el-button type="danger" @click="hangUp">挂断</el-button>
+    </div>
+
     <br />
     <div>
-      <video
-          id="local-video"
-          autoplay
-          style="width: 240px; height: 180px; border: 1px solid black"
-          ref="localVideo"
-      ></video>
-      <video
-          id="remote-video"
-          autoplay
-          style="width: 240px; height: 180px; border: 1px solid black"
-          ref="remoteVideo"
-      ></video>
-      <div class="chatbox">
-        <ul class="left-item"></ul>
-        <div id="receiveBox" class="right-item" ref="receiveBox"></div>
+      <el-main class="mainvideo">
+        <video
+            id="local-video"
+            autoplay
+            style="width: 500px; height: 350px; border: 1px solid black"
+            ref="localVideo"
+        ></video>
+        <video
+            id="remote-video"
+            autoplay
+            style="width: 500px; height: 350px; border: 1px solid black"
+            ref="remoteVideo"
+        ></video>
+      </el-main>
+
+      <div class="bottom">
+        <div class="chatbox">
+          <ul class="left-item"></ul>
+          <div id="receiveBox" class="right-item" ref="receiveBox"></div>
+        </div>
+
+        <div class="messagebox">
+          <el-input
+              v-model="message"
+              placeholder="请输入消息"
+              :disabled="!isConnected"
+              ref="messageInputBox"
+              size="large"
+              style="width: 300px"
+          ></el-input>
+          <el-button
+              type="success"
+              :disabled="!isConnected"
+              @click="sendMessage"
+              size="large"
+          >
+            发送
+          </el-button>
+        </div>
+
       </div>
 
-      <div class="messagebox">
-        <el-input
-            v-model="message"
-            placeholder="请输入消息"
-            :disabled="!isConnected"
-            ref="messageInputBox"
-            size="large"
-            style="width: 300px"
-        ></el-input>
-        <el-button
-            type="success"
-            :disabled="!isConnected"
-            @click="sendMessage"
-            size="large"
-        >
-          发送
-        </el-button>
-      </div>
     </div>
   </div>
 </template>
@@ -297,6 +308,28 @@ export default {
 </script>
 
 <style scoped>
+
+.mainvideo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.bottom{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+
 .chatbox {
   margin-top: 10px;
 }
