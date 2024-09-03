@@ -11,49 +11,23 @@
     <!-- 内容 -->
     <el-main>
       <div class="container">
-        <!-- 选项 -->
-<!--        <el-tabs v-model="activeTab">-->
-<!--          <el-tab-pane label="个人信息" name="info">-->
-<!--            &lt;!&ndash; 个人信息 &ndash;&gt;-->
-<!--            <el-row class="mt-5">-->
-<!--              <el-col :span="4">-->
-<!--                <el-avatar src="http://images.nowcoder.com/head/1t.png" size="large"></el-avatar>-->
-<!--              </el-col>-->
-<!--              <el-col :span="20">-->
-<!--                <h5 class="mt-0 text-warning">-->
-<!--                  <span>{{ user.username }}</span>-->
-<!--                  <el-button :type="hasFollowed ? 'default' : 'primary'" class="float-right" @click="toggleFollow">-->
-<!--                    {{ hasFollowed ? '已关注' : '关注TA' }}-->
-<!--                  </el-button>-->
-<!--                </h5>-->
-<!--                <div class="text-muted mt-3">-->
-<!--                  <span>注册于 <i class="text-muted">{{ formattedCreateTime }}</i></span>-->
-<!--                </div>-->
-<!--                <div class="text-muted mt-3 mb-5">-->
-<!--                  <span>关注了 <router-link :to="followeesUrl">{{ followeeCount }}</router-link> 人</span>-->
-<!--                  <span class="ml-4">关注者 <router-link :to="followersUrl">{{ followerCount }}</router-link> 人</span>-->
-<!--                  <span class="ml-4">获得了 <i class="text-danger">{{ likeCount }}</i> 个赞</span>-->
-<!--                </div>-->
-<!--              </el-col>-->
-<!--            </el-row>-->
-
             <el-tabs v-model="activeTab">
               <el-tab-pane label="个人信息" name="info">
                   <div class="profile-card">
                     <el-row>
                       <el-col :span="4">
-                        <el-avatar :src="user.headerUrl" size="large"></el-avatar>
+<!--                        <el-avatar :src="`data:image/png;base64,${user.avatar}`" size="large"></el-avatar>-->
                       </el-col>
                       <el-col :span="20">
                         <h5 class="profile-username">
                           <span>{{ user.username }}</span>
-                          <el-button :type="hasFollowed ? 'default' : 'primary'" class="follow-button" @click="toggleFollow">
-                            {{ hasFollowed ? '已关注' : '关注TA' }}
-                          </el-button>
                         </h5>
                         <div class="profile-meta">
                           <span>注册于 <i>{{ formattedCreateTime }}</i></span>
                         </div>
+<!--                        <el-button @click="toggleFollow(userFollow)">-->
+<!--                          {{ userFollow.hasFollowed ? 'Unfollow' : 'Follow' }}-->
+<!--                        </el-button>-->
                         <div class="profile-stats">
                           <span>关注了 <router-link :to="followeesUrl">{{ followeeCount }}</router-link> 人</span>
                           <span class="ml-4">关注者 <router-link :to="followersUrl">{{ followerCount }}</router-link> 人</span>
@@ -66,83 +40,112 @@
 
               <!-- 我的帖子选项卡 -->
               <el-tab-pane label="我的帖子" name="posts">
-                <div>
-                  <div class="mt-4">
-                    <el-card>
-                      <h6>
-                        <b class="square"></b> 发布的帖子({{ page.total }})
-                      </h6>
-                      <el-list class="mt-4 pl-3 pr-3" v-if="page.total > 0">
-                        <el-list-item
-                            v-for="(post, index) in paginatedPosts"
-                            :key="index"
-                            class="border-bottom pb-3 mt-4"
-                        >
-                          <div class="font-size-16 text-info">
-                            <el-link :underline="false" href="#" class="text-info">{{ post.title }}</el-link>
-                          </div>
-                          <div class="mt-1 font-size-14">
-                            {{ post.content }}
-                          </div>
-                          <div class="text-right font-size-12 text-muted">
-                            赞 <i class="mr-3">{{ post.likes }}</i> 发布于 <b>{{ post.publishedAt }}</b>
-                          </div>
-                        </el-list-item>
-                      </el-list>
-                      <el-pagination
-                          class="page"
-                          v-if="page.total > 0"
-                          :current-page="page.current"
-                          :page-size="page.pageSize"
-                          :total="page.total"
-                          layout="total, prev, pager, next, jumper"
-                          @current-change="handlePageChange"
-                      >
-                      </el-pagination>
-                    </el-card>
+<!--                <div>-->
+<!--                  <div class="mt-4">-->
+<!--                    <el-card>-->
+<!--                      <h6>-->
+<!--                        <b class="square"></b> 发布的帖子({{ page.total }})-->
+<!--                      </h6>-->
+<!--                      <el-list class="mt-4 pl-3 pr-3" v-if="page.total > 0">-->
+<!--                        <el-list-item-->
+<!--                            v-for="(post, index) in paginatedPosts"-->
+<!--                            :key="index"-->
+<!--                            class="border-bottom pb-3 mt-4"-->
+<!--                        >-->
+<!--                          <div class="font-size-16 text-info">-->
+<!--                            <el-link :underline="false" href="#" class="text-info">{{ post.title }}</el-link>-->
+<!--                          </div>-->
+<!--                          <div class="mt-1 font-size-14">-->
+<!--                            {{ post.content }}-->
+<!--                          </div>-->
+<!--                          <div class="text-right font-size-12 text-muted">-->
+<!--                            赞 <i class="mr-3">{{ post.likes }}</i> 发布于 <b>{{ post.publishedAt }}</b>-->
+<!--                          </div>-->
+<!--                        </el-list-item>-->
+<!--                      </el-list>-->
+<!--                      <el-pagination-->
+<!--                          class="page"-->
+<!--                          v-if="page.total > 0"-->
+<!--                          :current-page="page.current"-->
+<!--                          :page-size="page.pageSize"-->
+<!--                          :total="page.total"-->
+<!--                          layout="total, prev, pager, next, jumper"-->
+<!--                          @current-change="handlePageChange"-->
+<!--                      >-->
+<!--                      </el-pagination>-->
+<!--                    </el-card>-->
+<!--                  </div>-->
+<!--                </div>-->
+                <div v-for="item in discussPosts" :key="post.id" class="post-item">
+                  <el-avatar :src="item.userAvatar" class="post-avatar"></el-avatar>
+                  <div class="post-content">
+                    <router-link :to="`/discuss/detail/${post.id}`" class="post-title">{{ item }}</router-link>
+                    <div class="post-meta">
+                      <span class="post-author">{{ item.author }}</span>
+                      <span class="post-time">{{ translations.publishtime }} {{ item.createTime }}</span>
+                    </div>
+                    <div class="post-stats">
+                      <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>
+                      <el-tag>{{ translations.reply }} {{ item.commentCount }}</el-tag>
+                    </div>
                   </div>
                 </div>
               </el-tab-pane>
 
               <!-- 回复内容选项卡 -->
               <el-tab-pane label="我的回复" name="replies">
-                <div>
-                  <h2>我的回复</h2>
-                  <div class="mt-4">
-                    <el-card>
-                      <h6>
-                        <b class="square"></b> 回复的帖子({{ page.total }})
-                      </h6>
-                      <el-list class="mt-4 pl-3 pr-3" v-if="paginatedReplies.length">
-                        <el-list-item
-                            v-for="(reply, index) in paginatedReplies"
-                            :key="index"
-                            class="border-bottom pb-3 mt-4"
-                        >
-                          <div class="font-size-16 text-info">
-                            <el-link :underline="false" href="#" class="text-info">{{ reply.title }}</el-link>
-                          </div>
-                          <div class="mt-1 font-size-14">
-                            {{ reply.content }}
-                          </div>
-                          <div class="text-right font-size-12 text-muted">
-                            回复于 <b>{{ reply.repliedAt }}</b>
-                          </div>
-                        </el-list-item>
-                      </el-list>
-                      <el-pagination
-                          class="page"
-                          v-if="page.total > 0"
-                          :current-page="page.current"
-                          :page-size="page.pageSize"
-                          :total="page.total"
-                          layout="total, prev, pager, next, jumper"
-                          @current-change="handlePageChange"
-                      >
-                      </el-pagination>
-                    </el-card>
+                <div v-for="post in comments" :key="post.id" class="post-item">
+                  <el-avatar :src="post.userAvatar" class="post-avatar"></el-avatar>
+                  <div class="post-content">
+                    <router-link :to="`/discuss/detail/${post.id}`" class="post-title">{{ post.title }}</router-link>
+                    <div class="post-meta">
+                      <span class="post-author">{{ post.author }}</span>
+                      <span class="post-time">{{ translations.publishtime }} {{ post.createTime }}</span>
+                    </div>
+                    <div class="post-stats">
+                      <el-tag>{{ translations.like }} {{ post.likeCount }}</el-tag>
+                      <el-tag>{{ translations.reply }} {{ post.commentCount }}</el-tag>
+                    </div>
                   </div>
                 </div>
+
+<!--                <div>-->
+<!--                  <h2>我的回复</h2>-->
+<!--                  <div class="mt-4">-->
+<!--                    <el-card>-->
+<!--                      <h6>-->
+<!--                        <b class="square"></b> 回复的帖子({{ page.total }})-->
+<!--                      </h6>-->
+<!--                      <el-list class="mt-4 pl-3 pr-3" v-if="paginatedReplies.length">-->
+<!--                        <el-list-item-->
+<!--                            v-for="(reply, index) in paginatedReplies"-->
+<!--                            :key="index"-->
+<!--                            class="border-bottom pb-3 mt-4"-->
+<!--                        >-->
+<!--                          <div class="font-size-16 text-info">-->
+<!--                            <el-link :underline="false" href="#" class="text-info">{{ reply.title }}</el-link>-->
+<!--                          </div>-->
+<!--                          <div class="mt-1 font-size-14">-->
+<!--                            {{ reply.content }}-->
+<!--                          </div>-->
+<!--                          <div class="text-right font-size-12 text-muted">-->
+<!--                            回复于 <b>{{ reply.repliedAt }}</b>-->
+<!--                          </div>-->
+<!--                        </el-list-item>-->
+<!--                      </el-list>-->
+<!--                      <el-pagination-->
+<!--                          class="page"-->
+<!--                          v-if="page.total > 0"-->
+<!--                          :current-page="page.current"-->
+<!--                          :page-size="page.pageSize"-->
+<!--                          :total="page.total"-->
+<!--                          layout="total, prev, pager, next, jumper"-->
+<!--                          @current-change="handlePageChange"-->
+<!--                      >-->
+<!--                      </el-pagination>-->
+<!--                    </el-card>-->
+<!--                  </div>-->
+<!--                </div>-->
               </el-tab-pane>
 
               <!-- 其他选项卡 -->
@@ -157,16 +160,8 @@
 
 
 
-            <!-- 我的帖子内容 -->
-<!--          </el-tab-pane>-->
-<!--          <el-tab-pane label="我的回复" name="replies">-->
-<!--            &lt;!&ndash; 我的回复内容 &ndash;&gt;-->
-<!--          </el-tab-pane>-->
-<!--        </el-tabs>-->
       </div>
     </el-main>
-
-
     <el-aside class="rightsidebar">
       <div class="search-bar">
         <el-input v-model="searchQuery" @keyup.enter="search" style="width: 200px;"/>
@@ -193,14 +188,15 @@ import {ElMessage} from 'element-plus';
 import {useI18n} from 'vue-i18n';
 import {useCommonTranslations} from '@/lang/i18nhelper';
 import leftsidebar from '@/components/Leftsidebar.vue';
-
+import {onMounted} from "vue";
+import axios from "axios";
 
 //个人信息部分
 const {t, locale} = useI18n();
+
 const user = {
   id: 1,
   username: 'nowcoder',
-  headerUrl: 'http://images.nowcoder.com/head/1t.png',
   createTime: new Date(),
 };
 const followeeCount = 123;
@@ -211,15 +207,39 @@ const searchQuery = ref('');
 const selectedLanguage = ref('zh');
 const activeTab = ref('info');
 const translations = useCommonTranslations();
+const comments = ref([]);
+const discussPosts = ref([]);
 
-
-function toggleFollow() {
-  hasFollowed.value = !hasFollowed.value;
-}
-
-const formattedCreateTime = computed(() => {
-  return new Intl.DateTimeFormat('zh-CN', {dateStyle: 'full', timeStyle: 'short'}).format(user.createTime);
+onMounted(() => {
+  fetchUserProfile();
 });
+const fetchUserProfile = async () => {
+  try {
+    const userId = '12345';
+    const response = await axios.get(`/user/profile/${userId}`);
+    user.value = response.data.loginUser;
+    const data = await response
+
+    likeCount.value = response.data.likeCount;
+    followeeCount.value = response.data.followeeCount;
+    followerCount.value = response.data.followerCount;
+    //hasFollowed.value = response.data.hasFollowed;
+
+    discussPosts.value = data.discussPosts;
+    comments.value = data.comments;
+
+
+
+
+  } catch (error) {
+    console.error('获取用户资料时出错:', error);
+  }
+};
+
+
+// const formattedCreateTime = computed(() => {
+//   return new Intl.DateTimeFormat('zh-CN', {dateStyle: 'full', timeStyle: 'short'}).format(user.createTime);
+// });
 
 const search = () => {
   console.log('Search query:', searchQuery.value);
@@ -233,6 +253,12 @@ const changeLanguage = (value) => {
 // 增加根据id生成路径
 const followeesUrl = computed(() => `/followee/${user.id}`);
 const followersUrl = computed(() => `/follower/${user.id}`);
+
+
+
+
+
+
 
 
 
