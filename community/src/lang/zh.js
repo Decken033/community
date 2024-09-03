@@ -48,5 +48,6 @@ export default {
     uploadnow: '立即上传',
     letterCount: '私信数量',
     unreadCount: '未读消息',
+    match: '随机匹配',
   }
 };

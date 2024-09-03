@@ -48,5 +48,6 @@ export default {
     uploadnow:'Subir ahora',
     letterCount:'mensajes privados',
     unreadCount:'Mensajes no leídos',
+    match: 'Emparejamiento aleatorio',
   }
 };
