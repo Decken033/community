@@ -48,6 +48,11 @@ export default {
     uploadnow: '立即上传',
     letterCount: '私信数量',
     unreadCount: '未读消息',
+    user: '用户',
+    conversations: '会话',
+    comment: '评论',
+    follow: '关注',
+    all: '全部',
     match: '随机匹配',
   }
 };
