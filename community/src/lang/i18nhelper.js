@@ -62,6 +62,7 @@ export function useCommonTranslations() {
 
     // 返回所有翻译内容
 
+    const match = computed(() => t('message.match'));
 
     return {
         home,
@@ -118,6 +119,7 @@ export function useCommonTranslations() {
         comment,
         follow,
         all
+        match,
     };
 
 }
