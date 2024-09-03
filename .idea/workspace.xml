@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="362c209c-aeaa-41c6-9892-5ec1bbc54174" name="Changes" comment="howeview,profile接口部分修改，加上随机匹配">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/HomeView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/PostBox/LetterdetailBox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/PostBox/LetterdetailBox.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/match/Match.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/match/Match.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +79,7 @@
       <updated>1725250345286</updated>
       <workItem from="1725250346709" duration="858000" />
       <workItem from="1725255674979" duration="10652000" />
-      <workItem from="1725324619640" duration="378000" />
+      <workItem from="1725324619640" duration="6678000" />
     </task>
     <task id="LOCAL-00001" summary="howeview,profile接口部分修改，加上随机匹配">
       <option name="closed" value="true" />
@@ -96,7 +97,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725265761206</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="howeview,profile接口部分修改，加上随机匹配">
+      <option name="closed" value="true" />
+      <created>1725325186798</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1725325186798</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
