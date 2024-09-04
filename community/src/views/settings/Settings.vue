@@ -176,7 +176,7 @@ async function UploadImagenow() {
         userId: myuserId, // 用户 ID
       };
 
-      const response = await fetch("http://localhost:8080/community/uploadavatar", {
+      const response = await fetch("http://localhost:8080/community/upload", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

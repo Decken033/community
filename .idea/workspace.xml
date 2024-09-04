@@ -6,24 +6,35 @@
   <component name="ChangeListManager">
     <list default="true" id="22388118-8399-4e6b-9cbb-2bb668ddfff5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/api/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/api/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/lang/i18nhelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/i18nhelper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/HomeView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/letter/Letter.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/letter/Letter.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/match/Match.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/match/Match.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/notice/Notice-detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/notice/Notice-detail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/notice/Notice.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/notice/Notice.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/profile/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/profile/Profile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/router/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/PostBox/LetterdetailBox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/PostBox/LetterdetailBox.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/discuss/Discuss.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/discuss/Discuss.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/settings/Settings.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/settings/Settings.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Vue Composition API Component" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "#67 on main",
+    "git-widget-placeholder": "xudiqing",
     "node.js.selected.package.tslint": "(autodetect)"
+  },
+  "keyToStringList": {
+    "vue.recent.templates": [
+      "Vue Composition API Component"
+    ]
   }
 }]]></component>
   <component name="TaskManager">
