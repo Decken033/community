@@ -23,7 +23,7 @@
 .el-main {
     background-color: white;
     padding-top: 0px;
-    width: 35%;
+    width: 40%;
     height: 100%;
 //transform: translateX(-30%)；
 }
@@ -33,7 +33,6 @@
 }
 
 .el-menu {
-    width: 40%;
     margin-left: auto; /* 自动推到右侧 */
 }
 
@@ -45,15 +44,14 @@
     display: flex;
     width: 25%;
     height: 100%;
+    overflow: hidden;
 //transform: translateX(10%);
 }
 
 .rightsidebar {
     display: flex;
-    width: 40%;
+    width: 35%;
     height: 100%;
-    min-height: 900vh;
-    overflow: hidden;
 }
 
 .el-menu-demo {
@@ -240,11 +238,11 @@
 
 
 .upload-demo{
-    width: 30%;
+    width: 20%;
     height: 10%;
     text-align: left;
     color: white;
-    margin-left: 95px;
+    margin-left: 115px;
     justify-content: right;
 
 }
@@ -252,10 +250,11 @@
 
 .uploadnow{
     width: 20%;
-    height: 10%;
+    height: 20%;
     text-align: left;
     color: white;
-    margin-left: 120px;
+    margin-top: 20px;
+    margin-left: 115px;
     justify-content: right;
 }
 
