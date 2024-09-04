@@ -1,12 +1,12 @@
 
 
 /*左右栏*/
+
 .leftsidebar {
     display: flex;
     width: 25%;
     height: 100%;
-    margin-left: 100px;
-
+    overflow: hidden;
 //transform: translateX(10%);
 }
 
@@ -15,6 +15,7 @@
     width: 35%;
     height: 100%;
 }
+
 
 
 .search-bar {
@@ -31,7 +32,12 @@
 .el-main {
     background-color: white;
     padding-top: 0px;
-    width: 100%;
+    width: 40%;
     height: 100%;
     margin-left: auto;
+}
+
+.el-menu {
+    /*width: 40%;*/
+    margin-left: auto; /* 自动推到右侧 */
 }
