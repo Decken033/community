@@ -99,6 +99,7 @@ export default {
       socket.value.onmessage = (res) => {
         const evt = JSON.parse(res.data);
         if (evt.type === 'offer' && peerStarted) {
+          peerConnection = null;
           onOffer(evt);
         } else if (evt.type === 'answer' && peerStarted) {
           onAnswer(evt);
@@ -111,12 +112,12 @@ export default {
     });
 
     const startVideo = () => {
-      navigator.webkitGetUserMedia({ video: true, audio: false },
+      navigator.webkitGetUserMedia({ video: true, audio: true },
           (stream) => {
             localStream = stream;
             localVideo.value.srcObject = stream;
             localVideo.value.play();
-            localVideo.value.volume = 0;
+            localVideo.value.volume = 0.2;
           },
           (error) => {
             console.error('发生了一个错误: [错误代码：' + error.code + ']');
@@ -180,6 +181,7 @@ export default {
     };
 
     const sendOffer = () => {
+      console.log("sendOffer");
       peerConnection = prepareNewConnection();
       peerConnection.createOffer(
           (sessionDescription) => {
@@ -192,6 +194,7 @@ export default {
     };
 
     const onOffer = (evt) => {
+      console.log("onoffer");
       if (peerConnection) {
         console.error('peerConnection已存在!');
         return;
@@ -203,6 +206,7 @@ export default {
     };
 
     const sendAnswer = (evt) => {
+      console.log("sendanswer");
       peerConnection.createAnswer(
           (sessionDescription) => {
             peerConnection.setLocalDescription(sessionDescription);
@@ -218,6 +222,7 @@ export default {
     };
 
     const onCandidate = (evt) => {
+      console.log("oncandidate");
       const candidate = new RTCIceCandidate({
         sdpMLineIndex: evt.sdpMLineIndex,
         sdpMid: evt.sdpMid,
@@ -228,10 +233,12 @@ export default {
 
     const sendSDP = (sdp) => {
       const text = JSON.stringify(sdp);
+      console.log("sendsdp" + text);
       socket.value.send(text);
     };
 
     const sendCandidate = (candidate) => {
+      console.log("sendcandidate");
       const text = JSON.stringify(candidate);
       socket.value.send(text);
     };
@@ -256,6 +263,7 @@ export default {
       } else if (!localStream) {
         alert("请首先捕获本地视频数据.");
       } else {
+        console.log(isConnected.value);
         alert("未连接到服务器");
       }
     };

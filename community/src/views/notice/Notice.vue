@@ -130,72 +130,72 @@ import router from "@/router/index.ts";
 //notice信息
 const letterUnreadCount = ref(5);
 const noticeUnreadCount = ref(3);
-// const commentNotice = ref(null);
-// const likeNotice = ref(null);
-// const followNotice = ref(null);
-// const getNotice = async () => {
-//   const response = await fetch(api.notice.list);
-//   const data = await response.json();
-//   letterUnreadCount.value = data.letterUnreadCount;
-//   noticeUnreadCount.value = data.noticeUnreadCount;
-//   commentNotice.value = data.commentNotice;
-//   likeNotice.value = data.likeNotice;
-//   followNotice.value = data.followNotice;
-// };
-//
-//
-//
-//
-// onMounted(() => {
-//   getNotice();
-// });
+const commentNotice = ref(null);
+const likeNotice = ref(null);
+const followNotice = ref(null);
+const getNotice = async () => {
+  const response = await fetch(api.notice.list);
+  const data = await response.json();
+  letterUnreadCount.value = data.letterUnreadCount;
+  noticeUnreadCount.value = data.noticeUnreadCount;
+  commentNotice.value = data.commentNotice;
+  likeNotice.value = data.likeNotice;
+  followNotice.value = data.followNotice;
+};
+
+
+
+
+onMounted(() => {
+  getNotice();
+});
 function formatDate(date) {
   return date.toLocaleString();
 }
-const commentNotice = {
-  message: {
-    createTime: new Date(),
-    unread: 2
-  },
-  user: {
-    username: 'JohnDoe'
-  },
-  entityType: 1,
-  entityId: 123,
-  postId: 456,
-  count: 5,
-  unread: 2
-};
-
-const likeNotice = {
-  message: {
-    createTime: new Date(),
-    unread: 1
-  },
-  user: {
-    username: 'JaneDoe'
-  },
-  entityType: 2,
-  entityId: 789,
-  postId: 101112,
-  count: 3,
-  unread: 1
-};
-
-const followNotice = {
-  message: {
-    createTime: new Date(),
-    unread: 0
-  },
-  user: {
-    username: 'AliceSmith'
-  },
-  entityType: 3,
-  entityId: 131415,
-  postId: 161718,
-  count: 1,
-  unread: 0
-};
+// const commentNotice = {
+//   message: {
+//     createTime: new Date(),
+//     unread: 2
+//   },
+//   user: {
+//     username: 'JohnDoe'
+//   },
+//   entityType: 1,
+//   entityId: 123,
+//   postId: 456,
+//   count: 5,
+//   unread: 2
+// };
+//
+// const likeNotice = {
+//   message: {
+//     createTime: new Date(),
+//     unread: 1
+//   },
+//   user: {
+//     username: 'JaneDoe'
+//   },
+//   entityType: 2,
+//   entityId: 789,
+//   postId: 101112,
+//   count: 3,
+//   unread: 1
+// };
+//
+// const followNotice = {
+//   message: {
+//     createTime: new Date(),
+//     unread: 0
+//   },
+//   user: {
+//     username: 'AliceSmith'
+//   },
+//   entityType: 3,
+//   entityId: 131415,
+//   postId: 161718,
+//   count: 1,
+//   unread: 0
+// };
 
 
 

@@ -4,115 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="362c209c-aeaa-41c6-9892-5ec1bbc54174" name="Changes" comment="howeview,profile接口部分修改，加上随机匹配">
+    <list default="true" id="22388118-8399-4e6b-9cbb-2bb668ddfff5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/PostBox/LetterdetailBox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/PostBox/LetterdetailBox.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/api/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/api/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/lang/i18nhelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/i18nhelper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/HomeView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/letter/Letter.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/letter/Letter.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/match/Match.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/match/Match.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/notice/Notice-detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/notice/Notice-detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/notice/Notice.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/notice/Notice.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/profile/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/profile/Profile.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Vue Composition API Component" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Decken033&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "#67 on main",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Decken033/community.git&quot;,
-    &quot;accountId&quot;: &quot;c353d00c-5369-44ac-9b2e-42bd76d2d5ed&quot;
-  }
-}</component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 4
-}</component>
-  <component name="ProjectId" id="2lV1HkW6qWDaMnAu4jSsuJl64HB" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;xudiqing&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;F:\\Desktop\\24暑期学校\\rewrite\\community\\community\\community\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;vue.recent.templates&quot;: [
-      &quot;Vue Composition API Component&quot;
-    ]
-  }
-}</component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-WS-242.20224.426" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+}]]></component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="362c209c-aeaa-41c6-9892-5ec1bbc54174" name="Changes" comment="" />
-      <created>1725250345286</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1725250345286</updated>
-      <workItem from="1725250346709" duration="858000" />
-      <workItem from="1725255674979" duration="10652000" />
-      <workItem from="1725324619640" duration="6678000" />
-    </task>
-    <task id="LOCAL-00001" summary="howeview,profile接口部分修改，加上随机匹配">
-      <option name="closed" value="true" />
-      <created>1725265677704</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1725265677704</updated>
-    </task>
-    <task id="LOCAL-00002" summary="howeview,profile接口部分修改，加上随机匹配">
-      <option name="closed" value="true" />
-      <created>1725265761206</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1725265761206</updated>
-    </task>
-    <task id="LOCAL-00003" summary="howeview,profile接口部分修改，加上随机匹配">
-      <option name="closed" value="true" />
-      <created>1725325186798</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1725325186798</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="howeview,profile接口部分修改，加上随机匹配" />
-    <option name="LAST_COMMIT_MESSAGE" value="howeview,profile接口部分修改，加上随机匹配" />
   </component>
 </project>

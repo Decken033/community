@@ -118,7 +118,7 @@ export function useCommonTranslations() {
         conversations,
         comment,
         follow,
-        all
+        all,
         match,
     };
 
