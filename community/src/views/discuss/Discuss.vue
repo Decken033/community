@@ -12,44 +12,44 @@
             <p>{{ comment }}</p>
 
 <!--            帖子的内容-->
-            <div v-for="item in discussPosts" :key="item.id" class="post-item">
+
               <div class="post-content">
-                <el-avatar :src="item.user.headerImg" class="post-avatar"></el-avatar>
-                <span class="post-title">{{ item.post.title }}</span>
-                <span class="post-title">{{ item.post.content }}</span>
+                <el-avatar :src="user.headerImg" class="post-avatar"></el-avatar>
+                <span class="post-title">{{post.title }}</span>
+                <span class="post-title">{{ post.content }}</span>
 
                 <div class="post-meta">
-                  <span class="post-author">{{ item.user.username }}</span>
-                  <span class="post-time">{{ translations.publishtime }} {{ item.post.createTime }}</span>
+                  <span class="post-author">{{ user.username }}</span>
+                  <span class="post-time">{{ translations.publishtime }} {{  formateDate(post.createTime) }}</span>
                 </div>
                 <div class="post-stats">
-                  <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>
-                  <el-tag>{{ translations.reply }} {{ item.post.commentCount }}</el-tag>
+<!--                  <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>-->
+                  <el-tag>{{ translations.reply }} {{ post.commentCount }}</el-tag>
                 </div>
               </div>
-            </div>
+
 
 
 <!--            帖子的评论-->
-            <div v-for="item in comments" :key="item.id" class="comment-item">
-              <el-avatar :src="item.userAvatar"/>
-              <p>{{ item.content }}</p>
-              <div class="comment-meta">
-                <span class="comment-author">{{ item.username }}</span>
-                <span class="comment-time">{{ item.createTime }}</span>
-              </div>
-              <div class="comment-stats">
-                <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>
-                <el-tag>{{ translations.reply }} {{ item.replyCount }}</el-tag>
-              </div>
+<!--            <div v-for="item in comments" :key="item.id" class="comment-item">-->
+<!--              <el-avatar :src="item.userAvatar"/>-->
+<!--              <p>{{ item.content }}</p>-->
+<!--              <div class="comment-meta">-->
+<!--                <span class="comment-author">{{ item.username }}</span>-->
+<!--                <span class="comment-time">{{ item.createTime }}</span>-->
+<!--              </div>-->
+<!--              <div class="comment-stats">-->
+<!--                <el-tag>{{ translations.like }} {{ likecount }}</el-tag>-->
+<!--                <el-tag>{{ translations.reply }} {{ item.replyCount }}</el-tag>-->
+<!--              </div>-->
 
 
-            <div class="comment-actions">
-              <el-button type="text" @click="reply">回复</el-button>
-              <el-button type="text" @click="edit">编辑</el-button>
-              <el-button type="text" @click="deleteComment">删除</el-button>
-            </div>
-          </div>
+<!--            <div class="comment-actions">-->
+<!--              <el-button type="text" @click="reply">回复</el-button>-->
+<!--              <el-button type="text" @click="edit">编辑</el-button>-->
+<!--              <el-button type="text" @click="deleteComment">删除</el-button>-->
+<!--            </div>-->
+<!--          </div>-->
 
           </div>
         </el-card>
@@ -79,6 +79,7 @@
 
 <script setup lang="ts">
 import {ref, onMounted} from 'vue';
+import {useCommonTranslations} from '@/lang/i18nhelper';
 import Leftsidebar from "@/components/Leftsidebar.vue";
 import recommendbar from "@/components/recommendbar.vue";
 import axios from "axios";
@@ -90,6 +91,8 @@ const replies = ref([]);
 const newReply = ref('');
 const isReplying = ref(false);
 const activeNames = ref([]);
+const user = ref('');
+
 
 const reply = () => {
   isReplying.value = true;
@@ -114,8 +117,11 @@ const start = ref(0);
 const end = ref(1);
 const image = ref('');
 const comments = ref([]);
+const post = ref('');
+const likecount =ref('');
 
 import { useRoute } from 'vue-router';
+import {useI18n} from "vue-i18n";
 
 const discussPostId = ref('');
 const getpostid = () => {
@@ -130,8 +136,11 @@ const fetchdetail = async () => {
     console.log(discussPostId.value);
     const response = await axios.get(`http://localhost:8080/community/discuss/detail/${discussPostId.value}`, {});
     console.log("discussdetail");
-    console.log('Fetched posts:', response);
+    console.log('Fetched discussdetail:', response);
 
+    // likecount.value = response.data.likeCount;
+    user.value = response.data.user;
+    post.value = response.data.post;
 
     // discussPosts.value = response.data.disscussPosts;
     // comments.value = response.data.comments;
@@ -152,11 +161,22 @@ const fetchdetail = async () => {
   }
 };
 
-onMounted()
+onMounted(() =>
 {
   fetchdetail();
-}
+});
 
+const translations = useCommonTranslations();
+const {locale} = useI18n({useScope: "global"});
+const selectedLanguage = ref('zh');
+const changeLanguage = () => {
+  locale.value = selectedLanguage.value;
+};
+
+const formateDate = (timeStamp) => {
+  const date = new Date(timeStamp);
+  return date.toLocaleDateString();
+}
 
 </script>/
 
