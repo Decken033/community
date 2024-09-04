@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="22388118-8399-4e6b-9cbb-2bb668ddfff5" name="Changes" comment="">
+    <list default="true" id="22388118-8399-4e6b-9cbb-2bb668ddfff5" name="Changes" comment="xdq:match可以跑；homeview对接还差头像">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/HomeView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/router/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/PostBox/LetterdetailBox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/PostBox/LetterdetailBox.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/discuss/Discuss.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/discuss/Discuss.vue" afterDir="false" />
@@ -16,6 +17,10 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;git-widget-placeholder&quot;: &quot;#67 on main&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -36,8 +41,21 @@
       "Vue Composition API Component"
     ]
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="xdq:match可以跑；homeview对接还差头像">
+      <option name="closed" value="true" />
+      <created>1725365165979</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1725365165980</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="xdq:match可以跑；homeview对接还差头像" />
+    <option name="LAST_COMMIT_MESSAGE" value="xdq:match可以跑；homeview对接还差头像" />
   </component>
 </project>
