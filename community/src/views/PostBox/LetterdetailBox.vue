@@ -1,5 +1,15 @@
 <template>
+
+  <el-input
+      v-model="tweetTitle"
+      placeholder="Enter your title"
+      rows="2"
+      maxlength="100"
+      show-word-limit
+  ></el-input>
+
   <div class="tweet-box">
+
     <el-input
         type="textarea"
         v-model="tweetContent"
@@ -8,6 +18,7 @@
         maxlength="280"
         show-word-limit
     ></el-input>
+
     <input
         type="file"
         ref="fileInput"
@@ -15,9 +26,11 @@
         accept="image/*"
         style="display: none;"
     />
+
     <div v-if="imageData" class="image-preview">
       <img :src="imageData" alt="Image preview" />
     </div>
+
     <div class="tweet-actions">
       <div class="icons">
         <el-icon @click="addPicture"><Picture /></el-icon>
@@ -25,12 +38,13 @@
         <el-icon @click="selectDate"><Calendar /></el-icon>
         <el-icon @click="addLocation"><Location /></el-icon>
       </div>
-      <el-button type="primary" :disabled="!tweetContent" @click="postTweet">
+      <el-button type="primary" :disabled="!tweetTitle || !tweetContent" @click="postTweet">
         Post
       </el-button>
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref } from 'vue';
@@ -39,6 +53,8 @@ import { Picture, VideoCamera, Calendar, Location } from '@element-plus/icons-vu
 
 const tweetContent = ref('');
 const imageData = ref(null);  // Store image data here
+const tweetTitle = ref('');
+
 
 const postTweet = () => {
   if (tweetContent.value) {
