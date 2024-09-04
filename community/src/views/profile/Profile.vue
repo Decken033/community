@@ -6,85 +6,85 @@
     </div>
 
 
-
-
     <!-- 内容 -->
     <el-main>
       <div class="container">
-            <el-tabs v-model="activeTab">
-              <el-tab-pane label="个人信息" name='0'>
-                  <div class="profile-card">
-                    <el-row>
-                      <el-col :span="4">
-<!--                        <el-avatar :src="`data:image/png;base64,${user.avatar}`" size="large"></el-avatar>-->
-                      </el-col>
-                      <el-col :span="20">
-                        <h5 class="profile-username">
-                          <span>{{ user.username }}</span>
-                        </h5>
-                        <div class="profile-meta">
-                          <span>注册于 <i>{{ formattedCreateTime }}</i></span>
-                        </div>
-<!--                        <el-button @click="toggleFollow(userFollow)">-->
-<!--                          {{ userFollow.hasFollowed ? 'Unfollow' : 'Follow' }}-->
-<!--                        </el-button>-->
-                        <div class="profile-stats">
-                          <span>关注了 <router-link :to="followeesUrl">{{ followeeCount }}</router-link> 人</span>
-                          <span class="ml-4">关注者 <router-link :to="followersUrl">{{ followerCount }}</router-link> 人</span>
-                          <span class="ml-4">获得了 <i class="text-danger">{{ likeCount }}</i> 个赞</span>
-                        </div>
-                      </el-col>
-                    </el-row>
+        <el-tabs v-model="activeTab">
+          <el-tab-pane label="个人信息" name='0'>
+            <div class="profile-card">
+              <el-row>
+                <el-col :span="4">
+                  <!--                        <el-avatar :src="`data:image/png;base64,${user.avatar}`" size="large"></el-avatar>-->
+                </el-col>
+                <el-col :span="20">
+                  <h5 class="profile-username">
+                    <span>{{ user.username }}</span>
+                  </h5>
+                  <div class="profile-meta">
+                    <span>注册于 <i>{{ formattedCreateTime }}</i></span>
                   </div>
-              </el-tab-pane>
-
-              <!-- 我的帖子选项卡 -->
-              <el-tab-pane label="我的帖子" name='1'>
-                <div v-for="item in discussPosts" :key="post.id" class="post-item">
-                  <el-avatar :src="item.userAvatar" class="post-avatar"></el-avatar>
-                  <div class="post-content">
-                    <router-link :to="`/discuss/detail/${post.id}`" class="post-title">{{ item }}</router-link>
-                    <div class="post-meta">
-                      <span class="post-author">{{ item.author }}</span>
-                      <span class="post-time">{{ translations.publishtime }} {{ item.createTime }}</span>
-                    </div>
-                    <div class="post-stats">
-                      <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>
-                      <el-tag>{{ translations.reply }} {{ item.commentCount }}</el-tag>
-                    </div>
+                  <!--                        <el-button @click="toggleFollow(userFollow)">-->
+                  <!--                          {{ userFollow.hasFollowed ? 'Unfollow' : 'Follow' }}-->
+                  <!--                        </el-button>-->
+                  <div class="profile-stats">
+                    <span>关注了 <router-link :to="followeesUrl">{{ followeeCount }}</router-link> 人</span>
+                    <span class="ml-4">关注者 <router-link :to="followersUrl">{{
+                        followerCount
+                      }}</router-link> 人</span>
+                    <span class="ml-4">获得了 <i class="text-danger">{{ likeCount }}</i> 个赞</span>
                   </div>
+                </el-col>
+              </el-row>
+            </div>
+          </el-tab-pane>
+
+          <!-- 我的帖子选项卡 -->
+          <el-tab-pane label="我的帖子" name='1'>
+            <div v-for="item in discussPosts" :key="post.id" class="post-item">
+              <el-avatar :src="item.userAvatar" class="post-avatar"></el-avatar>
+              <el-button @click="deletepost">删帖</el-button>
+              <div class="post-content">
+                <router-link :to="`/discuss/detail/${post.id}`" class="post-title">{{ item }}</router-link>
+                <div class="post-meta">
+                  <span class="post-author">{{ item.author }}</span>
+                  <span class="post-time">{{ translations.publishtime }} {{ item.createTime }}</span>
                 </div>
-              </el-tab-pane>
-
-              <!-- 回复内容选项卡 -->
-              <el-tab-pane label="我的回复" name='2'  >
-                <div v-for="post in comments" :key="post.id" class="post-item">
-                  <el-avatar :src="post.userAvatar" class="post-avatar"></el-avatar>
-                  <div class="post-content">
-                    <router-link :to="`/discuss/detail/${post.id}`" class="post-title">{{ post.title }}</router-link>
-                    <div class="post-meta">
-                      <span class="post-author">{{ post.author }}</span>
-                      <span class="post-time">{{ translations.publishtime }} {{ post.createTime }}</span>
-                    </div>
-                    <div class="post-stats">
-                      <el-tag>{{ translations.like }} {{ post.likeCount }}</el-tag>
-                      <el-tag>{{ translations.reply }} {{ post.commentCount }}</el-tag>
-                    </div>
-                  </div>
+                <div class="post-stats">
+                  <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>
+                  <el-tag>{{ translations.reply }} {{ item.commentCount }}</el-tag>
                 </div>
+              </div>
+            </div>
+          </el-tab-pane>
 
-              </el-tab-pane>
-
-              <!-- 其他选项卡 -->
-              <el-tab-pane label="其他内容" name="other">
-                <div>
-                  <h2>其他内容</h2>
-                  <p>这里是“其他内容”选项卡中的内容。</p>
-                  <!-- 你可以根据需要添加更多的选项卡和内容 -->
+          <!-- 回复内容选项卡 -->
+          <el-tab-pane label="我的回复" name='2'>
+            <div v-for="post in comments" :key="post.id" class="post-item">
+              <el-avatar :src="post.userAvatar" class="post-avatar"></el-avatar>
+              <div class="post-content">
+                <router-link :to="`/discuss/detail/${post.id}`" class="post-title">{{ post.title }}</router-link>
+                <div class="post-meta">
+                  <span class="post-author">{{ post.author }}</span>
+                  <span class="post-time">{{ translations.publishtime }} {{ post.createTime }}</span>
                 </div>
-              </el-tab-pane>
-            </el-tabs>
+                <div class="post-stats">
+                  <el-tag>{{ translations.like }} {{ post.likeCount }}</el-tag>
+                  <el-tag>{{ translations.reply }} {{ post.commentCount }}</el-tag>
+                </div>
+              </div>
+            </div>
 
+          </el-tab-pane>
+
+          <!-- 其他选项卡 -->
+          <el-tab-pane label="其他内容" name="other">
+            <div>
+              <h2>其他内容</h2>
+              <p>这里是“其他内容”选项卡中的内容。</p>
+              <!-- 你可以根据需要添加更多的选项卡和内容 -->
+            </div>
+          </el-tab-pane>
+        </el-tabs>
 
 
       </div>
@@ -138,19 +138,25 @@ const comments = ref([]);
 const discussPosts = ref([]);
 
 const orderMode = ref(0);
-
+const user = ref('');
 
 onMounted(() => {
   fetchUserProfile();
 });
+
+import api from "@/api/api.ts"
+
 const fetchUserProfile = async () => {
   try {
     const userId = localStorage.getItem('userId');
-    const response = await axios.get(`/user/profile/${userId}`);
+    const response = await axios.get(api.profile.user + `${userId}`, {
+      params: {
+        ticket: localStorage.getItem('ticket'),
+      }
+    });
 
     console.log('Fetched posts:', response);
-
-
+    // user = reponse
 
     // user.value = response.data.loginUser;
     // const data = await response
@@ -164,22 +170,26 @@ const fetchUserProfile = async () => {
     // comments.value = data.comments;
 
 
-
-
   } catch (error) {
     console.error('获取用户资料时出错:', error);
   }
 };
 
-const handleTabClick = (tab) => {
-  console.log(tab.value);
-  orderMode.value = tab.value;
-  fetchPosts();
-};
+//
+// const deletepost= async () => {
+//   const response = await fetch(api.manage.deletepost);
+//   console.log(response);
+//   const data = await response.json();
+//
+//
+//
+// }
 
-onMounted(() => {
-  fetchUserProfile();
-});
+const handleTabClick = (tab) => {
+  // console.log(tab.value);
+  // orderMode.value = tab.value;
+  fetchUserProfile
+};
 
 
 const search = () => {
@@ -194,13 +204,6 @@ const changeLanguage = (value) => {
 // 增加根据id生成路径
 const followeesUrl = computed(() => `/followee/${user.id}`);
 const followersUrl = computed(() => `/follower/${user.id}`);
-
-
-
-
-
-
-
 
 
 //我的帖子部分
@@ -263,8 +266,6 @@ const handlePageChange = (newPage) => {
 }
 
 
-
-
 //我的回复
 const replies = ref([
   {
@@ -294,10 +295,7 @@ const paginatedReplies = computed(() => {
 })
 
 
-
 </script>
-
-
 
 
 <style scoped>

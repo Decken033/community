@@ -37,7 +37,7 @@
           </el-form-item>
           <el-form-item>
             <!--            修改样式加上返回按钮-->
-            <el-button @click="handleSubmit" class="button">立即登录</el-button>
+            <el-button @click="handleSubmit" @keyup.enter="handleSubmit" class="button">立即登录</el-button>
             <el-button @click="handleBack" class="button">返回首页</el-button>
           </el-form-item>
         </el-form>

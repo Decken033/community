@@ -33,5 +33,11 @@ export default {
     },
     home:{
         index: ip + 'index'
+    },
+    manage:{
+        deletepost:ip+'delete'
+    },
+    profile: {
+        user: ip + 'user/profile/'
     }
 };
