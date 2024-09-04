@@ -1,5 +1,14 @@
 <template>
   <div class="tweet-box">
+
+    <el-input
+        v-model="tweetTitle"
+        placeholder="Enter your title"
+        rows="2"
+        maxlength="100"
+        show-word-limit
+    ></el-input>
+
     <el-input
         type="textarea"
         v-model="comment"
@@ -8,6 +17,7 @@
         maxlength="280"
         show-word-limit
     ></el-input>
+
     <div class="tweet-actions">
       <div class="icons">
         <el-icon><Picture></Picture></el-icon>
@@ -15,52 +25,56 @@
         <el-icon><calendar></calendar></el-icon>
         <el-icon><location></location></el-icon>
       </div>
-      <el-button type="primary" :disabled="!comment" @click="postTweet">
+      <el-button type="primary" :disabled="!comment" @click="postDiscussion">
         Post
       </el-button>
     </div>
+
   </div>
 </template>
 
-<script lang="ts"  setup>
+<script lang="ts" setup>
 import { ref } from 'vue';
 import { ElInput, ElButton, ElIcon } from 'element-plus';
-import axios  from "axios";
-// import api from "@/api/api.ts";
 
 
-// 这里导入Element Plus中已有的图标
+
 import { Picture, VideoCamera, Calendar, Location } from '@element-plus/icons-vue';
 
 
-
-//发布推文
+const tweetTitle = ref('');
 const comment = ref('');
+const resultCode = ref(0); // 0: Success, 403: Failure
 
-async function postTweet() {
+// Function to post discussion
+const postDiscussion = async () => {
+  try {
+    const response = await fetch('http://localhost:8080/community/discuss/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: tweetTitle.value, // Use tweetTitle for the title
+        content: comment.value    // Use comment for the content
+      })
+    });
 
-    //暂时假设讨论帖id为1
-    const discussPostId = 1;
-    try {
-      const res = await axios.post(`http://localhost:8080/comment/add/${discussPostId}`, {
-        comment: comment.value,
-      });
-    if (res.data.RESULT_CODE === 0) {
-      alert('评论发布成功');
+    const result = await response.json();
+
+    // Handle the response
+    if (result.RESULT_CODE == 0) {
+      resultCode.value = 0; // Success
+    } else if (result.RESULT_CODE == 403) {
+      resultCode.value = 403; // Failure
     } else {
-      alert('评论发布失败');
+      resultCode.value = 'Unknown response';
     }
   } catch (error) {
-    console.error('Error:', error);
-    alert(`请求失败: ${error.response?.data?.message || '未知错误'}`);
+    console.error('Error posting discussion:', error);
+    resultCode.value = 'Error'; // Handle error case
   }
-}
-
-
-
-
-
-
+};
 </script>
 
 <style scoped>
@@ -98,7 +112,7 @@ async function postTweet() {
 }
 
 .el-button--primary.is-disabled {
-  background-color: #1da1f280; /* 禁用时的颜色 */
+  background-color: #1da1f280; /* Disabled state color */
   border-color: #1da1f280;
 }
 </style>
