@@ -82,6 +82,7 @@ import {ref, onMounted} from 'vue';
 import Leftsidebar from "@/components/Leftsidebar.vue";
 import recommendbar from "@/components/recommendbar.vue";
 import axios from "axios";
+import {useRoute} from "vue-router";
 
 const userAvatar = 'path/to/avatar';
 const comment = 'This is a comment';
@@ -114,31 +115,47 @@ const end = ref(1);
 const image = ref('');
 const comments = ref([]);
 
+import { useRoute } from 'vue-router';
+
+const discussPostId = ref('');
+const getpostid = () => {
+  const route = useRoute();
+  discussPostId.value = route.params.id;
+};
+
+
 const fetchdetail = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/community//discuss/detail/{discussPostId}', {});
+    getpostid();
+    console.log(discussPostId.value);
+    const response = await axios.get(`http://localhost:8080/community/discuss/detail/${discussPostId.value}`, {});
     console.log("discussdetail");
     console.log('Fetched posts:', response);
 
 
-    discussPosts.value = response.data.disscussPosts;
-    comments.value = response.data.comments;
+    // discussPosts.value = response.data.disscussPosts;
+    // comments.value = response.data.comments;
 
 
-    page.value.total = response.data.Page.total;
-    page.value.current = response.data.Page.current;
-    page.value.pageSize = response.data.Page.pageSize;
-    start.value = (page.value.current - 1) * page.value.pageSize;
-    if (start.value + page.value.pageSize > page.value.total) {
-      end.value = page.value.total;
-    } else {
-      end.value = start.value + page.value.pageSize;
-    }
+    // page.value.total = response.data.Page.total;
+    // page.value.current = response.data.Page.current;
+    // page.value.pageSize = response.data.Page.pageSize;
+    // start.value = (page.value.current - 1) * page.value.pageSize;
+    // if (start.value + page.value.pageSize > page.value.total) {
+    //   end.value = page.value.total;
+    // } else {
+    //   end.value = start.value + page.value.pageSize;
+    // }
 
   } catch (error) {
     console.error('Error fetching posts:', error);
   }
 };
+
+onMounted()
+{
+  fetchdetail();
+}
 
 
 </script>/

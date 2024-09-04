@@ -14,7 +14,7 @@
               <div class="header-info">
                 <span class="username">{{ notice.fromUser.headerImg }}</span>
                 <span class="username">{{ notice.fromUser.username }}</span>
-                <span class="timestamp">{{ notice.notice.createTime }}</span>
+                <span class="timestamp">{{ formateDate(notice.notice.createTime) }}</span>
               </div>
             </div>
             <div class="content">
@@ -88,8 +88,8 @@ const handlePageChange = (newPage) => {
   }
 };
 const getNoticeDetail = async () => {
-  console.log("dss");
-  const response = await fetch(api.notice.detail);
+  getNoticeType();
+  const response = await fetch(api.notice.detail+noticeType.value);
   const data = await response.json();
   console.log(data.value);
   notices.value = data.notices;
@@ -143,12 +143,18 @@ const search = () => {
 };
 //多语言支持
 import {useCommonTranslations} from '@/lang/i18nhelper';
-import {useI18n} from 'vue-i18n';
+import {DatetimeFormat, useI18n} from 'vue-i18n';
 const translations = useCommonTranslations();
 const {t, locale} = useI18n({useScope: "global"});
 const selectedLanguage = ref('zh');
 const changeLanguage = () => {
   locale.value = selectedLanguage.value
+}
+
+// 时间戳转换
+const formateDate = (timeStamp) => {
+  const date = new Date(timeStamp);
+  return date.toLocaleDateString();
 }
 //样式
 import Leftsidebar from "@/components/Leftsidebar.vue";
