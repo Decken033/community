@@ -4,58 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="22388118-8399-4e6b-9cbb-2bb668ddfff5" name="Changes" comment="xdq:match可以跑；homeview对接还差头像">
+    <list default="true" id="78d42dd7-c22a-46e2-8cc8-7962d6adc421" name="Changes" comment="homeview">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/HomeView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/router/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/PostBox/LetterdetailBox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/PostBox/LetterdetailBox.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/HomeView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/discuss/Discuss.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/discuss/Discuss.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/settings/Settings.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/settings/Settings.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/notice/Notice-detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/notice/Notice-detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/notice/Notice.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/notice/Notice.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;git-widget-placeholder&quot;: &quot;#67 on main&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Vue Composition API Component" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "xudiqing",
+    "git-widget-placeholder": "#67 on main",
     "node.js.selected.package.tslint": "(autodetect)"
-  },
-  "keyToStringList": {
-    "vue.recent.templates": [
-      "Vue Composition API Component"
-    ]
   }
-}</component>
+}]]></component>
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="xdq:match可以跑；homeview对接还差头像">
-      <option name="closed" value="true" />
-      <created>1725365165979</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1725365165980</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="xdq:match可以跑；homeview对接还差头像" />
-    <option name="LAST_COMMIT_MESSAGE" value="xdq:match可以跑；homeview对接还差头像" />
+    <MESSAGE value="homeview" />
+    <option name="LAST_COMMIT_MESSAGE" value="homeview" />
   </component>
 </project>

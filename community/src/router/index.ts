@@ -35,11 +35,6 @@ const router = createRouter({
       component: () => import('@/views/notice/Notice.vue')
     },
     {
-      path: '/notice/detail/:id',
-      name: 'noticedetail',
-      component: () => import('@/views/notice/Notice-detail.vue')
-    },
-    {
       path: '/profile',
       name: 'profile',
       component: () => import('@/views/profile/Profile.vue')
