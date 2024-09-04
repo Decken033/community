@@ -54,5 +54,6 @@ export default {
     follow:'Seguir',
     all:'Toda',
     match: 'Emparejamiento aleatorio',
+    logout: 'desconectar',
   }
 };

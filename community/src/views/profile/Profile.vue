@@ -12,7 +12,7 @@
     <el-main>
       <div class="container">
             <el-tabs v-model="activeTab">
-              <el-tab-pane label="个人信息" name=0>
+              <el-tab-pane label="个人信息" name='0'>
                   <div class="profile-card">
                     <el-row>
                       <el-col :span="4">
@@ -39,7 +39,7 @@
               </el-tab-pane>
 
               <!-- 我的帖子选项卡 -->
-              <el-tab-pane label="我的帖子" name=1>
+              <el-tab-pane label="我的帖子" name='1'>
                 <div v-for="item in discussPosts" :key="post.id" class="post-item">
                   <el-avatar :src="item.userAvatar" class="post-avatar"></el-avatar>
                   <div class="post-content">
@@ -57,7 +57,7 @@
               </el-tab-pane>
 
               <!-- 回复内容选项卡 -->
-              <el-tab-pane label="我的回复" name=2  >
+              <el-tab-pane label="我的回复" name='2'  >
                 <div v-for="post in comments" :key="post.id" class="post-item">
                   <el-avatar :src="post.userAvatar" class="post-avatar"></el-avatar>
                   <div class="post-content">
@@ -145,7 +145,7 @@ onMounted(() => {
 });
 const fetchUserProfile = async () => {
   try {
-    const userId = 5;
+    const userId = localStorage.getItem('userId');
     const response = await axios.get(`/user/profile/${userId}`);
 
     console.log('Fetched posts:', response);
@@ -172,13 +172,14 @@ const fetchUserProfile = async () => {
 };
 
 const handleTabClick = (tab) => {
+  console.log(tab.value);
   orderMode.value = tab.value;
   fetchPosts();
 };
 
-// onMounted(() => {
-//   fetchUserProfile();
-// });
+onMounted(() => {
+  fetchUserProfile();
+});
 
 
 const search = () => {

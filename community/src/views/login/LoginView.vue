@@ -4,7 +4,7 @@
 
     <!-- 侧边栏 -->
     <el-aside>
-<!--      <particlebar></particlebar>-->
+      <!--      <particlebar></particlebar>-->
     </el-aside>
 
     <!-- 内容 -->
@@ -47,22 +47,24 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue';
-
+import {onMounted, ref} from 'vue';
 
 
 //验证码url
 const img = ref('');
+const kaptchaOwner = ref('');
 //验证码接口
 import api from "@/api/api.ts";
 import {ElMessage} from "element-plus";
+
 const refreshKaptcha = async () => {
   const response = await fetch(api.user.verifycode);
-  const blob = await response.blob();
-  img.value = URL.createObjectURL(blob);
+  // const blob = await response.blob();
+  // img.value = URL.createObjectURL(blob);
+  const data = await response.json();
+  kaptchaOwner.value = data.kaptchaOwner;
+  img.value = "data:image/png;base64," + data.img;
 };
-
-
 
 
 //登录接口
@@ -72,38 +74,43 @@ const form = ref({
   code: '',
   rememberMe: false,
 });
-const handleSubmit = async() => {
-    const response = await fetch(api.user.login, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: form.value.username,
-        password: form.value.password,
-        code: form.value.code,
-        rememberMe: form.value.rememberMe,
-      }),
-    });
-    const data = await response.json();
-    console.log(data);
-    if(data.status==0){
-      //正确
-      router.push('/');
-    }else if(data.status==1){
-      //验证码错误
-      ElMessage.error('验证码错误');
-    }else{
-      //账号密码错误
-      ElMessage.error('账号密码错误');
-    }
+const handleSubmit = async () => {
+
+  const formData = ref(new FormData());
+  formData.value.append("username", form.value.username);
+  formData.value.append("password", form.value.password);
+  formData.value.append("code", form.value.code);
+  formData.value.append("rememberMe", form.value.rememberMe);
+  formData.value.append("kaptchaOwner", kaptchaOwner.value);
+
+  const response = await fetch(api.user.login, {
+    method: 'POST',
+    body: formData.value,
+  });
+  const data = await response.json();
+  if (data.status == 0) {
+    //正确
+    localStorage.setItem("ticket", data.ticket);
+    localStorage.setItem("role", data.role);
+    localStorage.setItem("expired", data.expired);
+    localStorage.setItem("userId", data.user.id);
+    router.push('/');
+  } else if (data.status == 1) {
+    //验证码错误
+    ElMessage.error('验证码错误');
+    refreshKaptcha();
+  } else {
+    //账号密码错误
+    ElMessage.error('账号密码错误');
+    refreshKaptcha();
+  }
 };
-
-
 
 
 //加入返回按钮
 import router from "@/router/index.ts";
+import * as console from "node:console";
+
 const handleBack = () => {
   router.push('/');
 };
@@ -113,6 +120,10 @@ const navigateToRegister = () => {
 const navigateToForget = () => {
   router.push('/forget');
 };
+
+onMounted(() => {
+  refreshKaptcha();
+});
 </script>
 
 

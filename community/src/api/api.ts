@@ -4,6 +4,7 @@ const ip = 'http://localhost:8080/community/';
 export default {
     user:{
         login:ip+'login',
+        logout: ip + 'logout',
         verifycode:ip+'verifycode',
         header:ip+'header',
         uploadavatar:ip+'user/upload',
@@ -30,4 +31,7 @@ export default {
         list:ip+'notice/list',
         detail:ip+'notice/detail/like'
     },
+    home:{
+        index: ip + 'index'
+    }
 };

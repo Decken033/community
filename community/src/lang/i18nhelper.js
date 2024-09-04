@@ -63,6 +63,7 @@ export function useCommonTranslations() {
     // 返回所有翻译内容
 
     const match = computed(() => t('message.match'));
+    const logout = computed(() => t('message.logout'));
 
     return {
         home,
@@ -120,6 +121,7 @@ export function useCommonTranslations() {
         follow,
         all,
         match,
+        logout,
     };
 
 }

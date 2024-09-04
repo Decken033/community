@@ -139,16 +139,6 @@ const beforeAvatarUpload = (file) => {
   return true;
 };
 
-
-
-
-
-
-const userId = '12345'; // 用户ID示例
-// 将用户ID存储到localStorage中
-localStorage.setItem('userId', userId);
-const myuserId = localStorage.getItem('userId');
-
 // 立即上传图片
 async function UploadImagenow() {
   console.log('Uploading image now...');
