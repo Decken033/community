@@ -183,7 +183,7 @@ const deletepost = async (id) => {
 const handleTabClick = (tab) => {
   // console.log(tab.value);
   // orderMode.value = tab.value;
-  fetchUserProfile
+  fetchUserProfile();
 };
 
 
