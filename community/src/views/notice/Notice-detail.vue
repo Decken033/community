@@ -59,7 +59,7 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import {onBeforeMount, onMounted, ref} from 'vue';
+import {onMounted, ref} from 'vue';
 import router from '@/router/index.ts';
 import {formatDate} from "@/js/global";
 
@@ -73,6 +73,7 @@ const notices = ref([]);
 const start=ref(0);
 const end=ref(1);
 const isInRange = (index) =>{
+  console.log(index);
   if(index<=end.value-1&&index>=start.value){
     return 1;
   }else{
@@ -89,12 +90,9 @@ const handlePageChange = (newPage) => {
   }
 };
 const getNoticeDetail = async () => {
-  getNoticeType();
   const response = await fetch(api.notice.detail+noticeType.value);
   const data = await response.json();
-  console.log(data.value);
   notices.value = data.notices;
-  // console.log(notices.value);
   page.value.total = data.Page.rows;
   page.value.current = data.Page.current;
   page.value.pageSize = data.Page.limit;
@@ -104,10 +102,9 @@ const getNoticeDetail = async () => {
   }else{
     end.value = start.value + page.value.pageSize;
   }
-  // console.log(start);
-  // console.log(end);
-
 };
+
+
 
 
 
@@ -122,6 +119,7 @@ const getNoticeDetail = async () => {
 const noticeType = ref('');
 const getNoticeType = () => {
   const route = useRoute();
+  console.log('Notice type:', route.params.type);
   if(route.params.type === 'comment') {
     noticeType.value = 'comment';
   } else if(route.params.type === 'like') {
@@ -131,6 +129,7 @@ const getNoticeType = () => {
   }
 };
 onMounted(() => {
+  getNoticeType();
   getNoticeDetail();
 });
 //搜索调用
@@ -144,7 +143,7 @@ const search = () => {
 };
 //多语言支持
 import {useCommonTranslations} from '@/lang/i18nhelper';
-import {DatetimeFormat, useI18n} from 'vue-i18n';
+import {useI18n} from 'vue-i18n';
 const translations = useCommonTranslations();
 const {t, locale} = useI18n({useScope: "global"});
 const selectedLanguage = ref('zh');
@@ -155,7 +154,6 @@ const changeLanguage = () => {
 import Leftsidebar from "@/components/Leftsidebar.vue";
 import recommendbar from "@/components/recommendbar.vue";
 import api from "@/api/api";
-import * as console from "node:console";
 </script>
 
 <style>

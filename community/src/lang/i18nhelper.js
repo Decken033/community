@@ -63,8 +63,12 @@ export function useCommonTranslations() {
     // 返回所有翻译内容
 
     const match = computed(() => t('message.match'));
+    const start = computed(() => t('message.start'));
+    const stop = computed(() => t('message.stop'));
+    const startvideo = computed(() => t('message.startvideo'));
+    const endvideo = computed(() => t('message.endvideo'));
+    const enterplease = computed(() => t('message.enterplease'));
     const logout = computed(() => t('message.logout'));
-
     return {
         home,
         news,
@@ -121,6 +125,11 @@ export function useCommonTranslations() {
         follow,
         all,
         match,
+        start,
+        stop,
+        startvideo,
+        endvideo,
+        enterplease,
         logout,
     };
 

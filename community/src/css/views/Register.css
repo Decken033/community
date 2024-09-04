@@ -7,7 +7,7 @@
 
 .el-aside {
     width: 55%;
-    background-color: rgb(11, 221, 245)
+    /*background-color: rgb(11, 221, 245)*/
 }
 
 .el-container {
@@ -80,4 +80,3 @@ canvas {
 {
     width: 50%;
 }
-

@@ -129,8 +129,8 @@ import {computed, onMounted, ref} from "vue";
 import router from "@/router/index.ts";
 import {formatDate} from "@/js/global";
 //notice信息
-const letterUnreadCount = ref(5);
-const noticeUnreadCount = ref(3);
+const letterUnreadCount = ref(0);
+const noticeUnreadCount = ref(0);
 const commentNotice = ref(null);
 const likeNotice = ref(null);
 const followNotice = ref(null);

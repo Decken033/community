@@ -5,7 +5,7 @@
 
     <!-- 侧边栏 -->
     <el-aside>
-<!--      <ParticleSidebar v-if="isLoaded"/>-->
+      <img src="@/images/background4.jpg"  class="background-image" />
     </el-aside>
 
     <!-- 内容 -->
@@ -130,4 +130,14 @@ const rules = {
 
 <style scoped>
 @import "@/css/views/Register.css";
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 图片自适应容器 */
+  z-index: -1; /* 放在最底层 */
+}
 </style>
