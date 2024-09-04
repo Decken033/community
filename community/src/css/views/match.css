@@ -1,0 +1,139 @@
+
+.topsidebar {
+    width: 80%;
+    height: auto;
+}
+
+.el-header {
+    background-color: #f0f0f0;
+}
+
+.el-container {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+
+.search-bar {
+    height: 10%;
+    margin-right: auto;
+}
+
+.el-main {
+//background-color: rgb(244, 247, 236);
+    background-color: white;
+    padding-top: 0px;
+    height: 100%;
+//transform: translateX(-30%)；
+}
+
+.el-main::-webkit-scrollbar {
+    display: none; /* 对 Chrome, Safari 有效 */
+}
+
+.el-menu {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.el-menu-item:hover {
+    background-color: white;
+}
+
+.leftsidebar {
+    display: flex;
+    width: 25%;
+    height: 100%;
+    overflow: hidden;
+//transform: translateX(10%);
+}
+
+.rightsidebar {
+    display: flex;
+    width: 35%;
+    height: 100%;
+}
+
+.el-menu-demo {
+    display: flex;
+//justify-content: space-between;
+//align-items: center;
+    flex-direction: column;
+    width: 30%;
+    margin: 0;
+    padding: 0;
+    transform: translateX(0);
+}
+
+.el-tabs {
+    width: 100%;
+    max-width: 100%;
+
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0;
+    padding: 0px;
+    height: auto;
+}
+
+
+
+.mainvideo {
+    display: flex; /* 使用 Flexbox 布局 */
+    justify-content: space-between; /* 两端对齐，中间留有空隙 */
+    padding: 0 10px; /* 两边内边距，避免视频紧贴边缘 */
+    box-sizing: border-box; /* 包含padding和border */
+    align-items: stretch;
+}
+
+.video-item {
+    flex: 1; /* 自动扩展以填充可用空间 */
+    min-width: calc(50% - 10px); /* 至少占据一半的宽度，减去内边距 */
+    height: 92%;
+    padding: 0;
+    margin: 0;
+    /* 高度100%，撑满.el-main */
+    border: 1px solid black; /* 保持原有的边框 */
+}
+.top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    gap: 30px;
+}
+
+.bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+
+.chatbox {
+    margin-top: 10px;
+}
+
+.messagebox {
+    margin-top: 10px;
+}
+
+.left-item,
+.right-item {
+    list-style: none;
+    padding: 0;
+}
+
+.left-item li,
+.right-item li {
+    padding: 5px 0;
+}
+
+.buttonright {
+    margin-left: 10px;
+}

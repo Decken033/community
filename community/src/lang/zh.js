@@ -54,5 +54,10 @@ export default {
     follow: '关注',
     all: '全部',
     match: '随机匹配',
+    start: '开始匹配',
+    stop: '停止',
+    startvideo: '开始视频流',
+    endvideo: '结束视频流',
+    enterplease:'请输入消息内容'
   }
 };

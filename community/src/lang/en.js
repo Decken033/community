@@ -54,5 +54,10 @@ export default {
     follow: 'Follow',
     all: 'Total',
     match: 'RandomMatch',
+    start: 'Start Matching',
+    stop: 'Stop',
+    startvideo: 'Start Video Stream',
+    endvideo: 'End Video Stream',
+    enterplease:'Please enter message content',
   }
 };

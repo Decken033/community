@@ -54,5 +54,10 @@ export default {
     follow:'Seguir',
     all:'Toda',
     match: 'Emparejamiento aleatorio',
+    start: 'Comenzar a emparejar',
+    stop: 'Detener',
+    startvideo: 'Comenzar a transmitir video',
+    endvideo: 'Finalizar transmisión de video',
+    enterplease:'Por favor ingrese el contenido del mensaje',
   }
 };

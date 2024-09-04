@@ -61,6 +61,9 @@
           <el-option label="中文" value="zh"></el-option>
           <el-option label="Español" value="sp"></el-option>
         </el-select>
+        <div>
+          <recommendbar></recommendbar>
+        </div>
       </div>
 
     </el-aside>
@@ -78,8 +81,8 @@ const page = ref({
   pageSize: 6,
   total: 10
 });
-const letterUnreadCount = ref(5);
-const noticeUnreadCount = ref(3);
+const letterUnreadCount = ref(0);
+const noticeUnreadCount = ref(0);
 const start=ref(0);
 const end=ref(1);
 const isInRange = (index) =>{
