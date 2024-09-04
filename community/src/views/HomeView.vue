@@ -12,15 +12,17 @@
       </el-aside>
 
       <el-tabs v-model="orderMode" @tab-click="handleTabClick" class="tabs">
-        <el-tab-pane :label="translations.hottest.value" name='0' ></el-tab-pane>
-        <el-tab-pane :label="translations.latest.value" name='1' ></el-tab-pane>
+        <el-tab-pane :label="translations.hottest.value" name='0'></el-tab-pane>
+        <el-tab-pane :label="translations.latest.value" name='1'></el-tab-pane>
       </el-tabs>
 
       <div v-for="item in discussPosts" :key="item.id" class="post-item">
         <div class="post-content">
           <el-avatar :src=item.user.headerImg class="post-avatar"></el-avatar>
 
-          <router-link :to="{ name: 'discussDetail', params: { id: item.post.id }}" class="post-title">{{ item.post.title }}</router-link>
+          <router-link :to="{ name: 'discussDetail', params: { id: item.post.id }}" class="post-title">
+            {{ item.post.title }}
+          </router-link>
           <div class="post-meta">
             <span class="post-author">{{ item.user.username }}</span>
             <span class="post-time">{{ translations.publishtime }} {{ formateDate(item.post.createTime) }}</span>
@@ -102,7 +104,10 @@ const end = ref(1);
 const fetchPosts = async (orderModeValue) => {
   try {
     const response = await axios.get('http://localhost:8080/community/index', {
-      params: {orderMode: orderModeValue}
+      params: {
+        orderMode: orderModeValue,
+        ticket: localStorage.getItem('ticket'),
+      },
     });
     console.log("123");
     console.log('Fetched posts:', response);

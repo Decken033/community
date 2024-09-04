@@ -54,5 +54,6 @@ export default {
     follow: 'Follow',
     all: 'Total',
     match: 'RandomMatch',
+    logout: 'Logout',
   }
 };

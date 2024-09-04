@@ -54,5 +54,6 @@ export default {
     follow: '关注',
     all: '全部',
     match: '随机匹配',
+    logout: '登出',
   }
 };

@@ -4,7 +4,7 @@
     <el-input
         v-model="tweetTitle"
         placeholder="Enter your title"
-        rows="2"
+        rows=2
         maxlength="100"
         show-word-limit
     ></el-input>
@@ -13,17 +13,25 @@
         type="textarea"
         v-model="comment"
         placeholder="What is happening?!"
-        rows="3"
+        rows=3
         maxlength="280"
         show-word-limit
     ></el-input>
 
     <div class="tweet-actions">
       <div class="icons">
-        <el-icon><Picture></Picture></el-icon>
-        <el-icon><video-camera></video-camera></el-icon>
-        <el-icon><calendar></calendar></el-icon>
-        <el-icon><location></location></el-icon>
+        <el-icon>
+          <Picture></Picture>
+        </el-icon>
+        <el-icon>
+          <video-camera></video-camera>
+        </el-icon>
+        <el-icon>
+          <calendar></calendar>
+        </el-icon>
+        <el-icon>
+          <location></location>
+        </el-icon>
       </div>
       <el-button type="primary" :disabled="!comment" @click="postDiscussion">
         Post
@@ -34,12 +42,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { ElInput, ElButton, ElIcon } from 'element-plus';
+import {ref} from 'vue';
+import {ElInput, ElButton, ElIcon} from 'element-plus';
 
 
-
-import { Picture, VideoCamera, Calendar, Location } from '@element-plus/icons-vue';
+import {Picture, VideoCamera, Calendar, Location} from '@element-plus/icons-vue';
+import * as console from "node:console";
 
 
 const tweetTitle = ref('');
@@ -49,15 +57,12 @@ const resultCode = ref(0); // 0: Success, 403: Failure
 // Function to post discussion
 const postDiscussion = async () => {
   try {
+    const formData = ref(new FormData())
+    formData.value.append('title', tweetTitle.value);
+    formData.value.append('content', comment.value);
     const response = await fetch('http://localhost:8080/community/discuss/add', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        title: tweetTitle.value, // Use tweetTitle for the title
-        content: comment.value    // Use comment for the content
-      })
+      body: formData.value
     });
 
     const result = await response.json();
@@ -70,6 +75,9 @@ const postDiscussion = async () => {
     } else {
       resultCode.value = 'Unknown response';
     }
+
+    tweetTitle.value = "";
+    comment.value = "";
   } catch (error) {
     console.error('Error posting discussion:', error);
     resultCode.value = 'Error'; // Handle error case
