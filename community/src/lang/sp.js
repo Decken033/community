@@ -59,5 +59,6 @@ export default {
     startvideo: 'Comenzar a transmitir video',
     endvideo: 'Finalizar transmisión de video',
     enterplease:'Por favor ingrese el contenido del mensaje',
+    logout: 'desconectar',
   }
 };

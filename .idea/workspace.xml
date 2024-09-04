@@ -18,6 +18,9 @@
       <change beforePath="$PROJECT_DIR$/community/src/views/match/Match.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/match/Match.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/notice/Notice-detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/notice/Notice-detail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/notice/Notice.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/notice/Notice.vue" afterDir="false" />
+    <list default="true" id="78d42dd7-c22a-46e2-8cc8-7962d6adc421" name="Changes" comment="discuss更新">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/profile/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/profile/Profile.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +75,13 @@
     "vue.recent.templates": [
       "Vue Composition API Component"
     ]
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "xudiqing",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -109,6 +119,21 @@
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
       <updated>1725265761206</updated>
+    <task id="LOCAL-00001" summary="homeview">
+      <option name="closed" value="true" />
+      <created>1725422117512</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1725422117512</updated>
+    </task>
+    <task id="LOCAL-00002" summary="discuss更新">
+      <option name="closed" value="true" />
+      <created>1725430563164</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1725430563164</updated>
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
@@ -119,5 +144,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="howeview,profile接口部分修改，加上随机匹配" />
     <option name="LAST_COMMIT_MESSAGE" value="howeview,profile接口部分修改，加上随机匹配" />
+    <MESSAGE value="homeview" />
+    <MESSAGE value="discuss更新" />
+    <option name="LAST_COMMIT_MESSAGE" value="discuss更新" />
   </component>
 </project>

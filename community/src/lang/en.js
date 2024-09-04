@@ -59,5 +59,6 @@ export default {
     startvideo: 'Start Video Stream',
     endvideo: 'End Video Stream',
     enterplease:'Please enter message content',
+    logout: 'Logout',
   }
 };

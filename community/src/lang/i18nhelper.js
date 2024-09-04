@@ -68,6 +68,7 @@ export function useCommonTranslations() {
     const startvideo = computed(() => t('message.startvideo'));
     const endvideo = computed(() => t('message.endvideo'));
     const enterplease = computed(() => t('message.enterplease'));
+    const logout = computed(() => t('message.logout'));
     return {
         home,
         news,
@@ -129,6 +130,7 @@ export function useCommonTranslations() {
         startvideo,
         endvideo,
         enterplease,
+        logout,
     };
 
 }
