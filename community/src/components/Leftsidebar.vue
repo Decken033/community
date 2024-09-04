@@ -21,7 +21,8 @@
       <el-menu-item index="4">
         <!--         <router-link to="/letter">{{ translations.news }}</router-link>-->
         <a @click="navigateToLetter" class="redirection" style="font-weight: bold">{{ translations.news }}</a>
-        <el-badge :value="12" class="item"/>
+        <el-badge v-if="letterUnreadCount != 0" :value="letterUnreadCount" class="badge badge-danger"></el-badge>
+<!--        <el-badge :value="0"  class="item"/>-->
       </el-menu-item>
 
 
