@@ -1,24 +1,13 @@
 <script setup lang="ts">
-import {
-  searchQuery,
-  orderMode,
-  page,
-  paginatedItems,
-  handlePageChange,
-  handleTabClick,
-  search,
-} from '@/js/global.ts';
-
-import {ref, onMounted} from 'vue';
+import {onMounted, ref} from 'vue';
 import {useCommonTranslations} from '@/lang/i18nhelper';
 import {useI18n} from 'vue-i18n';
-import postbox from "@/views/PostBox/Postbox.vue"
-import {ElIcon, ElButton, ElMenu, ElMenuItem, ElContainer, ElHeader, ElMain} from 'element-plus'
-import {User, Key, Download, Close} from '@element-plus/icons-vue'
+import {ElButton, ElContainer, ElMain, ElMessage} from 'element-plus'
 import axios from 'axios';
 import api from '@/api/api.ts';
 import defaultAvatar from '@/images/logo.jpg';
-
+import leftsidebar from "@/components/Leftsidebar.vue";
+import Leftsidebar from "@/components/Leftsidebar.vue";
 
 const translations = useCommonTranslations();
 const {t, locale} = useI18n({useScope: "global"});
@@ -28,13 +17,11 @@ const changeLanguage = () => {
 }
 
 
-
 //搜索
 const searchQuery = ref('');
 const search = () => {
   console.log(`Searching for: ${searchQuery.value}`);
 };
-
 
 
 //修改密码
@@ -43,7 +30,6 @@ const password = ref({
   newPassword: '',
   confirmPassword: ''
 });
-
 
 
 const changePassword = async () => {
@@ -79,8 +65,6 @@ const changePassword = async () => {
     ElMessage.error('服务器错误，请稍后再试');
   }
 };
-
-
 
 
 //上传图片
@@ -127,7 +111,6 @@ const handleFileChange = (file) => {
 };
 
 
-import { ElMessage } from 'element-plus';
 // 上传前的校验
 const beforeAvatarUpload = (file) => {
   console.log('beforeAvatarUpload:', file);
@@ -138,6 +121,12 @@ const beforeAvatarUpload = (file) => {
   }
   return true;
 };
+
+
+const userId = '12345'; // 用户ID示例
+// 将用户ID存储到localStorage中
+localStorage.setItem('userId', userId);
+const myuserId = localStorage.getItem('userId');
 
 // 立即上传图片
 async function UploadImagenow() {
@@ -192,7 +181,6 @@ async function UploadImagenow() {
 }
 
 
-
 //修改昵称
 const nickname = ref('');
 const changeNickname = async () => {
@@ -220,52 +208,7 @@ const changeNickname = async () => {
 <template>
   <el-container>
     <el-aside class="leftsidebar">
-      <el-menu type="flex">
-        <!-- 首页 -->
-        <el-menu-item index="1">
-          <!--         <router-link to="/">{{ translations.home }}</router-link>-->
-          <a href="/" class="redirection" style="font-weight: bold">{{ translations.home }}</a>
-        </el-menu-item>
-
-        <!-- 消息 -->
-        <el-menu-item index="2">
-          <!--         <router-link to="/letter">{{ translations.news }}</router-link>-->
-          <a href="/letter" class="redirection" style="font-weight: bold">{{ translations.news }}</a>
-          <el-badge :value="12" class="item"/>
-        </el-menu-item>
-
-        <!-- 注册 -->
-        <el-menu-item index="3">
-          <!--         <router-link to="/register">{{ translations.register }}</router-link>-->
-          <a href="/register" class="redirection" style="font-weight: bold">{{ translations.register }}</a>
-        </el-menu-item>
-
-        <!-- 登录 -->
-        <el-menu-item index="4">
-          <!--         <router-link to="/login">{{ translations.login }}</router-link>-->
-          <a href="/login" class="redirection" style="font-weight: bold">{{ translations.login }}</a>
-        </el-menu-item>
-
-        <!-- 个人主页 -->
-        <el-menu-item index="5">
-          <!--         <router-link to="/profile">{{ translations.profile }}</router-link>-->
-          <a href="/profile" class="redirection" style="font-weight: bold">{{ translations.profile }}</a>
-        </el-menu-item>
-
-        <!-- 账号设置 -->
-        <el-menu-item index="6">
-          <!--         <router-link to="/settings">{{ translations.settings }}</router-link>-->
-          <a href="/settings" class="redirection" style="font-weight: bold">{{ translations.settings }}</a>
-        </el-menu-item>
-
-        <!-- 视频聊天 -->
-        <el-menu-item index="7">
-          <!--         <router-link to="/settings">视频聊天</router-link>-->
-          <a href="/" class="redirection" style="font-weight: bold">视频聊天</a>
-        </el-menu-item>
-
-      </el-menu>
-
+      <Leftsidebar></Leftsidebar>
     </el-aside>
 
     <!-- 内容 -->
@@ -365,33 +308,35 @@ const changeNickname = async () => {
           <el-option label="Español" value="sp"></el-option>
         </el-select>
 
+        <div>
+          <el-avatar :src="avatarUrl" size="large" shape="circle" icon="el-icon-user"/>
 
-        <el-avatar :src="avatarUrl" size="large" shape="circle" icon="el-icon-user"/>
+          <el-upload
+              class="upload-demo"
+              :show-file-list="false"
+              :on-change="handleFileChange"
+              :before-upload="beforeAvatarUpload"
+          >
+            <el-button
+                size="small" class="selectpicture"
+                type="primary"
+            >
+              {{ translations.seletcAvatar }}
+            </el-button>
+          </el-upload>
+          <el-form-item>
+            <el-button
+                type="primary"
+                class="uploadnow"
+                native-type="submit"
+                :disabled="!imageSelected"
+                @click="UploadImagenow"
+            >
+              {{ translations.uploadnow }}
+            </el-button>
+          </el-form-item>
 
-        <el-upload
-            class="upload-demo"
-            :show-file-list="false"
-            :on-change="handleFileChange"
-            :before-upload="beforeAvatarUpload"
-        >
-          <el-button
-              size="small" class="selectpicture"
-              type="primary"
-          >
-            {{ translations.seletcAvatar }}
-          </el-button>
-        </el-upload>
-        <el-form-item>
-          <el-button
-              type="primary"
-              class="uploadnow"
-              native-type="submit"
-              :disabled="!imageSelected"
-              @click="UploadImagenow"
-          >
-            {{ translations.uploadnow }}
-          </el-button>
-        </el-form-item>
+        </div>
 
 
       </div>

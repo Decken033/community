@@ -92,7 +92,7 @@ const navigateToSettings = () => {
   router.push('/settings');
 };
 const navigateToVideoChat = () => {
-  router.push('/match');
+  router.push('/chatroom');
 };
 const navigateToRandomMatch = () => {
   router.push('/match');
