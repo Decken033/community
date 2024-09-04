@@ -125,10 +125,9 @@ const getpostid = () => {
 
 
 const fetchdetail = async () => {
-  try {
     getpostid();
     console.log(discussPostId.value);
-    const response = await axios.get(`http://localhost:8080/community/discuss/detail/${discussPostId.value}`, {});
+    const response = await fetch(`http://localhost:8080/community/discuss/detail/${discussPostId.value}`);
     console.log("discussdetail");
     console.log('Fetched posts:', response);
 
@@ -147,15 +146,11 @@ const fetchdetail = async () => {
     //   end.value = start.value + page.value.pageSize;
     // }
 
-  } catch (error) {
-    console.error('Error fetching posts:', error);
-  }
 };
 
-onMounted()
-{
+onMounted(() => {
   fetchdetail();
-}
+});
 
 
 </script>/

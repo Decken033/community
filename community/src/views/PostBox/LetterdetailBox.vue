@@ -1,14 +1,13 @@
 <template>
+    <div>www</div>
 
-  <el-input
-      v-model="tweetTitle"
-      placeholder="Enter your title"
-      rows="2"
-      maxlength="100"
-      show-word-limit
-  ></el-input>
-
-  <div class="tweet-box">
+    <el-input
+        v-model="tweetTitle"
+        placeholder="Enter your title"
+        rows="2"
+        maxlength="100"
+        show-word-limit
+    ></el-input>
 
     <el-input
         type="textarea"
@@ -42,7 +41,6 @@
         Post
       </el-button>
     </div>
-  </div>
 </template>
 
 
@@ -91,6 +89,8 @@ const handleFileUpload = (event) => {
   background-color: white;
   padding: 16px;
   border-radius: 8px;
+  height: 100%;
+  width: 100%;
   justify-content: center;
 }
 
