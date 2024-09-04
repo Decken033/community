@@ -42,7 +42,7 @@
           <el-tab-pane label="我的帖子" name='1'>
             <div v-for="item in discussPosts" :key="post.id" class="post-item">
               <el-avatar :src="item.userAvatar" class="post-avatar"></el-avatar>
-              <el-button @click="deletepost">删帖</el-button>
+              <el-button @click="deletepost(item.post.id)">删帖</el-button>
               <div class="post-content">
                 <router-link :to="`/discuss/detail/${post.id}`" class="post-title">{{ item }}</router-link>
                 <div class="post-meta">
@@ -109,23 +109,18 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, computed} from 'vue';
-import {useRoute} from 'vue-router';
+import {computed, onMounted, ref} from 'vue';
 import {ElMessage} from 'element-plus';
 import {useI18n} from 'vue-i18n';
 import {useCommonTranslations} from '@/lang/i18nhelper';
 import leftsidebar from '@/components/Leftsidebar.vue';
-import {onMounted} from "vue";
 import axios from "axios";
+import api from "@/api/api.ts"
 
 //个人信息部分
 const {t, locale} = useI18n();
 
-const user = {
-  id: 1,
-  username: 'nowcoder',
-  createTime: new Date(),
-};
+
 const followeeCount = 123;
 const followerCount = 456;
 const hasFollowed = ref(false);
@@ -143,8 +138,6 @@ const user = ref('');
 onMounted(() => {
   fetchUserProfile();
 });
-
-import api from "@/api/api.ts"
 
 const fetchUserProfile = async () => {
   try {
@@ -175,15 +168,17 @@ const fetchUserProfile = async () => {
   }
 };
 
-//
-// const deletepost= async () => {
-//   const response = await fetch(api.manage.deletepost);
-//   console.log(response);
-//   const data = await response.json();
-//
-//
-//
-// }
+
+const deletepost = async (id) => {
+  const formData = ref(new FormData());
+  formData.value.append("id", id);
+  const response = await fetch(api.manage.deletepost, {
+    method: 'POST',
+    body: formData.value,
+  });
+  console.log(response);
+  const data = await response.json();
+}
 
 const handleTabClick = (tab) => {
   // console.log(tab.value);

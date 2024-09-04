@@ -6,26 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="78d42dd7-c22a-46e2-8cc8-7962d6adc421" name="Changes" comment="discuss更新">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/api/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/api/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/components/Leftsidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/components/Leftsidebar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/lang/en.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/en.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/lang/i18nhelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/i18nhelper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/lang/sp.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/sp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/lang/zh.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/zh.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/HomeView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/PostBox/Postbox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/PostBox/Postbox.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/login/LoginView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/login/LoginView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/profile/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/profile/Profile.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/settings/Settings.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/settings/Settings.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "#67 on main",
+    "git-widget-placeholder": "xudiqing",
     "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
