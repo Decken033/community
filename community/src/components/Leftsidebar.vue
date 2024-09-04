@@ -83,7 +83,7 @@ const navigateToSettings = () => {
   router.push('/settings');
 };
 const navigateToVideoChat = () => {
-  router.push('/');
+  router.push('/match');
 };
 const navigateToRandomMatch = () => {
   router.push('/match');
