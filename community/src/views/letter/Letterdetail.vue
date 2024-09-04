@@ -63,6 +63,9 @@
           <el-option label="中文" value="zh"></el-option>
           <el-option label="Español" value="sp"></el-option>
         </el-select>
+        <div>
+          <recommendbar></recommendbar>
+        </div>
       </div>
       <el-row>
         <el-col :span="16">
@@ -99,6 +102,7 @@
         </div>
 
       </el-aside>
+
       <!-- 弹出框 -->
 <!--      <el-dialog :visible.sync="sendModalVisible" title="translations.send.value">-->
 <!--        <el-form>-->
@@ -238,6 +242,7 @@ const sendMessage = () => {
 
 //引入组件
 import leftsidebar from "@/components/LeftSidebar.vue";
+import recommandbar from "@/components/recommendbar.vue";
 </script>
 
 <style scoped>
