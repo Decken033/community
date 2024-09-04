@@ -1,46 +1,57 @@
 <template>
   <div>
-    <el-button type="primary" @click="startVideo">开始捕获视频信息</el-button>
-    <el-button type="danger" @click="stopVideo">停止捕获视频信息</el-button>
-    <el-button type="primary" @click="connect">建立连接</el-button>
-    <el-button type="danger" @click="hangUp">挂断</el-button>
+
+    <div class="top">
+      <el-button type="primary" @click="startVideo">开始捕获视频信息</el-button>
+      <el-button type="danger" @click="stopVideo">停止捕获视频信息</el-button>
+      <el-button type="primary" @click="connect">建立连接</el-button>
+      <el-button type="danger" @click="hangUp">挂断</el-button>
+    </div>
+
     <br />
     <div>
-      <video
-          id="local-video"
-          autoplay
-          style="width: 240px; height: 180px; border: 1px solid black"
-          ref="localVideo"
-      ></video>
-      <video
-          id="remote-video"
-          autoplay
-          style="width: 240px; height: 180px; border: 1px solid black"
-          ref="remoteVideo"
-      ></video>
-      <div class="chatbox">
-        <ul class="left-item"></ul>
-        <div id="receiveBox" class="right-item" ref="receiveBox"></div>
+      <el-main class="mainvideo">
+        <video
+            id="local-video"
+            autoplay
+            style="width: 500px; height: 350px; border: 1px solid black"
+            ref="localVideo"
+        ></video>
+        <video
+            id="remote-video"
+            autoplay
+            style="width: 500px; height: 350px; border: 1px solid black"
+            ref="remoteVideo"
+        ></video>
+      </el-main>
+
+      <div class="bottom">
+        <div class="chatbox">
+          <ul class="left-item"></ul>
+          <div id="receiveBox" class="right-item" ref="receiveBox"></div>
+        </div>
+
+        <div class="messagebox">
+          <el-input
+              v-model="message"
+              placeholder="请输入消息"
+              :disabled="!isConnected"
+              ref="messageInputBox"
+              size="large"
+              style="width: 300px"
+          ></el-input>
+          <el-button
+              type="success"
+              :disabled="!isConnected"
+              @click="sendMessage"
+              size="large"
+          >
+            发送
+          </el-button>
+        </div>
+
       </div>
 
-      <div class="messagebox">
-        <el-input
-            v-model="message"
-            placeholder="请输入消息"
-            :disabled="!isConnected"
-            ref="messageInputBox"
-            size="large"
-            style="width: 300px"
-        ></el-input>
-        <el-button
-            type="success"
-            :disabled="!isConnected"
-            @click="sendMessage"
-            size="large"
-        >
-          发送
-        </el-button>
-      </div>
     </div>
   </div>
 </template>
@@ -88,6 +99,7 @@ export default {
       socket.value.onmessage = (res) => {
         const evt = JSON.parse(res.data);
         if (evt.type === 'offer' && peerStarted) {
+          peerConnection = null;
           onOffer(evt);
         } else if (evt.type === 'answer' && peerStarted) {
           onAnswer(evt);
@@ -100,12 +112,12 @@ export default {
     });
 
     const startVideo = () => {
-      navigator.webkitGetUserMedia({ video: true, audio: false },
+      navigator.webkitGetUserMedia({ video: true, audio: true },
           (stream) => {
             localStream = stream;
             localVideo.value.srcObject = stream;
             localVideo.value.play();
-            localVideo.value.volume = 0;
+            localVideo.value.volume = 0.2;
           },
           (error) => {
             console.error('发生了一个错误: [错误代码：' + error.code + ']');
@@ -169,6 +181,7 @@ export default {
     };
 
     const sendOffer = () => {
+      console.log("sendOffer");
       peerConnection = prepareNewConnection();
       peerConnection.createOffer(
           (sessionDescription) => {
@@ -181,6 +194,7 @@ export default {
     };
 
     const onOffer = (evt) => {
+      console.log("onoffer");
       if (peerConnection) {
         console.error('peerConnection已存在!');
         return;
@@ -192,6 +206,7 @@ export default {
     };
 
     const sendAnswer = (evt) => {
+      console.log("sendanswer");
       peerConnection.createAnswer(
           (sessionDescription) => {
             peerConnection.setLocalDescription(sessionDescription);
@@ -207,6 +222,7 @@ export default {
     };
 
     const onCandidate = (evt) => {
+      console.log("oncandidate");
       const candidate = new RTCIceCandidate({
         sdpMLineIndex: evt.sdpMLineIndex,
         sdpMid: evt.sdpMid,
@@ -217,10 +233,12 @@ export default {
 
     const sendSDP = (sdp) => {
       const text = JSON.stringify(sdp);
+      console.log("sendsdp" + text);
       socket.value.send(text);
     };
 
     const sendCandidate = (candidate) => {
+      console.log("sendcandidate");
       const text = JSON.stringify(candidate);
       socket.value.send(text);
     };
@@ -245,6 +263,7 @@ export default {
       } else if (!localStream) {
         alert("请首先捕获本地视频数据.");
       } else {
+        console.log(isConnected.value);
         alert("未连接到服务器");
       }
     };
@@ -297,6 +316,28 @@ export default {
 </script>
 
 <style scoped>
+
+.mainvideo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.bottom{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+
 .chatbox {
   margin-top: 10px;
 }

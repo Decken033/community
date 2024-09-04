@@ -1,6 +1,6 @@
-import {createRouter, createWebHistory} from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
-// 创建路由实例
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -35,49 +35,43 @@ const router = createRouter({
       component: () => import('@/views/notice/Notice.vue')
     },
     {
-      path: '/notice/detail/:id',
-      name: 'noticedetail',
-      component: () => import('@/views/notice/Notice-detail.vue')
-    },
-    {
-      path:'/profile',
-      name:'profile',
+      path: '/profile',
+      name: 'profile',
       component: () => import('@/views/profile/Profile.vue')
     },
     {
-
-      path:'/followee/:id',
-      name:'followee',
+      path: '/followee/:id',
+      name: 'followee',
       component: () => import('@/views/follow/Followee.vue')
     },
     {
-      path:'/follower/:id',
-      name:'follower',
+      path: '/follower/:id',
+      name: 'follower',
       component: () => import('@/views/follow/Follower.vue')
     },
     {
-      path:'/discuss/detail/:id',
-      name:'discussDetail',
+      path: '/discuss/detail/:id',
+      name: 'discussDetail',
       component: () => import('@/views/discuss/Discuss.vue')
     },
     {
-      path:'/search',
-      name:'search',
+      path: '/search',
+      name: 'search',
       component: () => import('@/views/search/Search.vue')
     },
     {
-      path:'/settings',
-      name:'settings',
-        component: () => import('@/views/settings/Settings.vue')
+      path: '/settings',
+      name: 'settings',
+      component: () => import('@/views/settings/Settings.vue')
     },
     {
-      path:'/mypost',
-      name:'mypost',
-        component: () => import('@/views/my-post_reply/My-post.vue')
+      path: '/mypost',
+      name: 'mypost',
+      component: () => import('@/views/my-post_reply/My-post.vue')
     },
     {
-      path:'/data',
-      name:'data',
+      path: '/data',
+      name: 'data',
       component: () => import('@/views/data/Data.vue')
     },
     {
@@ -85,12 +79,12 @@ const router = createRouter({
       name: 'noticeDetail',
       component: () => import('@/views/notice/Notice-detail.vue')
     },
-        {
-            path: '/match',
-            name: 'match',
-            component: () => import('@/views/match/Match.vue')
-        }
-    ]
+    {
+      path: '/match',
+      name: 'match',
+      component: () => import('@/views/match/Match.vue')
+    },
+  ]
 });
 
 export default router;

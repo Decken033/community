@@ -12,7 +12,7 @@
     <el-main>
       <div class="container">
             <el-tabs v-model="activeTab">
-              <el-tab-pane label="个人信息" name="info">
+              <el-tab-pane label="个人信息" name=0>
                   <div class="profile-card">
                     <el-row>
                       <el-col :span="4">
@@ -39,43 +39,7 @@
               </el-tab-pane>
 
               <!-- 我的帖子选项卡 -->
-              <el-tab-pane label="我的帖子" name="posts">
-<!--                <div>-->
-<!--                  <div class="mt-4">-->
-<!--                    <el-card>-->
-<!--                      <h6>-->
-<!--                        <b class="square"></b> 发布的帖子({{ page.total }})-->
-<!--                      </h6>-->
-<!--                      <el-list class="mt-4 pl-3 pr-3" v-if="page.total > 0">-->
-<!--                        <el-list-item-->
-<!--                            v-for="(post, index) in paginatedPosts"-->
-<!--                            :key="index"-->
-<!--                            class="border-bottom pb-3 mt-4"-->
-<!--                        >-->
-<!--                          <div class="font-size-16 text-info">-->
-<!--                            <el-link :underline="false" href="#" class="text-info">{{ post.title }}</el-link>-->
-<!--                          </div>-->
-<!--                          <div class="mt-1 font-size-14">-->
-<!--                            {{ post.content }}-->
-<!--                          </div>-->
-<!--                          <div class="text-right font-size-12 text-muted">-->
-<!--                            赞 <i class="mr-3">{{ post.likes }}</i> 发布于 <b>{{ post.publishedAt }}</b>-->
-<!--                          </div>-->
-<!--                        </el-list-item>-->
-<!--                      </el-list>-->
-<!--                      <el-pagination-->
-<!--                          class="page"-->
-<!--                          v-if="page.total > 0"-->
-<!--                          :current-page="page.current"-->
-<!--                          :page-size="page.pageSize"-->
-<!--                          :total="page.total"-->
-<!--                          layout="total, prev, pager, next, jumper"-->
-<!--                          @current-change="handlePageChange"-->
-<!--                      >-->
-<!--                      </el-pagination>-->
-<!--                    </el-card>-->
-<!--                  </div>-->
-<!--                </div>-->
+              <el-tab-pane label="我的帖子" name=1>
                 <div v-for="item in discussPosts" :key="post.id" class="post-item">
                   <el-avatar :src="item.userAvatar" class="post-avatar"></el-avatar>
                   <div class="post-content">
@@ -93,7 +57,7 @@
               </el-tab-pane>
 
               <!-- 回复内容选项卡 -->
-              <el-tab-pane label="我的回复" name="replies">
+              <el-tab-pane label="我的回复" name=2  >
                 <div v-for="post in comments" :key="post.id" class="post-item">
                   <el-avatar :src="post.userAvatar" class="post-avatar"></el-avatar>
                   <div class="post-content">
@@ -109,43 +73,6 @@
                   </div>
                 </div>
 
-<!--                <div>-->
-<!--                  <h2>我的回复</h2>-->
-<!--                  <div class="mt-4">-->
-<!--                    <el-card>-->
-<!--                      <h6>-->
-<!--                        <b class="square"></b> 回复的帖子({{ page.total }})-->
-<!--                      </h6>-->
-<!--                      <el-list class="mt-4 pl-3 pr-3" v-if="paginatedReplies.length">-->
-<!--                        <el-list-item-->
-<!--                            v-for="(reply, index) in paginatedReplies"-->
-<!--                            :key="index"-->
-<!--                            class="border-bottom pb-3 mt-4"-->
-<!--                        >-->
-<!--                          <div class="font-size-16 text-info">-->
-<!--                            <el-link :underline="false" href="#" class="text-info">{{ reply.title }}</el-link>-->
-<!--                          </div>-->
-<!--                          <div class="mt-1 font-size-14">-->
-<!--                            {{ reply.content }}-->
-<!--                          </div>-->
-<!--                          <div class="text-right font-size-12 text-muted">-->
-<!--                            回复于 <b>{{ reply.repliedAt }}</b>-->
-<!--                          </div>-->
-<!--                        </el-list-item>-->
-<!--                      </el-list>-->
-<!--                      <el-pagination-->
-<!--                          class="page"-->
-<!--                          v-if="page.total > 0"-->
-<!--                          :current-page="page.current"-->
-<!--                          :page-size="page.pageSize"-->
-<!--                          :total="page.total"-->
-<!--                          layout="total, prev, pager, next, jumper"-->
-<!--                          @current-change="handlePageChange"-->
-<!--                      >-->
-<!--                      </el-pagination>-->
-<!--                    </el-card>-->
-<!--                  </div>-->
-<!--                </div>-->
               </el-tab-pane>
 
               <!-- 其他选项卡 -->
@@ -210,23 +137,31 @@ const translations = useCommonTranslations();
 const comments = ref([]);
 const discussPosts = ref([]);
 
+const orderMode = ref(0);
+
+
 onMounted(() => {
   fetchUserProfile();
 });
 const fetchUserProfile = async () => {
   try {
-    const userId = '12345';
+    const userId = 5;
     const response = await axios.get(`/user/profile/${userId}`);
-    user.value = response.data.loginUser;
-    const data = await response
 
-    likeCount.value = response.data.likeCount;
-    followeeCount.value = response.data.followeeCount;
-    followerCount.value = response.data.followerCount;
-    //hasFollowed.value = response.data.hasFollowed;
+    console.log('Fetched posts:', response);
 
-    discussPosts.value = data.discussPosts;
-    comments.value = data.comments;
+
+
+    // user.value = response.data.loginUser;
+    // const data = await response
+    //
+    // likeCount.value = response.data.likeCount;
+    // followeeCount.value = response.data.followeeCount;
+    // followerCount.value = response.data.followerCount;
+    // //hasFollowed.value = response.data.hasFollowed;
+    //
+    // discussPosts.value = data.discussPosts;
+    // comments.value = data.comments;
 
 
 
@@ -236,10 +171,15 @@ const fetchUserProfile = async () => {
   }
 };
 
+const handleTabClick = (tab) => {
+  orderMode.value = tab.value;
+  fetchPosts();
+};
 
-// const formattedCreateTime = computed(() => {
-//   return new Intl.DateTimeFormat('zh-CN', {dateStyle: 'full', timeStyle: 'short'}).format(user.createTime);
+// onMounted(() => {
+//   fetchUserProfile();
 // });
+
 
 const search = () => {
   console.log('Search query:', searchQuery.value);

@@ -35,7 +35,7 @@
             <h6 class="mt-0 mb-3">
               <span>{{translations.comment}}</span>
               <span class="float-right text-muted font-size-12">
-            {{ formatDate(commentNotice.message.createTime) }}
+            {{ formateDate(commentNotice.message.createTime) }}
           </span>
             </h6>
             <div>
@@ -60,7 +60,7 @@
             <h6 class="mt-0 mb-3">
               <span>{{translations.like}}</span>
               <span class="float-right text-muted font-size-12">
-            {{ formatDate(likeNotice.message.createTime) }}
+            {{ formateDate(likeNotice.message.createTime) }}
           </span>
             </h6>
             <div>
@@ -85,7 +85,7 @@
             <h6 class="mt-0 mb-3">
               <span>{{translations.follow}}</span>
               <span class="float-right text-muted font-size-12">
-            {{ formatDate(followNotice.message.createTime) }}
+            {{ formateDate(followNotice.message.createTime) }}
           </span>
             </h6>
             <div>
@@ -130,72 +130,69 @@ import router from "@/router/index.ts";
 //notice信息
 const letterUnreadCount = ref(5);
 const noticeUnreadCount = ref(3);
-// const commentNotice = ref(null);
-// const likeNotice = ref(null);
-// const followNotice = ref(null);
-// const getNotice = async () => {
-//   const response = await fetch(api.notice.list);
-//   const data = await response.json();
-//   letterUnreadCount.value = data.letterUnreadCount;
-//   noticeUnreadCount.value = data.noticeUnreadCount;
-//   commentNotice.value = data.commentNotice;
-//   likeNotice.value = data.likeNotice;
-//   followNotice.value = data.followNotice;
+const commentNotice = ref(null);
+const likeNotice = ref(null);
+const followNotice = ref(null);
+const getNotice = async () => {
+  const response = await fetch(api.notice.list);
+  const data = await response.json();
+  letterUnreadCount.value = data.letterUnreadCount;
+  noticeUnreadCount.value = data.noticeUnreadCount;
+  commentNotice.value = data.commentNotice;
+  likeNotice.value = data.likeNotice;
+  followNotice.value = data.followNotice;
+};
+
+
+
+
+onMounted(() => {
+  getNotice();
+});
+// const commentNotice = {
+//   message: {
+//     createTime: new Date(),
+//     unread: 2
+//   },
+//   user: {
+//     username: 'JohnDoe'
+//   },
+//   entityType: 1,
+//   entityId: 123,
+//   postId: 456,
+//   count: 5,
+//   unread: 2
 // };
 //
+// const likeNotice = {
+//   message: {
+//     createTime: new Date(),
+//     unread: 1
+//   },
+//   user: {
+//     username: 'JaneDoe'
+//   },
+//   entityType: 2,
+//   entityId: 789,
+//   postId: 101112,
+//   count: 3,
+//   unread: 1
+// };
 //
-//
-//
-// onMounted(() => {
-//   getNotice();
-// });
-function formatDate(date) {
-  return date.toLocaleString();
-}
-const commentNotice = {
-  message: {
-    createTime: new Date(),
-    unread: 2
-  },
-  user: {
-    username: 'JohnDoe'
-  },
-  entityType: 1,
-  entityId: 123,
-  postId: 456,
-  count: 5,
-  unread: 2
-};
-
-const likeNotice = {
-  message: {
-    createTime: new Date(),
-    unread: 1
-  },
-  user: {
-    username: 'JaneDoe'
-  },
-  entityType: 2,
-  entityId: 789,
-  postId: 101112,
-  count: 3,
-  unread: 1
-};
-
-const followNotice = {
-  message: {
-    createTime: new Date(),
-    unread: 0
-  },
-  user: {
-    username: 'AliceSmith'
-  },
-  entityType: 3,
-  entityId: 131415,
-  postId: 161718,
-  count: 1,
-  unread: 0
-};
+// const followNotice = {
+//   message: {
+//     createTime: new Date(),
+//     unread: 0
+//   },
+//   user: {
+//     username: 'AliceSmith'
+//   },
+//   entityType: 3,
+//   entityId: 131415,
+//   postId: 161718,
+//   count: 1,
+//   unread: 0
+// };
 
 
 
@@ -216,6 +213,11 @@ const {t, locale} = useI18n({useScope: "global"});
 const selectedLanguage = ref('zh');
 const changeLanguage = () => {
   locale.value = selectedLanguage.value
+}
+
+const formateDate = (timeStamp) => {
+  const date = new Date(timeStamp);
+  return date.toLocaleDateString();
 }
 //样式
 import Leftsidebar from "@/components/Leftsidebar.vue";

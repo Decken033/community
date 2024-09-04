@@ -14,7 +14,7 @@
               <div class="header-info">
                 <span class="username">{{ notice.fromUser.headerImg }}</span>
                 <span class="username">{{ notice.fromUser.username }}</span>
-                <span class="timestamp">{{ notice.notice.createTime }}</span>
+                <span class="timestamp">{{ formateDate(notice.notice.createTime) }}</span>
               </div>
             </div>
             <div class="content">
@@ -59,7 +59,7 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import {onMounted, ref} from 'vue';
+import {onBeforeMount, onMounted, ref} from 'vue';
 import router from '@/router/index.ts';
 
 //分页信息
@@ -72,7 +72,6 @@ const notices = ref([]);
 const start=ref(0);
 const end=ref(1);
 const isInRange = (index) =>{
-  console.log(index);
   if(index<=end.value-1&&index>=start.value){
     return 1;
   }else{
@@ -89,9 +88,12 @@ const handlePageChange = (newPage) => {
   }
 };
 const getNoticeDetail = async () => {
+  getNoticeType();
   const response = await fetch(api.notice.detail+noticeType.value);
   const data = await response.json();
+  console.log(data.value);
   notices.value = data.notices;
+  // console.log(notices.value);
   page.value.total = data.Page.rows;
   page.value.current = data.Page.current;
   page.value.pageSize = data.Page.limit;
@@ -101,9 +103,10 @@ const getNoticeDetail = async () => {
   }else{
     end.value = start.value + page.value.pageSize;
   }
+  // console.log(start);
+  // console.log(end);
+
 };
-
-
 
 
 
@@ -118,7 +121,6 @@ const getNoticeDetail = async () => {
 const noticeType = ref('');
 const getNoticeType = () => {
   const route = useRoute();
-  console.log('Notice type:', route.params.type);
   if(route.params.type === 'comment') {
     noticeType.value = 'comment';
   } else if(route.params.type === 'like') {
@@ -128,7 +130,6 @@ const getNoticeType = () => {
   }
 };
 onMounted(() => {
-  getNoticeType();
   getNoticeDetail();
 });
 //搜索调用
@@ -142,17 +143,24 @@ const search = () => {
 };
 //多语言支持
 import {useCommonTranslations} from '@/lang/i18nhelper';
-import {useI18n} from 'vue-i18n';
+import {DatetimeFormat, useI18n} from 'vue-i18n';
 const translations = useCommonTranslations();
 const {t, locale} = useI18n({useScope: "global"});
 const selectedLanguage = ref('zh');
 const changeLanguage = () => {
   locale.value = selectedLanguage.value
 }
+
+// 时间戳转换
+const formateDate = (timeStamp) => {
+  const date = new Date(timeStamp);
+  return date.toLocaleDateString();
+}
 //样式
 import Leftsidebar from "@/components/Leftsidebar.vue";
 import recommendbar from "@/components/recommendbar.vue";
 import api from "@/api/api";
+import * as console from "node:console";
 </script>
 
 <style>

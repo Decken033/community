@@ -102,10 +102,13 @@ const handlePageChange = (newPage) => {
 const conversations = ref([]);
 const getLetter = async () => {
   const response = await fetch(api.letter.list);
+  console.log(response);
   const data = await response.json();
+  console.log(data);
   letterUnreadCount.value = data.letterUnreadCount;
   noticeUnreadCount.value = data.noticeUnreadCount;
   page.value.total = data.Page.rows;
+
   page.value.current = data.Page.current;
   page.value.pageSize = data.Page.limit;
   conversations.value = data.conversations;
