@@ -4,39 +4,39 @@
 
     <!-- 侧边栏 -->
     <el-aside>
-      <!--      <particlebar></particlebar>-->
+<!--      <img src="@/images/background3.jpg"  class="background-image" />-->
     </el-aside>
 
     <!-- 内容 -->
     <el-main>
+<!--      <img src="@/images/background2.png"  class="background-image2" />-->
       <div class="container pl-5 pr-5 pt-3 pb-3 mt-3 mb-3">
         <!--        <h3 class="text-center text-info border-bottom pb-3">登录</h3>-->
         <img src="@/images/logo.jpg" class="logo">
         <el-form :model="form" :rules="rules" ref="loginForm" label-width="100px">
-          <el-form-item label="账号" prop="username">
-            <el-input v-model="form.username" placeholder="请输入您的账号"></el-input>
+          <el-form-item label="Account" prop="username">
+            <el-input v-model="form.username" placeholder="please enter ur account"></el-input>
           </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input v-model="form.password" type="password" placeholder="请输入您的密码"></el-input>
+          <el-form-item label="password" prop="password">
+            <el-input v-model="form.password" type="password" placeholder="please enter ur password"></el-input>
           </el-form-item>
-          <el-form-item label="验证码" prop="code">
+          <el-form-item label="code" prop="code">
             <el-row :gutter="20">
               <el-col :span="14">
-                <el-input v-model="form.code" placeholder="请输入验证码"></el-input>
+                <el-input v-model="form.code" placeholder="please enter ur code"></el-input>
               </el-col>
               <el-col :span="10">
                 <img :src="img" style="width: 100px; height: 40px;"/>
-                <a @click="refreshKaptcha">刷新验证码</a>
+                <a @click="refreshKaptcha">refresh code</a>
               </el-col>
             </el-row>
           </el-form-item>
           <el-form-item>
-            <el-checkbox v-model="form.rememberMe">记住我</el-checkbox>
-            <a @click="navigateToForget" class="text1">忘记密码?</a>
-            <a @click="navigateToRegister" class="text1">立即注册</a>
+            <el-checkbox v-model="form.rememberMe">Rememberme</el-checkbox>
+            <a @click="navigateToForget" class="text1">Forget password?</a>
+            <a @click="navigateToRegister" class="text1">Registernow</a>
           </el-form-item>
           <el-form-item>
-            <!--            修改样式加上返回按钮-->
             <el-button @click="handleSubmit" @keyup.enter="handleSubmit" class="button">立即登录</el-button>
             <el-button @click="handleBack" class="button">返回首页</el-button>
           </el-form-item>
@@ -109,7 +109,7 @@ const handleSubmit = async () => {
 
 //加入返回按钮
 import router from "@/router/index.ts";
-import * as console from "node:console";
+
 
 const handleBack = () => {
   router.push('/');
@@ -129,4 +129,15 @@ onMounted(() => {
 
 <style scoped>
 @import "@/css/views/Register.css";
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 图片自适应容器 */
+  z-index: -1; /* 放在最底层 */
+}
+
 </style>
