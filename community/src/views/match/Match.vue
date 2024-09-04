@@ -1,4 +1,5 @@
 <template>
+  <ParticlesBackground />
   <div>
 
     <div class="top">
@@ -6,6 +7,7 @@
       <el-button type="danger" @click="stopVideo">停止捕获视频信息</el-button>
       <el-button type="primary" @click="connect">建立连接</el-button>
       <el-button type="danger" @click="hangUp">挂断</el-button>
+      <el-button type="small" @click="navigateToHome">回到主页</el-button>
     </div>
 
     <br />
@@ -56,12 +58,15 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { ElMessage } from 'element-plus';
+import router from "@/router";
+// import ParticlesBackground from '@/components/ParticlesBackground.vue';
+const navigateToHome = () => {
+  router.push('/');
+};
 
-export default {
-  setup() {
     const localVideo = ref(null);
     const remoteVideo = ref(null);
     const receiveBox = ref(null);
@@ -298,21 +303,7 @@ export default {
       }
     };
 
-    return {
-      localVideo,
-      remoteVideo,
-      receiveBox,
-      messageInputBox,
-      message,
-      startVideo,
-      stopVideo,
-      connect,
-      hangUp,
-      sendMessage,
-      isConnected
-    };
-  }
-};
+
 </script>
 
 <style scoped>
