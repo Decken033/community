@@ -35,7 +35,7 @@
             <h6 class="mt-0 mb-3">
               <span>{{translations.comment}}</span>
               <span class="float-right text-muted font-size-12">
-            {{ formateDate(commentNotice.message.createTime) }}
+            {{ formatDate(commentNotice.message.createTime) }}
           </span>
             </h6>
             <div>
@@ -60,7 +60,7 @@
             <h6 class="mt-0 mb-3">
               <span>{{translations.like}}</span>
               <span class="float-right text-muted font-size-12">
-            {{ formateDate(likeNotice.message.createTime) }}
+            {{ formatDate(likeNotice.message.createTime) }}
           </span>
             </h6>
             <div>
@@ -85,7 +85,7 @@
             <h6 class="mt-0 mb-3">
               <span>{{translations.follow}}</span>
               <span class="float-right text-muted font-size-12">
-            {{ formateDate(followNotice.message.createTime) }}
+            {{ formatDate(followNotice.message.createTime) }}
           </span>
             </h6>
             <div>
@@ -127,6 +127,7 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from "vue";
 import router from "@/router/index.ts";
+import {formatDate} from "@/js/global";
 //notice信息
 const letterUnreadCount = ref(5);
 const noticeUnreadCount = ref(3);
@@ -213,11 +214,6 @@ const {t, locale} = useI18n({useScope: "global"});
 const selectedLanguage = ref('zh');
 const changeLanguage = () => {
   locale.value = selectedLanguage.value
-}
-
-const formateDate = (timeStamp) => {
-  const date = new Date(timeStamp);
-  return date.toLocaleDateString();
 }
 //样式
 import Leftsidebar from "@/components/Leftsidebar.vue";

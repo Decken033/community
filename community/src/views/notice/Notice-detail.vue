@@ -14,7 +14,7 @@
               <div class="header-info">
                 <span class="username">{{ notice.fromUser.headerImg }}</span>
                 <span class="username">{{ notice.fromUser.username }}</span>
-                <span class="timestamp">{{ formateDate(notice.notice.createTime) }}</span>
+                <span class="timestamp">{{ formatDate(notice.notice.createTime) }}</span>
               </div>
             </div>
             <div class="content">
@@ -61,6 +61,7 @@
 import { useRoute } from 'vue-router';
 import {onBeforeMount, onMounted, ref} from 'vue';
 import router from '@/router/index.ts';
+import {formatDate} from "@/js/global";
 
 //分页信息
 const page = ref({
@@ -149,12 +150,6 @@ const {t, locale} = useI18n({useScope: "global"});
 const selectedLanguage = ref('zh');
 const changeLanguage = () => {
   locale.value = selectedLanguage.value
-}
-
-// 时间戳转换
-const formateDate = (timeStamp) => {
-  const date = new Date(timeStamp);
-  return date.toLocaleDateString();
 }
 //样式
 import Leftsidebar from "@/components/Leftsidebar.vue";
