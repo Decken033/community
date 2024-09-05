@@ -5,17 +5,16 @@
 </template>
 
 <script>
-import DevicePixelRatio from './libs/rem.js'
 
 
-export default {
-  name: 'App',
-
-  // created() {
-  //   const devicePixelRatio = new DevicePixelRatio();
-  //   devicePixelRatio.init()
-  // }
-}
+// export default {
+//   name: 'App',
+//
+//   // created() {
+//   //   const devicePixelRatio = new DevicePixelRatio();
+//   //   devicePixelRatio.init()
+//   // }
+// }
 </script>
 
 <style>

@@ -4,23 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="362c209c-aeaa-41c6-9892-5ec1bbc54174" name="Changes" comment="profile更新">
+    <list default="true" id="362c209c-aeaa-41c6-9892-5ec1bbc54174" name="Changes" comment="profile样式">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/api/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/api/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/css/views/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/css/views/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/components/Leftsidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/components/Leftsidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/js/Register.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/js/global.ts" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/js/global.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/lang/en.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/en.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/lang/i18nhelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/i18nhelper.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/lang/sp.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/sp.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/lang/zh.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/zh.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/router/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/utils/common.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/utils/validate.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/HomeView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/PostBox/Postbox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/PostBox/Postbox.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/data/Data.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/data/Data.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/discuss/Discuss.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/discuss/Discuss.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/letter/Letter.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/letter/Letter.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/follow/Followee.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/follow/Followee.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/letter/Letterdetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/letter/Letterdetail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/login/LoginView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/login/LoginView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/match/Match.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/match/Match.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/notice/Notice.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/notice/Notice.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/my-post_reply/My-post.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/my-post_reply/My-reply.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/notice/Notice-detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/notice/Notice-detail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/profile/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/profile/Profile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/register/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/register/Register.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/search/Search.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/search/Search.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/settings/Settings.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/settings/Settings.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/community/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/community/vite.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../community\exportToHTML" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -42,7 +65,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Decken033/community.git&quot;,
-    &quot;accountId&quot;: &quot;62f5d081-1514-4507-aafb-4b849000be78&quot;
+    &quot;accountId&quot;: &quot;f918fda9-2711-4e27-a945-8cda84825c56&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -56,14 +79,14 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "#67 on main",
+    "git-widget-placeholder": "main",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "D:\\Desktop\\学校\\暑期实训\\论坛\\community\\community\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "C:\\Users\\h\\Desktop\\community\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -92,6 +115,8 @@
       <workItem from="1725324619640" duration="378000" />
       <workItem from="1725448008743" duration="5821000" />
       <workItem from="1725503303116" duration="187000" />
+      <workItem from="1725507438113" duration="8571000" />
+      <workItem from="1725523203769" duration="5523000" />
     </task>
     <task id="LOCAL-00001" summary="howeview,profile接口部分修改，加上随机匹配">
       <option name="closed" value="true" />
@@ -109,7 +134,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725265761206</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="profile样式">
+      <option name="closed" value="true" />
+      <created>1725507155244</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1725507155244</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,6 +151,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="howeview,profile接口部分修改，加上随机匹配" />
     <MESSAGE value="profile更新" />
-    <option name="LAST_COMMIT_MESSAGE" value="profile更新" />
+    <MESSAGE value="profile样式" />
+    <option name="LAST_COMMIT_MESSAGE" value="profile样式" />
   </component>
 </project>

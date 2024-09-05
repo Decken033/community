@@ -144,7 +144,7 @@ import {
   orderMode,
   handleTabClick,
   search,page,paginatedItems,handlePageChange,
-} from '@/js/letter.ts';
+} from '@/js/letter';
 const tweetContent = ref('');
 
 const postTweet = () => {
