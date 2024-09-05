@@ -41,3 +41,99 @@
     /*width: 40%;*/
     margin-left: auto; /* 自动推到右侧 */
 }
+
+.post-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.post-avatar {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+}
+
+.post-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.post-title {
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 5px;
+    margin-left: 0px;
+}
+
+.post-title:hover {
+    color: #409eff; /* 鼠标悬停时的颜色 */
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 5px; /* 在作者和时间信息下方添加间距 */
+}
+
+.post-author {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #666;
+}
+
+.post-time {
+    color: #999;
+}
+
+.post-stats {
+    display: flex;
+    align-items: center;
+    margin-top: 5px; /* 使统计信息与meta信息有一定的间隔 */
+}
+
+.post-stats .el-tag {
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+
+.comment-item {
+    background-color: #f9f9f9; /* 背景颜色 */
+    padding: 15px;
+    margin-bottom: 10px; /* 每条评论之间的间距 */
+    border-radius: 8px; /* 圆角 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    transition: transform 0.3s ease; /* 交互效果 */
+}
+
+.comment-item:hover {
+    transform: translateY(-5px); /* 悬浮时略微上升 */
+}
+
+.comment-content {
+    font-size: 16px; /* 文字大小 */
+    color: #333; /* 文字颜色 */
+    line-height: 1.6; /* 行间距 */
+}
+
+.comment-meta {
+    font-size: 12px; /* 元信息文字大小 */
+    color: #999; /* 元信息颜色 */
+    margin-top: 10px; /* 与内容的间距 */
+}
+
+.comment-stats {
+    margin-top: 10px; /* 与元信息的间距 */
+    display: flex; /* 横向排列 */
+    gap: 10px; /* 图标之间的间距 */
+}
+
+
