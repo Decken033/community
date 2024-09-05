@@ -32,8 +32,9 @@ export default {
     home: {
         index: ip + 'index'
     },
-    manage: {
-        deletepost: ip + 'delete'
+    discuss: {
+        delete: ip + 'discuss/delete',
+        add: ip + 'discuss/add',
     },
     profile: {
         user: ip + 'user/profile/'

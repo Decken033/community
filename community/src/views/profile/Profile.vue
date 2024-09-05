@@ -48,6 +48,7 @@
                 <router-link :to="{ name: 'discussDetail', params: { id: item.post.id }}" class="post-title">
                   {{ item.post.title }}
                 </router-link>
+
                 <div class="post-meta">
                   <span class="post-author">{{ item.user.username }}</span>
                   <span class="post-time">{{ translations.publishtime }} {{ formatDate(item.post.createTime) }}</span>
@@ -55,6 +56,7 @@
                 <div class="post-stats">
                   <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>
                   <el-tag>{{ translations.reply }} {{ item.post.commentCount }}</el-tag>
+                  <el-button class="delete" @click="deletePost(item.post.id)">删帖</el-button>
                 </div>
               </div>
             </div>
@@ -66,7 +68,11 @@
               <div class="comment-content">
                 <a>{{ item.comment.content }}</a>
                 <div class="comment-meta">
-                  <span class="comment-time">{{ translations.publishtime }} {{ formatDate(item.comment.createTime) }}</span>
+                  <span class="comment-author">{{ item.user.username }}</span>
+                  <span class="comment-author">{{ item.user.username }}</span>
+                  <span class="comment-time">{{ translations.publishtime }} {{
+                      formatDate(item.comment.createTime)
+                    }}</span>
                 </div>
                 <div class="comment-stats">
                   <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>
@@ -100,9 +106,10 @@
           <el-option label="中文" value="zh"></el-option>
           <el-option label="Español" value="sp"></el-option>
         </el-select>
+        <div>
+          <recommendbar></recommendbar>
+        </div>
       </div>
-
-
     </el-aside>
 
   </el-container>
@@ -130,8 +137,6 @@ const activeTab = ref('info');
 const translations = useCommonTranslations();
 const comments = ref([]);
 const discussPosts = ref([]);
-
-const orderMode = ref(0);
 const user = ref('');
 const hasFollowed = ref(false);
 
@@ -143,6 +148,7 @@ onMounted(() => {
 });
 
 import api from "@/api/api.ts"
+import router from "@/router";
 
 const loadData = (response) => {
   user.value = response.data.loginUser;
@@ -204,15 +210,19 @@ const toggleUnfollow = async () => {
   }
 }
 
-//
-// const deletepost= async () => {
-//   const response = await fetch(api.manage.deletepost);
-//   console.log(response);
-//   const data = await response.json();
-//
-//
-//
-// }
+
+const deletePost= async (postId) => {
+  const form = ref(new FormData());
+  form.value.append("id", postId);
+  const response = await fetch(api.discuss.delete + "?ticket=" + localStorage.getItem("ticket"), {
+    method: 'POST',
+    body: form.value
+  });
+  console.log(response);
+  const data = await response.json();
+  ElMessage.success("删帖成功");
+  fetchUserProfile();
+}
 
 const search = () => {
   console.log('Search query:', searchQuery.value);
@@ -266,7 +276,7 @@ const page = ref({
   pageSize: 3,
   total: posts.value.length,
 })
-
+import recommendbar from "@/components/recommendbar.vue"
 </script>
 
 

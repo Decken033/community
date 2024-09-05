@@ -4,47 +4,50 @@
       <Leftsidebar></Leftsidebar>
     </el-aside>
     <!-- 内容 -->
+    <el-tabs v-model="orderMode" @tab-click="handleTabClick" class="tabs">
+      <el-tab-pane name="letter">
+        <template #label>
+          <router-link to="/letter" class="nav-link position-relative">
+            {{ translations.friendmessage }}
+            <el-badge v-if="letterUnreadCount != 0" :value="letterUnreadCount" class="badge badge-danger"></el-badge>
+          </router-link>
+        </template>
+      </el-tab-pane>
+      <el-tab-pane name="notice">
+        <template #label>
+          <router-link to="/notice" class="nav-link position-relative">
+            {{ translations.notification }}
+            <el-badge v-if="noticeUnreadCount != 0" :value="noticeUnreadCount" class="badge badge-danger"></el-badge>
+          </router-link>
+        </template>
+      </el-tab-pane>
+    </el-tabs>
     <el-main>
-      <el-tabs class="tabs">
-        <el-tab-pane>
-          <template #label>
-            <router-link to="/letter" class="nav-link position-relative">
-              {{ translations.friendmessage }}
-              <el-badge v-if="letterUnreadCount != 0" :value="letterUnreadCount" class="badge badge-danger"></el-badge>
-            </router-link>
-          </template>
-        </el-tab-pane>
-        <el-tab-pane>
-          <template #label>
-            <router-link to="/notice" class="nav-link position-relative">
-              {{ translations.notification }}
-              <el-badge v-if="noticeUnreadCount != 0" :value="noticeUnreadCount" class="badge badge-danger"></el-badge>
-            </router-link>
-          </template>
-        </el-tab-pane>
-      </el-tabs>
 
       <!-- 通知列表 -->
       <div>
         <!-- 评论类通知 -->
         <el-card v-if="commentNotice" class="media pb-3 pt-3 mb-3 border-bottom position-relative">
           <el-badge :value="commentNotice.unread != 0 ? commentNotice.unread : ''" class="badge badge-danger">
-            <img src="http://static.nowcoder.com/images/head/reply.png" class="mr-4 user-header small-icon" alt="通知图标">
+            <img src="http://static.nowcoder.com/images/head/reply.png" class="mr-4 user-header small-icon"
+                 alt="通知图标">
           </el-badge>
           <div class="media-body">
             <h6 class="mt-0 mb-3">
-              <span>{{translations.comment}}</span>
+              <span>{{ translations.comment }}</span>
               <span class="float-right text-muted font-size-12">
             {{ formatDate(commentNotice.message.createTime) }}
           </span>
             </h6>
             <div>
               <router-link :to="{ name: 'noticeDetail', params: { type: 'comment' }}">
-                {{translations.user}} <i>{{ commentNotice.user.username }}</i> {{translations.comment}}
+                {{ translations.user }} <i>{{ commentNotice.user.username }}</i> {{ translations.comment }}
               </router-link>
               <ul class="d-inline font-size-12 float-right">
                 <li class="d-inline ml-2">
-                  <span class="text-primary">{{translations.all}} <i>{{ commentNotice.count }}</i> {{translations.conversations}}</span>
+                  <span class="text-primary">{{ translations.all }} <i>{{
+                      commentNotice.count
+                    }}</i> {{ translations.conversations }}</span>
                 </li>
               </ul>
             </div>
@@ -54,22 +57,25 @@
         <!-- 点赞类通知 -->
         <el-card v-if="likeNotice" class="media pb-3 pt-3 mb-3 border-bottom position-relative">
           <el-badge :value="likeNotice.unread != 0 ? likeNotice.unread : ''" class="badge badge-danger">
-            <img src="http://static.nowcoder.com/images/head/like.png" class="mr-4 user-header small-icon" alt="通知图标">
+            <img src="http://static.nowcoder.com/images/head/like.png" class="mr-4 user-header small-icon"
+                 alt="通知图标">
           </el-badge>
           <div class="media-body">
             <h6 class="mt-0 mb-3">
-              <span>{{translations.like}}</span>
+              <span>{{ translations.like }}</span>
               <span class="float-right text-muted font-size-12">
             {{ formatDate(likeNotice.message.createTime) }}
           </span>
             </h6>
             <div>
               <router-link :to="{ name: 'noticeDetail', params: { type: 'like' }}">
-                {{translations.user}}<i>{{ likeNotice.user.username }}</i> {{translations.like}}
+                {{ translations.user }}<i>{{ likeNotice.user.username }}</i> {{ translations.like }}
               </router-link>
               <ul class="d-inline font-size-12 float-right">
                 <li class="d-inline ml-2">
-                  <span class="text-primary">{{translations.all}} <i>{{ likeNotice.count }}</i> {{translations.conversations}}</span>
+                  <span class="text-primary">{{ translations.all }} <i>{{
+                      likeNotice.count
+                    }}</i> {{ translations.conversations }}</span>
                 </li>
               </ul>
             </div>
@@ -79,22 +85,25 @@
         <!-- 关注类通知 -->
         <el-card v-if="followNotice" class="media pb-3 pt-3 mb-3 border-bottom position-relative">
           <el-badge :value="followNotice.unread != 0 ? followNotice.unread : ''" class="badge badge-danger">
-            <img src="http://static.nowcoder.com/images/head/follow.png" class="mr-4 user-header small-icon" alt="通知图标">
+            <img src="http://static.nowcoder.com/images/head/follow.png" class="mr-4 user-header small-icon"
+                 alt="通知图标">
           </el-badge>
           <div class="media-body">
             <h6 class="mt-0 mb-3">
-              <span>{{translations.follow}}</span>
+              <span>{{ translations.follow }}</span>
               <span class="float-right text-muted font-size-12">
             {{ formatDate(followNotice.message.createTime) }}
           </span>
             </h6>
             <div>
               <router-link :to="{ name: 'noticeDetail', params: { type: 'follow' }}">
-                {{translations.user}} <i>{{ followNotice.user.username }}</i> {{translations.follow}} ...
+                {{ translations.user }} <i>{{ followNotice.user.username }}</i> {{ translations.follow }} ...
               </router-link>
               <ul class="d-inline font-size-12 float-right">
                 <li class="d-inline ml-2">
-                  <span class="text-primary">{{translations.all}}<i>{{ followNotice.count }}</i> {{translations.conversations}}</span>
+                  <span class="text-primary">{{ translations.all }}<i>{{
+                      followNotice.count
+                    }}</i> {{ translations.conversations }}</span>
                 </li>
               </ul>
             </div>
@@ -114,14 +123,13 @@
           <el-option label="Español" value="sp"></el-option>
         </el-select>
         <div>
-        <recommendbar></recommendbar>
-      </div>
+          <recommendbar></recommendbar>
+        </div>
       </div>
 
     </el-aside>
   </el-container>
 </template>
-
 
 
 <script setup lang="ts">
@@ -134,9 +142,8 @@ const noticeUnreadCount = ref(0);
 const commentNotice = ref(null);
 const likeNotice = ref(null);
 const followNotice = ref(null);
-const getNotice = async () => {
-  const response = await fetch(api.notice.list);
-  const data = await response.json();
+
+const loadData = (data) => {
   letterUnreadCount.value = data.letterUnreadCount;
   noticeUnreadCount.value = data.noticeUnreadCount;
   commentNotice.value = data.commentNotice;
@@ -144,7 +151,11 @@ const getNotice = async () => {
   followNotice.value = data.followNotice;
 };
 
-
+const getNotice = async () => {
+  const response = await fetch(api.notice.list + "?ticket=" + localStorage.getItem("ticket"));
+  const data = await response.json();
+  loadData(data);
+};
 
 
 onMounted(() => {
@@ -165,12 +176,20 @@ const search = () => {
 //多语言支持
 import {useCommonTranslations} from '@/lang/i18nhelper';
 import {useI18n} from 'vue-i18n';
+
 const translations = useCommonTranslations();
 const {t, locale} = useI18n({useScope: "global"});
 const selectedLanguage = ref('zh');
 const changeLanguage = () => {
   locale.value = selectedLanguage.value
 }
+
+const orderMode = ref('notice');
+
+const handleTabClick = (tab, event) => {
+  orderMode.value = tab.label;
+}
+
 //样式
 import Leftsidebar from "@/components/Leftsidebar.vue";
 import recommendbar from "@/components/recommendbar.vue";
