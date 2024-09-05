@@ -58,7 +58,7 @@ export default {
     stop: '停止',
     startvideo: '开始视频流',
     endvideo: '结束视频流',
-    enterplease:'请输入消息内容'
+    enterplease:'请输入消息内容',
     logout: '登出',
   }
 };

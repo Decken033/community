@@ -4,23 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="362c209c-aeaa-41c6-9892-5ec1bbc54174" name="Changes" comment="howeview,profile接口部分修改，加上随机匹配">
-      <change afterPath="$PROJECT_DIR$/community/src/css/views/match.css" afterDir="false" />
+    <list default="true" id="362c209c-aeaa-41c6-9892-5ec1bbc54174" name="Changes" comment="profile更新">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/components/Leftsidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/components/Leftsidebar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/lang/en.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/en.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/lang/i18nhelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/i18nhelper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/lang/sp.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/sp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/lang/zh.js" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/lang/zh.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/router/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/api/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/api/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/css/views/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/css/views/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/HomeView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/PostBox/Postbox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/PostBox/Postbox.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/discuss/Discuss.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/discuss/Discuss.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/letter/Letter.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/letter/Letter.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/letter/Letterdetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/letter/Letterdetail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/match/Match.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/match/Match.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community/src/views/notice/Notice-detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/notice/Notice-detail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/notice/Notice.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/notice/Notice.vue" afterDir="false" />
-    <list default="true" id="78d42dd7-c22a-46e2-8cc8-7962d6adc421" name="Changes" comment="discuss更新">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community/src/views/profile/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/profile/Profile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community/src/views/settings/Settings.vue" beforeDir="false" afterPath="$PROJECT_DIR$/community/src/views/settings/Settings.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,12 +39,12 @@
     &quot;assignee&quot;: &quot;Decken033&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Decken033/community.git",
-    "accountId": "62f5d081-1514-4507-aafb-4b849000be78"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Decken033/community.git&quot;,
+    &quot;accountId&quot;: &quot;62f5d081-1514-4507-aafb-4b849000be78&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -61,7 +56,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "zhujinxian",
+    "git-widget-placeholder": "#67 on main",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -75,13 +70,6 @@
     "vue.recent.templates": [
       "Vue Composition API Component"
     ]
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "git-widget-placeholder": "xudiqing",
-    "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -103,6 +91,7 @@
       <workItem from="1725255674979" duration="10652000" />
       <workItem from="1725324619640" duration="378000" />
       <workItem from="1725448008743" duration="5821000" />
+      <workItem from="1725503303116" duration="187000" />
     </task>
     <task id="LOCAL-00001" summary="howeview,profile接口部分修改，加上随机匹配">
       <option name="closed" value="true" />
@@ -119,21 +108,6 @@
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
       <updated>1725265761206</updated>
-    <task id="LOCAL-00001" summary="homeview">
-      <option name="closed" value="true" />
-      <created>1725422117512</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1725422117512</updated>
-    </task>
-    <task id="LOCAL-00002" summary="discuss更新">
-      <option name="closed" value="true" />
-      <created>1725430563164</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1725430563164</updated>
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
@@ -143,9 +117,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="howeview,profile接口部分修改，加上随机匹配" />
-    <option name="LAST_COMMIT_MESSAGE" value="howeview,profile接口部分修改，加上随机匹配" />
-    <MESSAGE value="homeview" />
-    <MESSAGE value="discuss更新" />
-    <option name="LAST_COMMIT_MESSAGE" value="discuss更新" />
+    <MESSAGE value="profile更新" />
+    <option name="LAST_COMMIT_MESSAGE" value="profile更新" />
   </component>
 </project>

@@ -67,6 +67,7 @@ import {ElMessage} from 'element-plus';
 import router from "@/router";
 // import ParticlesBackground from '@/components/ParticlesBackground.vue';
 const navigateToHome = () => {
+  stopVideo();
   router.push('/');
 };
 
@@ -93,7 +94,7 @@ const mediaConstraints = {
 const user = Math.round(Math.random() * 1000) + "";
 
 onMounted(() => {
-  socket.value = new WebSocket("ws://127.0.0.1:8080/msgServer/" + user);
+  socket.value = new WebSocket("ws://127.0.0.1:8081/msgServer/" + user);
   socket.value.onopen = () => {
     console.log("成功连接到服务器...");
     isConnected.value = true;
@@ -101,6 +102,7 @@ onMounted(() => {
 
   socket.value.onclose = (e) => {
     console.log('与服务器连接关闭: ' + e.code);
+    stopVideo();
     isConnected.value = false;
   };
 
