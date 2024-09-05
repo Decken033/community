@@ -108,14 +108,7 @@ const fetchPosts = async (orderModeValue) => {
         ticket: localStorage.getItem('ticket'),
       },
     });
-    console.log("123");
-    console.log('Fetched posts:', response);
-
-    // image.value= response.data.disscussPosts.user.headerImg;
-
-
     discussPosts.value = response.data.disscussPosts;
-
     page.value.total = response.data.Page.total;
     page.value.current = response.data.Page.current;
     page.value.pageSize = response.data.Page.pageSize;

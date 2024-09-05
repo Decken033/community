@@ -7,62 +7,62 @@
     <el-main>
       <div>
         <el-card class="comment-box">
-          <el-avatar :src="userAvatar"/>
           <div class="comment-content">
-            <p>{{ comment }}</p>
+            <!--            帖子的内容-->
+            <div class="post-content">
+              <el-avatar :src="user.headerImg" class="post-avatar"></el-avatar>
+              <div><span class="post-title">{{ post.title }}</span></div>
+              <div><span class="post-title">{{ post.content }}</span></div>
 
-<!--            帖子的内容-->
+              <div class="post-meta">
+                <span class="post-author">{{ user.username }}</span>
+                <span class="post-time">{{ translations.publishtime }} {{ formatDate(post.createTime) }}</span>
+              </div>
+              <div class="post-stats">
+                <el-button>{{ translations.like }} {{ likeCount }}</el-button>
+                <el-button>{{ translations.reply }} {{ post.commentCount }}</el-button>
+              </div>
+            </div>
 
-              <div class="post-content">
-                <el-avatar :src="user.headerImg" class="post-avatar"></el-avatar>
-                <span class="post-title">{{post.title }}</span>
-                <span class="post-title">{{ post.content }}</span>
 
-                <div class="post-meta">
-                  <span class="post-author">{{ user.username }}</span>
-                  <span class="post-time">{{ translations.publishtime }} {{  formateDate(post.createTime) }}</span>
-                </div>
-                <div class="post-stats">
-<!--                  <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>-->
-                  <el-tag>{{ translations.reply }} {{ post.commentCount }}</el-tag>
-                </div>
+            <!--            帖子的评论-->
+            <div v-for="item in comments" :key="item.id" class="comment-item">
+              <el-avatar :src="item.user.headerImg"/>
+              <div class="comment-meta">
+                <span class="comment-author">{{ item.user.username }}</span>
+                <span class="badge badge-secondary float-right floor">
+                    {{  }}
+                </span>
+              </div>
+              <div>
+                <p>{{ item.comment.content }}</p>
+              </div>
+              <div class="comment-stats">
+                <span class="comment-time">发布于 {{ formatDate(item.comment.createTime) }}</span>
+                <el-button>{{ translations.like }} {{ item.likecount }}</el-button>
+                <el-button>{{ translations.reply }} {{ item.replyCount }}</el-button>
               </div>
 
-
-
-<!--            帖子的评论-->
-<!--            <div v-for="item in comments" :key="item.id" class="comment-item">-->
-<!--              <el-avatar :src="item.userAvatar"/>-->
-<!--              <p>{{ item.content }}</p>-->
-<!--              <div class="comment-meta">-->
-<!--                <span class="comment-author">{{ item.username }}</span>-->
-<!--                <span class="comment-time">{{ item.createTime }}</span>-->
-<!--              </div>-->
-<!--              <div class="comment-stats">-->
-<!--                <el-tag>{{ translations.like }} {{ likecount }}</el-tag>-->
-<!--                <el-tag>{{ translations.reply }} {{ item.replyCount }}</el-tag>-->
-<!--              </div>-->
-
-
-<!--            <div class="comment-actions">-->
-<!--              <el-button type="text" @click="reply">回复</el-button>-->
-<!--              <el-button type="text" @click="edit">编辑</el-button>-->
-<!--              <el-button type="text" @click="deleteComment">删除</el-button>-->
-<!--            </div>-->
-<!--          </div>-->
+              <div class="comment-actions">
+                <el-button type="text" @click="reply">回复</el-button>
+                <el-button type="text" @click="edit">编辑</el-button>
+                <el-button type="text" @click="deleteComment">删除</el-button>
+              </div>
+<!--              <div v-for="reply in item."-->
+            </div>
 
           </div>
         </el-card>
 
-        <el-collapse v-model="activeNames">
-          <el-collapse-item title="1条回复" name="1">
-            <div v-for="(reply, index) in replies" :key="index" class="reply-item">
-              <el-avatar :src="reply.userAvatar"/>
-              <p>{{ reply.content }}</p>
-              <el-button type="text" @click="replyTo(reply.id)">回复</el-button>
-            </div>
-          </el-collapse-item>
-        </el-collapse>
+<!--        <el-collapse v-model="activeNames">-->
+<!--          <el-collapse-item title="1条回复" name="1">-->
+<!--            <div v-for="(reply, index) in replies" :key="index" class="reply-item">-->
+<!--              <el-avatar :src="reply.userAvatar"/>-->
+<!--              <p>{{ reply.content }}</p>-->
+<!--              <el-button type="text" @click="replyTo(reply.id)">回复</el-button>-->
+<!--            </div>-->
+<!--          </el-collapse-item>-->
+<!--        </el-collapse>-->
 
         <el-input v-if="isReplying" v-model="newReply" placeholder="输入回复..."/>
         <el-button v-if="isReplying" @click="sendReply">发送</el-button>
@@ -84,9 +84,8 @@ import Leftsidebar from "@/components/Leftsidebar.vue";
 import recommendbar from "@/components/recommendbar.vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
+import {formatDate} from "@/js/global";
 
-const userAvatar = 'path/to/avatar';
-const comment = 'This is a comment';
 const replies = ref([]);
 const newReply = ref('');
 const isReplying = ref(false);
@@ -118,9 +117,9 @@ const end = ref(1);
 const image = ref('');
 const comments = ref([]);
 const post = ref('');
-const likecount =ref('');
+const likecount = ref('');
 
-import { useRoute } from 'vue-router';
+import {useRoute} from 'vue-router';
 import {useI18n} from "vue-i18n";
 
 const discussPostId = ref('');
@@ -130,20 +129,21 @@ const getpostid = () => {
 };
 
 
+const loadData = (data) => {
+  user.value = data.user;
+  post.value = data.post;
+  comments.value = data.comments;
+  likecount.value = data.likeCount;
+}
+
 const fetchdetail = async () => {
   try {
     getpostid();
-    console.log(discussPostId.value);
     const response = await axios.get(`http://localhost:8080/community/discuss/detail/${discussPostId.value}`, {});
-    console.log("discussdetail");
-    console.log('Fetched discussdetail:', response);
+    loadData(response.data);
 
-    // likecount.value = response.data.likeCount;
-    user.value = response.data.user;
-    post.value = response.data.post;
 
     // discussPosts.value = response.data.disscussPosts;
-    // comments.value = response.data.comments;
 
 
     // page.value.total = response.data.Page.total;
@@ -161,8 +161,7 @@ const fetchdetail = async () => {
   }
 };
 
-onMounted(() =>
-{
+onMounted(() => {
   fetchdetail();
 });
 

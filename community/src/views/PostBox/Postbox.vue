@@ -44,10 +44,8 @@
 <script lang="ts" setup>
 import {ref} from 'vue';
 import {ElInput, ElButton, ElIcon} from 'element-plus';
-
-
 import {Picture, VideoCamera, Calendar, Location} from '@element-plus/icons-vue';
-import * as console from "node:console";
+import api from "@/api/api.ts";
 
 
 const tweetTitle = ref('');
@@ -60,7 +58,7 @@ const postDiscussion = async () => {
     const formData = ref(new FormData())
     formData.value.append('title', tweetTitle.value);
     formData.value.append('content', comment.value);
-    const response = await fetch('http://localhost:8080/community/discuss/add', {
+    const response = await fetch(api.discuss.add, {
       method: 'POST',
       body: formData.value
     });

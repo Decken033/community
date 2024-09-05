@@ -123,13 +123,10 @@ const beforeAvatarUpload = (file) => {
 };
 
 
-const userId = '12345'; // 用户ID示例
-// 将用户ID存储到localStorage中
-localStorage.setItem('userId', userId);
-const myuserId = localStorage.getItem('userId');
+const myUserId = localStorage.getItem('userId');
 
 // 立即上传图片
-async function UploadImagenow() {
+async function UploadImageNow() {
   console.log('Uploading image now...');
   if (!selectedFile.value) {
     ElMessage.error('请先选择一张图片!');
@@ -152,7 +149,7 @@ async function UploadImagenow() {
       const payload = {
         headerImage: base64Data,
         imageType: imageType,
-        userId: myuserId, // 用户 ID
+        userId: myUserId, // 用户 ID
       };
 
       const response = await fetch("http://localhost:8080/community/upload", {
@@ -330,7 +327,7 @@ const changeNickname = async () => {
                 class="uploadnow"
                 native-type="submit"
                 :disabled="!imageSelected"
-                @click="UploadImagenow"
+                @click="UploadImageNow"
             >
               {{ translations.uploadnow }}
             </el-button>

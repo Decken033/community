@@ -6,7 +6,7 @@
     <!-- 内容 -->
     <el-main>
       <el-tabs v-model="orderMode" @tab-click="handleTabClick" class="tabs">
-        <el-tab-pane>
+        <el-tab-pane name="letter">
           <template #label>
             <router-link to="/letter" class="nav-link position-relative">
               {{ translations.friendmessage }}
@@ -14,7 +14,7 @@
             </router-link>
           </template>
         </el-tab-pane>
-        <el-tab-pane>
+        <el-tab-pane name="notice">
           <template #label>
             <router-link to="/notice" class="nav-link position-relative">
               {{ translations.notification }}
@@ -85,8 +85,8 @@ const page = ref({
   pageSize: 6,
   total: 10
 });
-const letterUnreadCount = ref(5);
-const noticeUnreadCount = ref(3);
+const letterUnreadCount = ref();
+const noticeUnreadCount = ref();
 const start = ref(0);
 const end = ref(1);
 const isInRange = (index) => {
@@ -107,18 +107,20 @@ const handlePageChange = (newPage) => {
   }
 };
 const conversations = ref([]);
-const getLetter = async () => {
-  const response = await fetch(api.letter.list);
-  console.log(response);
-  const data = await response.json();
-  console.log(data);
+
+const loadData = (data) => {
   letterUnreadCount.value = data.letterUnreadCount;
   noticeUnreadCount.value = data.noticeUnreadCount;
   page.value.total = data.Page.rows;
-
   page.value.current = data.Page.current;
   page.value.pageSize = data.Page.limit;
   conversations.value = data.conversations;
+}
+
+const getLetter = async () => {
+  const response = await fetch(api.letter.list + "?ticket=" + localStorage.getItem("ticket"));
+  const data = await response.json();
+  loadData(data);
   start.value = (page.value.current - 1) * page.value.pageSize;
   if (start.value + page.value.pageSize > page.value.total) {
     end.value = page.value.total;
@@ -151,6 +153,12 @@ const {t, locale} = useI18n({useScope: "global"});
 const selectedLanguage = ref('zh');
 const changeLanguage = () => {
   locale.value = selectedLanguage.value
+}
+
+const orderMode = ref('letter');
+
+const handleTabClick = (tab, event) => {
+  orderMode.value = tab.label;
 }
 //样式
 import Leftsidebar from "@/components/Leftsidebar.vue";
