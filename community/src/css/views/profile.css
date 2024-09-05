@@ -103,3 +103,37 @@
     margin-left: 5px;
     font-size: 12px;
 }
+
+
+.comment-item {
+    background-color: #f9f9f9; /* 背景颜色 */
+    padding: 15px;
+    margin-bottom: 10px; /* 每条评论之间的间距 */
+    border-radius: 8px; /* 圆角 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    transition: transform 0.3s ease; /* 交互效果 */
+}
+
+.comment-item:hover {
+    transform: translateY(-5px); /* 悬浮时略微上升 */
+}
+
+.comment-content {
+    font-size: 16px; /* 文字大小 */
+    color: #333; /* 文字颜色 */
+    line-height: 1.6; /* 行间距 */
+}
+
+.comment-meta {
+    font-size: 12px; /* 元信息文字大小 */
+    color: #999; /* 元信息颜色 */
+    margin-top: 10px; /* 与内容的间距 */
+}
+
+.comment-stats {
+    margin-top: 10px; /* 与元信息的间距 */
+    display: flex; /* 横向排列 */
+    gap: 10px; /* 图标之间的间距 */
+}
+
+
