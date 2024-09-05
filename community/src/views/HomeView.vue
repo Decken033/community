@@ -19,13 +19,12 @@
       <div v-for="item in discussPosts" :key="item.id" class="post-item">
         <div class="post-content">
           <el-avatar :src=item.user.headerImg class="post-avatar"></el-avatar>
-
           <router-link :to="{ name: 'discussDetail', params: { id: item.post.id }}" class="post-title">
             {{ item.post.title }}
           </router-link>
           <div class="post-meta">
             <span class="post-author">{{ item.user.username }}</span>
-            <span class="post-time">{{ translations.publishtime }} {{ formateDate(item.post.createTime) }}</span>
+            <span class="post-time">{{ translations.publishtime }} {{ formatDate(item.post.createTime) }}</span>
           </div>
           <div class="post-stats">
             <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>
@@ -76,11 +75,11 @@ import {ref, onMounted} from 'vue';
 import axios from 'axios';
 import router from '@/router/index.ts';
 import {useCommonTranslations} from '@/lang/i18nhelper';
-import {DatetimeFormat, useI18n} from 'vue-i18n';
+import {useI18n} from 'vue-i18n';
 import postbox from "@/views/PostBox/Postbox.vue"
 import Leftsidebar from "@/components/Leftsidebar.vue";
 import recommendbar from "@/components/recommendbar.vue";
-
+import {formatDate} from "@/js/global.ts";
 // 搜索
 const searchQuery = ref('');
 
@@ -160,11 +159,6 @@ const selectedLanguage = ref('zh');
 const changeLanguage = () => {
   locale.value = selectedLanguage.value;
 };
-
-const formateDate = (timeStamp) => {
-  const date = new Date(timeStamp);
-  return date.toLocaleDateString();
-}
 </script>
 
 <style scoped>
