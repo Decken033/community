@@ -6,85 +6,85 @@
     </div>
 
 
-
-
     <!-- 内容 -->
     <el-main>
       <div class="container">
-            <el-tabs v-model="activeTab">
-              <el-tab-pane label="个人信息" name=0>
-                  <div class="profile-card">
-                    <el-row>
-                      <el-col :span="4">
-<!--                        <el-avatar :src="`data:image/png;base64,${user.avatar}`" size="large"></el-avatar>-->
-                      </el-col>
-                      <el-col :span="20">
-                        <h5 class="profile-username">
-                          <span>{{ user.username }}</span>
-                        </h5>
-                        <div class="profile-meta">
-                          <span>注册于 <i>{{ formattedCreateTime }}</i></span>
-                        </div>
-<!--                        <el-button @click="toggleFollow(userFollow)">-->
-<!--                          {{ userFollow.hasFollowed ? 'Unfollow' : 'Follow' }}-->
-<!--                        </el-button>-->
-                        <div class="profile-stats">
-                          <span>关注了 <router-link :to="followeesUrl">{{ followeeCount }}</router-link> 人</span>
-                          <span class="ml-4">关注者 <router-link :to="followersUrl">{{ followerCount }}</router-link> 人</span>
-                          <span class="ml-4">获得了 <i class="text-danger">{{ likeCount }}</i> 个赞</span>
-                        </div>
-                      </el-col>
-                    </el-row>
+        <el-tabs v-model="activeTab">
+          <el-tab-pane label="个人信息" name='0'>
+            <div class="profile-card">
+              <el-row>
+                <el-col :span="4">
+                  <el-avatar :src=user.headerImg size="large"></el-avatar>
+                </el-col>
+                <el-col :span="20">
+                  <h5 class="profile-username">
+                    <span>{{ user.username }}</span>
+                  </h5>
+                  <div class="profile-meta">
+                    <span>注册于 <i>{{ formatDate(user.createTime) }}</i></span>
                   </div>
-              </el-tab-pane>
-
-              <!-- 我的帖子选项卡 -->
-              <el-tab-pane label="我的帖子" name=1>
-                <div v-for="item in discussPosts" :key="post.id" class="post-item">
-                  <el-avatar :src="item.userAvatar" class="post-avatar"></el-avatar>
-                  <div class="post-content">
-                    <router-link :to="`/discuss/detail/${post.id}`" class="post-title">{{ item }}</router-link>
-                    <div class="post-meta">
-                      <span class="post-author">{{ item.author }}</span>
-                      <span class="post-time">{{ translations.publishtime }} {{ item.createTime }}</span>
-                    </div>
-                    <div class="post-stats">
-                      <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>
-                      <el-tag>{{ translations.reply }} {{ item.commentCount }}</el-tag>
-                    </div>
+                  <el-button @click="toggleFollow()" v-if="!hasFollowed">
+                    {{ "关注" }}
+                  </el-button>
+                  <el-button @click="toggleUnfollow()" v-if="hasFollowed">
+                    {{ "取消关注" }}
+                  </el-button>
+                  <div class="profile-stats">
+                    <span>关注了 <router-link :to="followeesUrl">{{ followeeCount }}</router-link> 人</span>
+                    <span class="ml-4">关注者 <router-link :to="followersUrl">{{
+                        followerCount
+                      }}</router-link> 人</span>
+                    <span class="ml-4">获得了 <i class="text-danger">{{ likeCount }}</i> 个赞</span>
                   </div>
+                </el-col>
+              </el-row>
+            </div>
+          </el-tab-pane>
+
+          <!-- 我的帖子选项卡 -->
+          <el-tab-pane label="我的帖子" name='1'>
+            <div v-for="item in discussPosts" :key="item.id" class="post-item">
+              <div class="post-content">
+                <router-link :to="{ name: 'discussDetail', params: { id: item.post.id }}" class="post-title">
+                  {{ item.post.title }}
+                </router-link>
+                <div class="post-meta">
+                  <span class="post-author">{{ item.user.username }}</span>
+                  <span class="post-time">{{ translations.publishtime }} {{ formatDate(item.post.createTime) }}</span>
                 </div>
-              </el-tab-pane>
-
-              <!-- 回复内容选项卡 -->
-              <el-tab-pane label="我的回复" name=2  >
-                <div v-for="post in comments" :key="post.id" class="post-item">
-                  <el-avatar :src="post.userAvatar" class="post-avatar"></el-avatar>
-                  <div class="post-content">
-                    <router-link :to="`/discuss/detail/${post.id}`" class="post-title">{{ post.title }}</router-link>
-                    <div class="post-meta">
-                      <span class="post-author">{{ post.author }}</span>
-                      <span class="post-time">{{ translations.publishtime }} {{ post.createTime }}</span>
-                    </div>
-                    <div class="post-stats">
-                      <el-tag>{{ translations.like }} {{ post.likeCount }}</el-tag>
-                      <el-tag>{{ translations.reply }} {{ post.commentCount }}</el-tag>
-                    </div>
-                  </div>
+                <div class="post-stats">
+                  <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>
+                  <el-tag>{{ translations.reply }} {{ item.post.commentCount }}</el-tag>
                 </div>
+              </div>
+            </div>
+          </el-tab-pane>
 
-              </el-tab-pane>
-
-              <!-- 其他选项卡 -->
-              <el-tab-pane label="其他内容" name="other">
-                <div>
-                  <h2>其他内容</h2>
-                  <p>这里是“其他内容”选项卡中的内容。</p>
-                  <!-- 你可以根据需要添加更多的选项卡和内容 -->
+          <!-- 回复内容选项卡 -->
+          <el-tab-pane label="我的回复" name='2'>
+            <div v-for="item in comments" :key="item.id" class="comment-item">
+              <div class="comment-content">
+                <a>{{ item.comment.content }}</a>
+                <div class="comment-meta">
+                  <span class="comment-time">{{ translations.publishtime }} {{ formatDate(item.comment.createTime) }}</span>
                 </div>
-              </el-tab-pane>
-            </el-tabs>
+                <div class="comment-stats">
+                  <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>
+                  <el-tag>{{ translations.reply }} {{ item.replyCount }}</el-tag>
+                </div>
+              </div>
+            </div>
+          </el-tab-pane>
 
+          <!-- 其他选项卡 -->
+          <el-tab-pane label="其他内容" name="other">
+            <!--            <div>-->
+            <!--              <h2>其他内容</h2>-->
+            <!--              <p>这里是“其他内容”选项卡中的内容。</p>-->
+            <!--              &lt;!&ndash; 你可以根据需要添加更多的选项卡和内容 &ndash;&gt;-->
+            <!--            </div>-->
+          </el-tab-pane>
+        </el-tabs>
 
 
       </div>
@@ -117,19 +117,13 @@ import {useCommonTranslations} from '@/lang/i18nhelper';
 import leftsidebar from '@/components/Leftsidebar.vue';
 import {onMounted} from "vue";
 import axios from "axios";
+import {formatDate} from "@/js/global";
 
 //个人信息部分
 const {t, locale} = useI18n();
-
-const user = {
-  id: 1,
-  username: 'nowcoder',
-  createTime: new Date(),
-};
-const followeeCount = 123;
-const followerCount = 456;
-const hasFollowed = ref(false);
-const likeCount = 87;
+const followeeCount = ref(0);
+const followerCount = ref(0);
+const likeCount = ref(0);
 const searchQuery = ref('');
 const selectedLanguage = ref('zh');
 const activeTab = ref('info');
@@ -138,6 +132,8 @@ const comments = ref([]);
 const discussPosts = ref([]);
 
 const orderMode = ref(0);
+const user = ref('');
+const hasFollowed = ref(false);
 
 
 
@@ -145,43 +141,78 @@ const orderMode = ref(0);
 onMounted(() => {
   fetchUserProfile();
 });
+
+import api from "@/api/api.ts"
+
+const loadData = (response) => {
+  user.value = response.data.loginUser;
+  discussPosts.value = response.data.discussPosts;
+  comments.value = response.data.comments;
+  hasFollowed.value = response.data.hasFollowed;
+  followeeCount.value = response.data.followeeCount;
+  followerCount.value = response.data.followerCount;
+  likeCount.value = response.data.likeCount;
+}
+
 const fetchUserProfile = async () => {
   try {
-    const userId = 5;
-    const response = await axios.get(`/user/profile/${userId}`);
-
+    const userId = localStorage.getItem('userId');
+    const response = await axios.get(api.profile.user + `${userId}`, {
+      params: {
+        ticket: localStorage.getItem('ticket'),
+      }
+    });
     console.log('Fetched posts:', response);
-
-
-
-    // user.value = response.data.loginUser;
-    // const data = await response
-    //
-    // likeCount.value = response.data.likeCount;
-    // followeeCount.value = response.data.followeeCount;
-    // followerCount.value = response.data.followerCount;
-    // //hasFollowed.value = response.data.hasFollowed;
-    //
-    // discussPosts.value = data.discussPosts;
-    // comments.value = data.comments;
-
-
-
-
+    loadData(response);
   } catch (error) {
     console.error('获取用户资料时出错:', error);
   }
 };
 
-const handleTabClick = (tab) => {
-  orderMode.value = tab.value;
-  fetchPosts();
-};
+const formData = ref(new FormData());
 
-// onMounted(() => {
-//   fetchUserProfile();
-// });
+const loadFormData = () => {
+  formData.value.append("entityType", 3);
+  formData.value.append("entityId", user.value.id);
+}
+//关注
+const toggleFollow = async () => {
+  loadFormData();
+  try {
+    const response = await fetch(api.follow.follow + "?ticket=" + localStorage.getItem("ticket"), {
+      method: 'POST',
+      body: formData.value,
+    });
+    hasFollowed.value = true;
 
+  } catch (error) {
+    console.error('关注时出错:', error);
+  }
+}
+
+const toggleUnfollow = async () => {
+  loadFormData();
+  try {
+    const response = await fetch(api.follow.unfollow + "?ticket=" + localStorage.getItem("ticket"), {
+      method: 'POST',
+      body: formData.value,
+    });
+    hasFollowed.value = false;
+
+  } catch (error) {
+    console.error('关注时出错:', error);
+  }
+}
+
+//
+// const deletepost= async () => {
+//   const response = await fetch(api.manage.deletepost);
+//   console.log(response);
+//   const data = await response.json();
+//
+//
+//
+// }
 
 const search = () => {
   console.log('Search query:', searchQuery.value);
@@ -190,19 +221,6 @@ const search = () => {
 const changeLanguage = (value) => {
   locale.value = value;
 };
-
-
-// 增加根据id生成路径
-const followeesUrl = computed(() => `/followee/${user.id}`);
-const followersUrl = computed(() => `/follower/${user.id}`);
-
-
-
-
-
-
-
-
 
 //我的帖子部分
 const posts = ref([
@@ -249,56 +267,7 @@ const page = ref({
   total: posts.value.length,
 })
 
-const paginatedPosts = computed(() => {
-  const start = (page.value.current - 1) * page.value.pageSize
-  const end = start + page.value.pageSize
-  return posts.value.slice(start, end)
-})
-
-const handlePageChange = (newPage) => {
-  page.value.current = newPage
-  ElMessage.success({
-    message: `切换到第 ${newPage} 页`,
-    duration: 1000 // 显示时间调整1秒
-  })
-}
-
-
-
-
-//我的回复
-const replies = ref([
-  {
-    title: '备战春招，面试刷题跟他复习，一个月全搞定！',
-    content: '顶顶顶!',
-    repliedAt: '2019-04-15 10:10:10',
-  },
-  {
-    title: '备战春招，面试刷题跟他复习，一个月全搞定！',
-    content: '顶顶顶!',
-    repliedAt: '2019-04-15 10:10:10',
-  },
-  // 其他回复...
-  {
-    title: '备战春招，面试刷题跟他复习，一个月全搞定！',
-    content: '顶顶顶!',
-    repliedAt: '2019-04-15 10:10:10',
-  }
-])
-
-
-//根据当前页码和每页的条目数，计算并返回当前页面应显示的回复列表
-const paginatedReplies = computed(() => {
-  const start = (page.value.current - 1) * page.value.pageSize
-  const end = start + page.value.pageSize
-  return replies.value.slice(start, end)
-})
-
-
-
 </script>
-
-
 
 
 <style scoped>

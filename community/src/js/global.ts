@@ -180,7 +180,10 @@ const handleTabClick = (tab: { label: string; name: string }) => {
 
 // 搜索功能
 
-
+const formatDate = (timeStamp) => {
+    const date = new Date(timeStamp);
+    return date.toLocaleDateString();
+}
 
 export {
     setRem,
@@ -194,4 +197,5 @@ export {
     paginatedItems,
     handlePageChange,
     handleTabClick,
+    formatDate,
 }

@@ -59,5 +59,6 @@ export default {
     startvideo: '开始视频流',
     endvideo: '结束视频流',
     enterplease:'请输入消息内容'
+    logout: '登出',
   }
 };
