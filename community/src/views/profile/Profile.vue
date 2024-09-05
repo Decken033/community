@@ -211,7 +211,7 @@ const toggleUnfollow = async () => {
 }
 
 
-const deletePost= async (postId) => {
+const deletePost= async (postId: number) => {
   const form = ref(new FormData());
   form.value.append("id", postId);
   const response = await fetch(api.discuss.delete + "?ticket=" + localStorage.getItem("ticket"), {
@@ -228,7 +228,7 @@ const search = () => {
   console.log('Search query:', searchQuery.value);
 };
 
-const changeLanguage = (value) => {
+const changeLanguage = (value: any) => {
   locale.value = value;
 };
 

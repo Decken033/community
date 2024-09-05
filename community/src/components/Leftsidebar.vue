@@ -64,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import router from "@/router/index.ts";
+import router from "@/router/index";
 import {useCommonTranslations} from '@/lang/i18nhelper';
 import {onMounted, ref} from "vue";
 
@@ -84,7 +84,7 @@ const navigateToLogin = () => {
 const navigateToLogout = () => {
   handleLogout();
   localStorage.clear();
-  window.location.reload('/');
+  window.location.reload();
 }
 const navigateToProfile = () => {
   router.push('/profile');
@@ -110,7 +110,7 @@ const judgeLogin = () => {
   }
 
 }
-import api from '@/api/api.ts'
+import api from '@/api/api'
 import axios from 'axios'
 
 const handleLogout = async () => {

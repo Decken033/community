@@ -65,11 +65,6 @@ const router = createRouter({
             component: () => import('@/views/settings/Settings.vue')
         },
         {
-            path: '/mypost',
-            name: 'mypost',
-            component: () => import('@/views/my-post_reply/My-post.vue')
-        },
-        {
             path: '/data',
             name: 'data',
             component: () => import('@/views/data/Data.vue')

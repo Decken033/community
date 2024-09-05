@@ -4,7 +4,7 @@
     <el-input
         v-model="tweetTitle"
         placeholder="Enter your title"
-        rows=2
+        rows="2"
         maxlength="100"
         show-word-limit
     ></el-input>
@@ -13,7 +13,7 @@
         type="textarea"
         v-model="comment"
         placeholder="What is happening?!"
-        rows=3
+        rows="3"
         maxlength="280"
         show-word-limit
     ></el-input>
@@ -45,7 +45,7 @@
 import {ref} from 'vue';
 import {ElInput, ElButton, ElIcon} from 'element-plus';
 import {Picture, VideoCamera, Calendar, Location} from '@element-plus/icons-vue';
-import api from "@/api/api.ts";
+import api from "@/api/api";
 
 
 const tweetTitle = ref('');
@@ -71,14 +71,14 @@ const postDiscussion = async () => {
     } else if (result.RESULT_CODE == 403) {
       resultCode.value = 403; // Failure
     } else {
-      resultCode.value = 'Unknown response';
+      resultCode.value = 404;
     }
 
     tweetTitle.value = "";
     comment.value = "";
   } catch (error) {
     console.error('Error posting discussion:', error);
-    resultCode.value = 'Error'; // Handle error case
+    resultCode.value = 404; // Handle error case
   }
 };
 </script>

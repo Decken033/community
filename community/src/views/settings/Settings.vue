@@ -4,10 +4,11 @@ import {useCommonTranslations} from '@/lang/i18nhelper';
 import {useI18n} from 'vue-i18n';
 import {ElButton, ElContainer, ElMain, ElMessage} from 'element-plus'
 import axios from 'axios';
-import api from '@/api/api.ts';
+import api from '@/api/api';
 import defaultAvatar from '@/images/logo.jpg';
 import leftsidebar from "@/components/Leftsidebar.vue";
 import Leftsidebar from "@/components/Leftsidebar.vue";
+import router from "@/router/index";
 
 const translations = useCommonTranslations();
 const {t, locale} = useI18n({useScope: "global"});
@@ -90,14 +91,14 @@ onMounted(async () => {
 
 
 // 处理选择的文件
-const handleFileChange = (file) => {
+const handleFileChange = (file: any) => {
   const isImage = file.raw.type.startsWith('image/');
   if (isImage) {
     const reader = new FileReader();
     reader.readAsDataURL(file.raw);
 
     reader.onload = () => {
-      avatarUrl.value = reader.result;  // Base64 string
+      avatarUrl.value = reader.result.toString();  // Base64 string
       selectedFile.value = file.raw;
       imageSelected.value = true;
     };
@@ -112,7 +113,7 @@ const handleFileChange = (file) => {
 
 
 // 上传前的校验
-const beforeAvatarUpload = (file) => {
+const beforeAvatarUpload = (file: any) => {
   console.log('beforeAvatarUpload:', file);
   const isImage = file.type.startsWith('image/');
   if (!isImage) {

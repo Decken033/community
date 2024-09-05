@@ -1,5 +1,5 @@
 // api-config.js
-const ip = 'http://localhost:8080/community/';
+const ip = 'http://192.168.189.193:8080/community/';
 
 export default {
     user: {

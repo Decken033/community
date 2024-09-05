@@ -73,15 +73,17 @@
 <script setup lang="ts">
 import {ref, onMounted} from 'vue';
 import axios from 'axios';
-import router from '@/router/index.ts';
+import router from '@/router/index';
 import {useCommonTranslations} from '@/lang/i18nhelper';
 import {useI18n} from 'vue-i18n';
 import postbox from "@/views/PostBox/Postbox.vue"
 import Leftsidebar from "@/components/Leftsidebar.vue";
 import recommendbar from "@/components/recommendbar.vue";
-import {formatDate} from "@/js/global.ts";
+import {formatDate} from "@/js/global";
+import api from "@/api/api";
 // 搜索
 const searchQuery = ref('');
+
 
 const search = () => {
   if (searchQuery.value.trim()) {
@@ -100,9 +102,9 @@ const discussPosts = ref([]);
 const start = ref(0);
 const end = ref(1);
 
-const fetchPosts = async (orderModeValue) => {
+const fetchPosts = async (orderModeValue: number) => {
   try {
-    const response = await axios.get('http://localhost:8080/community/index', {
+    const response = await axios.get(api.home.index, {
       params: {
         orderMode: orderModeValue,
         ticket: localStorage.getItem('ticket'),
@@ -134,7 +136,7 @@ onMounted(() => {
   fetchPosts(orderMode.value);
 });
 
-const handlePageChange = (newPage) => {
+const handlePageChange = (newPage: any) => {
   page.value.current = newPage;
   start.value = (page.value.current - 1) * page.value.pageSize;
   if (start.value + page.value.pageSize > page.value.total) {

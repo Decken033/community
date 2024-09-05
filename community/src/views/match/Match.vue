@@ -94,7 +94,7 @@ const mediaConstraints = {
 const user = Math.round(Math.random() * 1000) + "";
 
 onMounted(() => {
-  socket.value = new WebSocket("ws://127.0.0.1:8081/msgServer/" + user);
+  socket.value = new WebSocket("ws://192.168.189.193:8081/msgServer/" + user);
   socket.value.onopen = () => {
     console.log("成功连接到服务器...");
     isConnected.value = true;
@@ -122,7 +122,8 @@ onMounted(() => {
 });
 
 const startVideo = () => {
-  navigator.webkitGetUserMedia({video: true, audio: true},
+  navigator.getUserMedia=navigator.getUserMedia||navigator.webkitGetUserMedia||navigator.mozGetUserMedia;
+  navigator.getUserMedia({video: true, audio: true},
       (stream) => {
         localStream = stream;
         localVideo.value.srcObject = stream;
@@ -142,7 +143,13 @@ const stopVideo = () => {
 };
 
 const prepareNewConnection = () => {
-  const pc_config = {"iceServers": []};
+  const pc_config = {
+    "iceServers": [
+        {
+          'urls': 'stun:stun.l.google.com:19302'
+        }
+    ]
+  };
   let peer = null;
   try {
     peer = new webkitRTCPeerConnection(pc_config);

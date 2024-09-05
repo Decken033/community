@@ -138,18 +138,6 @@ const openPublishModal = () => {
     isPublishModalVisible.value = true;
 };
 
-// 发布帖子
-// const publishPost = () => {
-//     axios.post('/posts', {
-//         title: form.value.title,
-//         content: form.value.content,
-//     }).then(response => {
-//         console.log('发布成功');
-//         isPublishModalVisible.value = false;
-//     }).catch(error => {
-//         console.error('发布失败:', error);
-//     });
-// };
 
 
 // 分页信息
@@ -180,7 +168,7 @@ const handleTabClick = (tab: { label: string; name: string }) => {
 
 // 搜索功能
 
-const formatDate = (timeStamp) => {
+const formatDate = (timeStamp: number) => {
     const date = new Date(timeStamp);
     return date.toLocaleDateString();
 }
@@ -192,7 +180,6 @@ export {
     posts,
     isPublishModalVisible,
     openPublishModal,
-    publishPost,
     page,
     paginatedItems,
     handlePageChange,
