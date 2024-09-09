@@ -35,6 +35,7 @@
     width: 40%;
     height: 100%;
     margin-left: auto;
+    flex-grow: 1;
 }
 
 .el-menu {
@@ -47,8 +48,11 @@
     align-items: flex-start;
     padding: 15px 0;
     border-bottom: 1px solid #f0f0f0;
+    width:100%;
 }
-
+.post-title:hover{
+    background-color:white;
+}
 .post-avatar {
     width: 50px;
     height: 50px;
@@ -113,6 +117,7 @@
     align-items: flex-start;
     padding: 15px 0;
     border-bottom: 1px solid #f0f0f0;
+    width:100%;
 }
 
 .post-avatar {
@@ -181,7 +186,8 @@
 }
 
 .comment-item:hover {
-    transform: translateY(-5px); /* 悬浮时略微上升 */
+    transform: translateY(-5px);
+    background-color: white/* 悬浮时略微上升 */
 }
 
 .comment-content {
@@ -189,7 +195,9 @@
     color: #333; /* 文字颜色 */
     line-height: 1.6; /* 行间距 */
 }
-
+.comment-content:hover{
+    background-color: white;
+}
 .comment-meta {
     font-size: 12px; /* 元信息文字大小 */
     color: #999; /* 元信息颜色 */

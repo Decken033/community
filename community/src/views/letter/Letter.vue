@@ -36,7 +36,7 @@
               {{ item.target.username }}
             </span>
             {{ translations.publishtime }}
-            {{ item.conversation.createTime }}
+            {{ formatDate(item.conversation.createTime) }}
             <div class="conversation-stats">
               <el-tag v-if="item.unreadCount != 0" type="danger">
                 {{ translations.unreadCount }}{{ item.unreadCount }}
@@ -69,6 +69,9 @@
           <el-option label="中文" value="zh"></el-option>
           <el-option label="Español" value="sp"></el-option>
         </el-select>
+        <div>
+          <recommendbar></recommendbar>
+        </div>
       </div>
 
     </el-aside>
@@ -77,6 +80,7 @@
 
 
 <script setup lang="ts">
+import {formatDate} from "@/js/global";
 import {computed, onMounted, ref} from "vue";
 import router from "@/router/index.ts";
 //分页信息

@@ -76,11 +76,10 @@ const imageSelected = ref(false); // 是否已选择图片的标志
 
 // 获取初始头像数据
 onMounted(async () => {
+  avatarUrl.value = localStorage.getItem("headerImg");
   try {
-    const response = await fetch("http://localhost:8080/community/header"); // API 返回头像 URL
-    if (response.ok) {
-      const data = await response.json();
-      avatarUrl.value = data.avatarUrl || defaultAvatar;// 默认头像路径
+    if(localStorage.getItem("headerImg") != null){
+      avatarUrl.value = localStorage.getItem("headerImg");
     } else {
       avatarUrl.value = defaultAvatar;
     }

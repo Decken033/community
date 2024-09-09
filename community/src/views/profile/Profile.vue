@@ -99,13 +99,18 @@
       <div class="search-bar">
         <el-input v-model="searchQuery" @keyup.enter="search" style="width: 200px;"/>
         <el-button @click="search" type="primary">{{ translations.search }}</el-button>
-        <!--      <p>当前搜索关键字: {{ searchQuery }}</p> 应该改为placeholder-->
 
-        <el-select v-model="selectedLanguage" @change="changeLanguage" placeholder="Select Language" class="selectbar">
+        <el-select
+            v-model="selectedLanguage"
+            @change="changeLanguage"
+            placeholder="Select Language"
+            class="selectbar"
+        >
           <el-option label="English" value="en"></el-option>
           <el-option label="中文" value="zh"></el-option>
           <el-option label="Español" value="sp"></el-option>
         </el-select>
+
         <div>
           <recommendbar></recommendbar>
         </div>
@@ -133,15 +138,12 @@ const followerCount = ref(0);
 const likeCount = ref(0);
 const searchQuery = ref('');
 const selectedLanguage = ref('zh');
-const activeTab = ref('info');
+const activeTab = ref("0");
 const translations = useCommonTranslations();
 const comments = ref([]);
 const discussPosts = ref([]);
 const user = ref('');
 const hasFollowed = ref(false);
-
-
-
 
 onMounted(() => {
   fetchUserProfile();
@@ -232,50 +234,6 @@ const changeLanguage = (value: any) => {
   locale.value = value;
 };
 
-//我的帖子部分
-const posts = ref([
-  {
-    title: '备战春招，面试刷题跟他复习，一个月全搞定！',
-    content: `金三银四的金三已经到了，你还沉浸在过年的喜悦中吗？
-    如果是，那我要让你清醒一下了：目前大部分公司已经开启了内推，正式网申也将在3月份陆续开始，金三银四，春招的求职黄金时期已经来啦！！！
-    再不准备，作为19应届生的你可能就找不到工作了。。。作为20届实习生的你可能就找不到实习了。。。
-    现阶段时间紧，任务重，能做到短时间内快速提升的也就只有算法了，
-    那么算法要怎么复习？重点在哪里？常见笔试面试算法题型和解题思路以及最优代码是怎样的？
-    跟左程云老师学算法，不仅能解决以上所有问题，还能在短时间内得到最大程度的提升！！！`,
-    likes: 11,
-    publishedAt: '2019-04-15 10:10:10',
-  },
-  {
-    title: '如何高效准备技术面试',
-    content: `面试不仅仅是考察你的技术能力，也是对你问题解决能力的一个检验。为了更好地应对面试，建议大家在备战的时候，多做一些系统性的准备，包括算法、数据结构、系统设计等方面的知识。`,
-    likes: 8,
-    publishedAt: '2019-03-20 15:30:00',
-  },
-  {
-    title: '春招求职攻略：从简历到面试',
-    content: `金三银四，春招的求职黄金期已经来临。本文为大家整理了一份从简历制作到面试技巧的完整攻略，帮助应届生更好地准备春招。`,
-    likes: 5,
-    publishedAt: '2019-03-10 12:00:00',
-  },
-  {
-    title: '算法复习：必刷的LeetCode经典题目',
-    content: `在准备技术面试时，刷题是一个必不可少的环节。本文推荐了一些LeetCode上经典的算法题目，帮助大家在短时间内快速提升算法能力。`,
-    likes: 20,
-    publishedAt: '2019-02-28 09:45:00',
-  },
-  {
-    title: '面试心态调整及注意事项',
-    content: `在面试过程中，心态的好坏往往决定了面试的成败。本文将介绍一些调整心态的方法，并总结了面试时需要注意的事项，帮助大家在面试中发挥出最佳水平。`,
-    likes: 15,
-    publishedAt: '2019-01-22 08:30:00',
-  }
-])
-
-const page = ref({
-  current: 1,
-  pageSize: 3,
-  total: posts.value.length,
-})
 import recommendbar from "@/components/recommendbar.vue"
 </script>
 

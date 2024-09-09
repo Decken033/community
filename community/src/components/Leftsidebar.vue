@@ -137,6 +137,10 @@ onMounted(() => {
   height: 100%;
   margin-left: auto;
 }
-
-
+.el-menu:hover{
+  background-color: white;
+}
+.el-menu-item:hover{
+  background-color: white;
+}
 </style>

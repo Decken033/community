@@ -1,7 +1,155 @@
 <template>
-  <i>null</i>
+  <el-container>
+    <el-aside class="leftsidebar">
+      <Leftsidebar></Leftsidebar>
+    </el-aside>
+    <!-- 内容 -->
+    <el-main>
+      <div v-for="item in discussPosts" :key="item.id" class="post-item">
+        <div class="post-content">
+          <el-avatar :src=item.user.headerImg class="post-avatar"></el-avatar>
+          <router-link :to="{ name: 'discussDetail', params: { id: item.post.id }}" class="post-title">
+            {{ item.post.title }}
+          </router-link>
+          <div class="post-meta">
+            <span class="post-author">{{ item.user.username }}</span>
+            <span class="post-time">{{ translations.publishtime }} {{ formatDate(item.post.createTime) }}</span>
+          </div>
+          <div class="post-stats">
+            <el-tag>{{ translations.like }} {{ item.likeCount }}</el-tag>
+            <el-tag>{{ translations.reply }} {{ item.post.commentCount }}</el-tag>
+          </div>
+        </div>
+      </div>
+
+      <!-- 分页 -->
+      <el-pagination
+          class="page"
+          v-if="page.total > 0"
+          :current-page="page.current"
+          :page-size="page.pageSize"
+          :total="page.total"
+          layout="total, prev, pager, next, jumper"
+          @current-change="handlePageChange"
+      >
+      </el-pagination>
+    </el-main>
+
+    <el-aside class="rightsidebar">
+      <div class="search-bar">
+        <el-input v-model="searchQuery" @keyup.enter="search" style="width: 200px;"/>
+        <el-button @click="search" type="primary">{{ translations.search }}</el-button>
+
+        <el-select
+            v-model="selectedLanguage"
+            @change="changeLanguage"
+            placeholder="Select Language"
+            class="selectbar"
+        >
+          <el-option label="English" value="en"></el-option>
+          <el-option label="中文" value="zh"></el-option>
+          <el-option label="Español" value="sp"></el-option>
+        </el-select>
+
+        <div>
+          <recommendbar></recommendbar>
+        </div>
+      </div>
+    </el-aside>
+  </el-container>
 </template>
 
+<script lang="ts" setup>
+import {useRoute} from "vue-router";
+import axios from "axios";
+import {onMounted, ref} from "vue";
+
+
+
+
+
+//搜索帖子数据
+const discussPosts = ref([]);
+const start = ref(0);
+const end = ref(1);
+const page = ref({
+  current: 1,
+  pageSize: 6,
+  total: 10
+});
+import api from "@/api/api"
+// 发送搜索请求
+const fetchSearch = async () => {
+  const route = useRoute();
+  const keyword = route.query.keyword;
+  try {
+    const response = await axios.get(api.search, {
+      params: {
+        keyword: keyword,
+        ticket: localStorage.getItem('ticket')
+      }
+    });
+    loadData(response.data);
+    console.log(discussPosts.value);
+  } catch (error) {
+    console.log('Error fetching search results:', error);
+  }
+}
+onMounted(() => {
+  fetchSearch();
+})
+//加载数据封装
+const loadData = (data: any) => {
+  discussPosts.value = data.discussPosts;
+  page.value.total = data.Page.total;
+  page.value.current = data.Page.current;
+  page.value.pageSize = data.Page.pageSize;
+  start.value = (page.value.current - 1) * page.value.pageSize;
+  if (start.value + page.value.pageSize > page.value.total) {
+    end.value = page.value.total;
+  } else {
+    end.value = start.value + page.value.pageSize;
+  }
+}
+const handlePageChange = (newPage: any) => {
+  page.value.current = newPage;
+  start.value = (page.value.current - 1) * page.value.pageSize;
+  if (start.value + page.value.pageSize > page.value.total) {
+    end.value = page.value.total;
+  } else {
+    end.value = start.value + page.value.pageSize;
+  }
+};
+
+
+
+// 切换语言，侧边栏
+const translations = useCommonTranslations();
+const {locale} = useI18n({useScope: "global"});
+const selectedLanguage = ref('zh');
+const changeLanguage = () => {
+  locale.value = selectedLanguage.value;
+};
+const searchQuery = ref('');
+const search = () => {
+  console.log('Search query:', searchQuery.value);
+  if (searchQuery.value.trim()) {
+    // 使用 router.push 进行路由导航
+    router.push({name: 'search', query: {keyword: searchQuery.value}});
+  }
+};
+import {useCommonTranslations} from '@/lang/i18nhelper';
+import {useI18n} from 'vue-i18n';
+import postbox from "@/views/PostBox/Postbox.vue"
+import Leftsidebar from "@/components/Leftsidebar.vue";
+import recommendbar from "@/components/recommendbar.vue";
+import {formatDate} from "@/js/global";
+import router from "@/router";
+</script>
+
+<style scoped>
+@import "@/css/views/search.css";
+</style>
 <!--<template>-->
 <!--  <el-container>-->
 <!--    &lt;!&ndash; 头部 &ndash;&gt;-->
@@ -93,255 +241,3 @@
 <!--  </el-container>-->
 <!--</template>-->
 
-<!--<script>-->
-<!--import { computed, ref, onMounted, onBeforeUnmount } from 'vue';-->
-<!--import { useI18n } from 'vue-i18n';-->
-<!--import { useCommonTranslations } from '@/lang/i18nhelper.js';-->
-<!--import { useRoute, useRouter } from 'vue-router';-->
-
-<!--export default {-->
-<!--  setup() {-->
-<!--    const translations = useCommonTranslations();-->
-
-<!--    const setRem = () => {-->
-<!--      const baseSize = window.innerWidth / 100; // 1rem = 视窗宽度的 1/100-->
-<!--      document.documentElement.style.fontSize = `${baseSize}px`;-->
-<!--    };-->
-
-<!--    onMounted(() => {-->
-<!--      setRem();-->
-<!--      window.addEventListener('resize', setRem);-->
-<!--    });-->
-
-<!--    onBeforeUnmount(() => {-->
-<!--      window.removeEventListener('resize', setRem);-->
-<!--    });-->
-
-<!--    const form = ref({-->
-<!--      username: '',-->
-<!--      password: '',-->
-<!--      code: '',-->
-<!--      rememberMe: false,-->
-<!--      title: '',-->
-<!--      content: '',-->
-<!--    });-->
-
-<!--    const orderMode = ref('0');-->
-<!--    const isPublishModalVisible = ref(false);-->
-
-<!--    const openPublishModal = () => {-->
-<!--      isPublishModalVisible.value = true;-->
-<!--    };-->
-
-<!--    const publishPost = () => {-->
-<!--      // 模拟发布帖子-->
-<!--      console.log('发布成功');-->
-<!--      isPublishModalVisible.value = false;-->
-<!--    };-->
-
-<!--    const posts = ref([-->
-<!--      {-->
-<!--        post: {-->
-<!--          id: 1,-->
-<!--          title: '1备战春招，面试刷题跟他复习，一个月全搞定！',-->
-<!--          content: '这是第一篇帖子的内容。',-->
-<!--          createTime: '2024-08-19 12:00:00'-->
-<!--        },-->
-<!--        user: {-->
-<!--          id: 1,-->
-<!--          username: '寒江雪',-->
-<!--          headerUrl: '/path/to/avatar.png'-->
-<!--        },-->
-<!--        likeCount: 11,-->
-<!--        commentCount: 7-->
-<!--      },-->
-<!--      {-->
-<!--        post: {-->
-<!--          id: 2,-->
-<!--          title: '2如何快速提升算法能力',-->
-<!--          content: '这是第二篇帖子的内容。',-->
-<!--          createTime: '2024-08-20 13:00:00'-->
-<!--        },-->
-<!--        user: {-->
-<!--          id: 2,-->
-<!--          username: '青山',-->
-<!--          headerUrl: '/path/to/avatar2.png'-->
-<!--        },-->
-<!--        likeCount: 15,-->
-<!--        commentCount: 10-->
-<!--      },-->
-<!--      {-->
-<!--        post: {-->
-<!--          id: 3,-->
-<!--          title: '3前端开发最佳实践',-->
-<!--          content: '这是第三篇帖子的内容。',-->
-<!--          createTime: '2024-08-21 14:30:00'-->
-<!--        },-->
-<!--        user: {-->
-<!--          id: 3,-->
-<!--          username: '北风',-->
-<!--          headerUrl: '/path/to/avatar3.png'-->
-<!--        },-->
-<!--        likeCount: 9,-->
-<!--        commentCount: 5-->
-<!--      },-->
-<!--      {-->
-<!--        post: {-->
-<!--          id: 4,-->
-<!--          title: '4深入理解JavaScript异步编程',-->
-<!--          content: '这是第四篇帖子的内容。',-->
-<!--          createTime: '2024-08-22 15:45:00'-->
-<!--        },-->
-<!--        user: {-->
-<!--          id: 4,-->
-<!--          username: '东海',-->
-<!--          headerUrl: '/path/to/avatar4.png'-->
-<!--        },-->
-<!--        likeCount: 20,-->
-<!--        commentCount: 12-->
-<!--      },-->
-<!--      {-->
-<!--        post: {-->
-<!--          id: 5,-->
-<!--          title: '5Spring Boot 实战',-->
-<!--          content: '这是第五篇帖子的内容。',-->
-<!--          createTime: '2024-08-23 16:10:00'-->
-<!--        },-->
-<!--        user: {-->
-<!--          id: 5,-->
-<!--          username: '南山',-->
-<!--          headerUrl: '/path/to/avatar5.png'-->
-<!--        },-->
-<!--        likeCount: 7,-->
-<!--        commentCount: 3-->
-<!--      },-->
-<!--      {-->
-<!--        post: {-->
-<!--          id: 6,-->
-<!--          title: '6数据库设计的艺术',-->
-<!--          content: '这是第六篇帖子的内容。',-->
-<!--          createTime: '2024-08-24 17:20:00'-->
-<!--        },-->
-<!--        user: {-->
-<!--          id: 6,-->
-<!--          username: '西风',-->
-<!--          headerUrl: '/path/to/avatar6.png'-->
-<!--        },-->
-<!--        likeCount: 13,-->
-<!--        commentCount: 8-->
-<!--      }-->
-<!--    ]);-->
-
-
-<!--    const page = ref({-->
-<!--      current: 1,-->
-<!--      pageSize: 10,-->
-<!--      total: posts.value.length,-->
-<!--    });-->
-
-<!--    const paginatedItems = computed(() => {-->
-<!--      const start = (page.value.current - 1) * page.value.pageSize;-->
-<!--      const end = start + page.value.pageSize;-->
-<!--      return posts.value.slice(start, end);-->
-<!--    });-->
-
-<!--    const handlePageChange = (newPage) => {-->
-<!--      page.value.current = newPage;-->
-<!--    };-->
-
-<!--    const { t, locale } = useI18n({ useScope: 'global' });-->
-<!--    const selectedLanguage = ref('zh');-->
-<!--    const changeLanguage = () => {-->
-<!--      locale.value = selectedLanguage.value;-->
-<!--    };-->
-
-<!--    const detailPath = (id) => {-->
-<!--      return `/discuss/detail/${id}`;-->
-<!--    };-->
-
-<!--    const route = useRoute();-->
-<!--    const searchQuery = ref(route.query.keyword || '');-->
-<!--    const searchResults = ref([]);-->
-
-<!--    const fetchSearchResults = () => {-->
-<!--      const query = searchQuery.value.trim().toLowerCase();  // 去除空格并小写化-->
-<!--      searchResults.value = posts.value.filter(item =>-->
-<!--          item.post.title.toLowerCase().includes(query) ||-->
-<!--          item.post.content.toLowerCase().includes(query) ||-->
-<!--          item.user.username.toLowerCase().includes(query)-->
-<!--      );-->
-<!--    };-->
-
-
-<!--    //使用 axios 向后端 API 发送 GET 请求-->
-<!--    // const fetchSearchResults = async () => {-->
-<!--    //   try {-->
-<!--    //     const response = await axios.get('/api/search', {-->
-<!--    //       params: { query: searchQuery.value },-->
-<!--    //     });-->
-<!--    //     searchResults.value = response.data.discussPosts;-->
-<!--    //   } catch (error) {-->
-<!--    //     console.error('搜索失败:', error);-->
-<!--    //   }-->
-<!--    // };-->
-
-<!--    onMounted(() => {-->
-<!--      if (searchQuery.value) {-->
-<!--        fetchSearchResults();  // 页面加载时执行搜索-->
-<!--      }-->
-<!--    });-->
-
-<!--    const router = useRouter();-->
-<!--    const search = () => {-->
-<!--      if (searchQuery.value.trim()) {-->
-<!--        router.push({ name: 'search', query: { keyword: searchQuery.value } });-->
-<!--        fetchSearchResults();  // 更新搜索结果-->
-<!--      }-->
-<!--    };-->
-
-<!--    return {-->
-<!--      translations,-->
-<!--      searchQuery,-->
-<!--      openPublishModal,-->
-<!--      publishPost,-->
-<!--      form,-->
-<!--      isPublishModalVisible,-->
-<!--      orderMode,-->
-<!--      posts,-->
-<!--      page,-->
-<!--      paginatedItems,-->
-<!--      handlePageChange,-->
-<!--      search,-->
-<!--      t,-->
-<!--      locale,-->
-<!--      selectedLanguage,-->
-<!--      changeLanguage,-->
-<!--      detailPath,-->
-<!--      fetchSearchResults,-->
-<!--      searchResults,-->
-<!--    };-->
-<!--  },-->
-<!--};-->
-<!--</script>-->
-
-<!--<style scoped>-->
-<!--.el-header {-->
-<!--  background-color: #f0f0f0;-->
-<!--}-->
-
-<!--.el-container {-->
-<!--  background-color: rgb(230, 124, 18);-->
-<!--}-->
-
-<!--.el-main {-->
-<!--  background-color: rgb(244, 247, 236);-->
-<!--  padding-top: 0px;-->
-<!--}-->
-
-<!--.el-menu-demo {-->
-<!--  display: flex;-->
-<!--  justify-content: space-between;-->
-<!--  align-items: center;-->
-<!--  width: 100%;-->
-<!--}-->
-<!--</style>-->

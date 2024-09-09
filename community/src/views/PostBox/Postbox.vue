@@ -58,7 +58,7 @@ const postDiscussion = async () => {
     const formData = ref(new FormData())
     formData.value.append('title', tweetTitle.value);
     formData.value.append('content', comment.value);
-    const response = await fetch(api.discuss.add, {
+    const response = await fetch(api.discuss.add + "?ticket=" + localStorage.getItem("ticket"), {
       method: 'POST',
       body: formData.value
     });

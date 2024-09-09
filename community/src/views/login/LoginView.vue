@@ -94,6 +94,8 @@ const handleSubmit = async () => {
     localStorage.setItem("role", data.role);
     localStorage.setItem("expired", data.expired);
     localStorage.setItem("userId", data.user.id);
+    localStorage.setItem("username",data.user.username);
+    localStorage.setItem("user", data.user.headerImg);
     router.push('/');
   } else if (data.status == 1) {
     //验证码错误
