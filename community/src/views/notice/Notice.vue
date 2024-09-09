@@ -4,6 +4,7 @@
       <Leftsidebar></Leftsidebar>
     </el-aside>
     <!-- 内容 -->
+    <el-main>
     <el-tabs v-model="orderMode" @tab-click="handleTabClick" class="tabs">
       <el-tab-pane name="letter">
         <template #label>
@@ -22,7 +23,7 @@
         </template>
       </el-tab-pane>
     </el-tabs>
-    <el-main>
+
 
       <!-- 通知列表 -->
       <div>
@@ -91,9 +92,9 @@
           <div class="media-body">
             <h6 class="mt-0 mb-3">
               <span>{{ translations.follow }}</span>
-              <span class="float-right text-muted font-size-12">
-            {{ formatDate(followNotice.message.createTime) }}
-          </span>
+<!--              <span class="float-right text-muted font-size-12">-->
+<!--            {{ formatDate(followNotice.message.createTime) }}-->
+<!--          </span>-->
             </h6>
             <div>
               <router-link :to="{ name: 'noticeDetail', params: { type: 'follow' }}">

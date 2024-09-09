@@ -4,10 +4,11 @@ import {useCommonTranslations} from '@/lang/i18nhelper';
 import {useI18n} from 'vue-i18n';
 import {ElButton, ElContainer, ElMain, ElMessage} from 'element-plus'
 import axios from 'axios';
-import api from '@/api/api.ts';
+import api from '@/api/api';
 import defaultAvatar from '@/images/logo.jpg';
 import leftsidebar from "@/components/Leftsidebar.vue";
 import Leftsidebar from "@/components/Leftsidebar.vue";
+import router from "@/router/index";
 
 const translations = useCommonTranslations();
 const {t, locale} = useI18n({useScope: "global"});
@@ -75,11 +76,10 @@ const imageSelected = ref(false); // 是否已选择图片的标志
 
 // 获取初始头像数据
 onMounted(async () => {
+  avatarUrl.value = localStorage.getItem("headerImg");
   try {
-    const response = await fetch("http://localhost:8080/community/header"); // API 返回头像 URL
-    if (response.ok) {
-      const data = await response.json();
-      avatarUrl.value = data.avatarUrl || defaultAvatar;// 默认头像路径
+    if(localStorage.getItem("headerImg") != null){
+      avatarUrl.value = localStorage.getItem("headerImg");
     } else {
       avatarUrl.value = defaultAvatar;
     }
@@ -90,14 +90,14 @@ onMounted(async () => {
 
 
 // 处理选择的文件
-const handleFileChange = (file) => {
+const handleFileChange = (file: any) => {
   const isImage = file.raw.type.startsWith('image/');
   if (isImage) {
     const reader = new FileReader();
     reader.readAsDataURL(file.raw);
 
     reader.onload = () => {
-      avatarUrl.value = reader.result;  // Base64 string
+      avatarUrl.value = reader.result.toString();  // Base64 string
       selectedFile.value = file.raw;
       imageSelected.value = true;
     };
@@ -112,7 +112,7 @@ const handleFileChange = (file) => {
 
 
 // 上传前的校验
-const beforeAvatarUpload = (file) => {
+const beforeAvatarUpload = (file: any) => {
   console.log('beforeAvatarUpload:', file);
   const isImage = file.type.startsWith('image/');
   if (!isImage) {

@@ -66,7 +66,7 @@ const statistics = ref([
   },
 ]);
 
-const handleStatistics = async (item) => {
+const handleStatistics = async (item: any) => {
   try {
     const response = await axios.post(item.endpoint, {
       [item.startKey]: item.startDate,

@@ -71,20 +71,35 @@
 </template>
 
 <script setup lang="ts">
-import {ref, onMounted} from 'vue';
+import {onMounted, ref} from 'vue';
 import axios from 'axios';
-import router from '@/router/index.ts';
 import {useCommonTranslations} from '@/lang/i18nhelper';
 import {useI18n} from 'vue-i18n';
 import postbox from "@/views/PostBox/Postbox.vue"
 import Leftsidebar from "@/components/Leftsidebar.vue";
 import recommendbar from "@/components/recommendbar.vue";
-import {formatDate} from "@/js/global.ts";
-// 搜索
-const searchQuery = ref('');
+import {formatDate} from "@/js/global";
+import api from "@/api/api";
+import router from "@/router";
 
+const loadData = (data: any) => {
+  discussPosts.value = data.disscussPosts;
+  page.value.total = data.Page.total;
+  page.value.current = data.Page.current;
+  page.value.pageSize = data.Page.pageSize;
+  start.value = (page.value.current - 1) * page.value.pageSize;
+  if (start.value + page.value.pageSize > page.value.total) {
+    end.value = page.value.total;
+  } else {
+    end.value = start.value + page.value.pageSize;
+  }
+}
+
+const searchQuery = ref('');
 const search = () => {
+  console.log('Search query:', searchQuery.value);
   if (searchQuery.value.trim()) {
+    // 使用 router.push 进行路由导航
     router.push({name: 'search', query: {keyword: searchQuery.value}});
   }
 };
@@ -100,24 +115,15 @@ const discussPosts = ref([]);
 const start = ref(0);
 const end = ref(1);
 
-const fetchPosts = async (orderModeValue) => {
+const fetchPosts = async (orderModeValue: number) => {
   try {
-    const response = await axios.get('http://localhost:8080/community/index', {
+    const response = await axios.get(api.home.index, {
       params: {
         orderMode: orderModeValue,
         ticket: localStorage.getItem('ticket'),
       },
     });
-    discussPosts.value = response.data.disscussPosts;
-    page.value.total = response.data.Page.total;
-    page.value.current = response.data.Page.current;
-    page.value.pageSize = response.data.Page.pageSize;
-    start.value = (page.value.current - 1) * page.value.pageSize;
-    if (start.value + page.value.pageSize > page.value.total) {
-      end.value = page.value.total;
-    } else {
-      end.value = start.value + page.value.pageSize;
-    }
+    loadData(response.data);
 
   } catch (error) {
     console.log('Error fetching posts:', error);
@@ -134,7 +140,7 @@ onMounted(() => {
   fetchPosts(orderMode.value);
 });
 
-const handlePageChange = (newPage) => {
+const handlePageChange = (newPage: any) => {
   page.value.current = newPage;
   start.value = (page.value.current - 1) * page.value.pageSize;
   if (start.value + page.value.pageSize > page.value.total) {
@@ -152,6 +158,8 @@ const selectedLanguage = ref('zh');
 const changeLanguage = () => {
   locale.value = selectedLanguage.value;
 };
+
+
 </script>
 
 <style scoped>

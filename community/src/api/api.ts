@@ -1,6 +1,6 @@
 // api-config.js
-const ip = 'http://localhost:8080/community/';
-
+const ip = 'http://192.168.189.193:8080/community/';
+const ip1 = 'http://localhost:8080/community/';
 export default {
     user: {
         login: ip + 'login',
@@ -35,6 +35,7 @@ export default {
     discuss: {
         delete: ip + 'discuss/delete',
         add: ip + 'discuss/add',
+        detail: ip + 'discuss/detail',
     },
     profile: {
         user: ip + 'user/profile/'
@@ -42,5 +43,6 @@ export default {
     follow: {
         follow: ip + 'follow',
         unfollow: ip + 'unfollow',
-    }
+    },
+    search: ip + 'search',
 };

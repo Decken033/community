@@ -83,7 +83,6 @@ import {useCommonTranslations} from '@/lang/i18nhelper';
 import Leftsidebar from "@/components/Leftsidebar.vue";
 import recommendbar from "@/components/recommendbar.vue";
 import axios from "axios";
-import {useRoute} from "vue-router";
 import {formatDate} from "@/js/global";
 
 const replies = ref([]);
@@ -125,21 +124,22 @@ import {useI18n} from "vue-i18n";
 const discussPostId = ref('');
 const getpostid = () => {
   const route = useRoute();
-  discussPostId.value = route.params.id;
+  discussPostId.value = route.params.id.toString();
 };
 
 
-const loadData = (data) => {
+const loadData = (data: any) => {
   user.value = data.user;
   post.value = data.post;
   comments.value = data.comments;
   likecount.value = data.likeCount;
 }
 
+import api from "@/api/api"
 const fetchdetail = async () => {
   try {
     getpostid();
-    const response = await axios.get(`http://localhost:8080/community/discuss/detail/${discussPostId.value}`, {});
+    const response = await axios.get(api.discuss.detail + `/${discussPostId.value}`, {});
     loadData(response.data);
 
 
@@ -171,11 +171,6 @@ const selectedLanguage = ref('zh');
 const changeLanguage = () => {
   locale.value = selectedLanguage.value;
 };
-
-const formateDate = (timeStamp) => {
-  const date = new Date(timeStamp);
-  return date.toLocaleDateString();
-}
 
 </script>/
 

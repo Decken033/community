@@ -80,7 +80,7 @@ const handleSubmit = async () => {
   formData.value.append("username", form.value.username);
   formData.value.append("password", form.value.password);
   formData.value.append("code", form.value.code);
-  formData.value.append("rememberMe", form.value.rememberMe);
+  formData.value.append("rememberMe", form.value.rememberMe.toString());
   formData.value.append("kaptchaOwner", kaptchaOwner.value);
 
   const response = await fetch(api.user.login, {
@@ -94,6 +94,8 @@ const handleSubmit = async () => {
     localStorage.setItem("role", data.role);
     localStorage.setItem("expired", data.expired);
     localStorage.setItem("userId", data.user.id);
+    localStorage.setItem("username",data.user.username);
+    localStorage.setItem("user", data.user.headerImg);
     router.push('/');
   } else if (data.status == 1) {
     //验证码错误
@@ -108,7 +110,7 @@ const handleSubmit = async () => {
 
 
 //加入返回按钮
-import router from "@/router/index.ts";
+import router from "@/router/index";
 
 
 const handleBack = () => {

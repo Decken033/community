@@ -144,6 +144,8 @@ const handlePageChange = (newPage: number) => {
   page.value.current = newPage;
 };
 
+
+import {ElMessage} from "element-plus";
 const toggleFollow = (userFollow: UserFollow) => {
   userFollow.hasFollowed = !userFollow.hasFollowed;
   ElMessage.success(userFollow.hasFollowed ? 'Followed' : 'Unfollowed');

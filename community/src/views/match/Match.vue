@@ -46,7 +46,7 @@
               :disabled="!isConnected"
               ref="messageInputBox"
               size="large"
-              style="width: 300px"
+              style="width: 500px"
           ></el-input>
           <el-button
               type="success"
@@ -91,10 +91,21 @@ const mediaConstraints = {
   }
 };
 
-const user = Math.round(Math.random() * 1000) + "";
+const userId = ref(0);
+const username = ref("");
+
+const loadUser =() =>{
+  userId.value = localStorage.getItem("userId");
+  username.value = localStorage.getItem("username");
+}
 
 onMounted(() => {
-  socket.value = new WebSocket("ws://127.0.0.1:8081/msgServer/" + user);
+  const localIp = "ws://localhost:8080/community/msgServer/";
+  const onlineIp = "ws://192.168.189.193:8080/community/msgServer/";
+
+  loadUser();
+
+  socket.value = new WebSocket(onlineIp + userId.value);
   socket.value.onopen = () => {
     console.log("成功连接到服务器...");
     isConnected.value = true;
@@ -122,7 +133,8 @@ onMounted(() => {
 });
 
 const startVideo = () => {
-  navigator.webkitGetUserMedia({video: true, audio: true},
+  navigator.getUserMedia=navigator.getUserMedia||navigator.webkitGetUserMedia||navigator.mozGetUserMedia;
+  navigator.getUserMedia({video: true, audio: true},
       (stream) => {
         localStream = stream;
         localVideo.value.srcObject = stream;
@@ -142,7 +154,13 @@ const stopVideo = () => {
 };
 
 const prepareNewConnection = () => {
-  const pc_config = {"iceServers": []};
+  const pc_config = {
+    "iceServers": [
+        {
+          'urls': 'stun:stun.l.google.com:19302'
+        }
+    ]
+  };
   let peer = null;
   try {
     peer = new webkitRTCPeerConnection(pc_config);
@@ -291,7 +309,7 @@ const stop = () => {
 };
 
 const sendMessage = () => {
-  const messageContent = user + ": " + message.value;
+  const messageContent = username.value + ": " + message.value;
   sendChannel.send(messageContent);
   const el = document.createElement("p");
   const txtNode = document.createTextNode(messageContent);

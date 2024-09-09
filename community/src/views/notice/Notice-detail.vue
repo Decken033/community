@@ -104,17 +104,6 @@ const getNoticeDetail = async () => {
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
 //获取当前路径参数
 const noticeType = ref('');
 const getNoticeType = () => {

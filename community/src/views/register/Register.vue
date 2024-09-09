@@ -62,14 +62,14 @@ const kaptchaSrc = ref('/kaptcha');
 
 
 
-const loginForm = ref(null);
+const loginForm = ref('');
 
 const refreshKaptcha = () => {
   kaptchaSrc.value = `/kaptcha?${new Date().getTime()}`;
 };
 
 const handleSubmit = () => {
-  loginForm.value.validate((valid) => {
+  loginForm.value.validate((valid: any) => {
     if (valid) {
       postData();
     } else {
