@@ -135,10 +135,11 @@ const loadData = (data: any) => {
   likecount.value = data.likeCount;
 }
 
+import api from "@/api/api"
 const fetchdetail = async () => {
   try {
     getpostid();
-    const response = await axios.get(`http://localhost:8080/community/discuss/detail/${discussPostId.value}`, {});
+    const response = await axios.get(api.discuss.detail + `/${discussPostId.value}`, {});
     loadData(response.data);
 
 
